@@ -1,0 +1,614 @@
+{
+  "inputs": {
+    "src/js/Event/EventEmitter.js": {
+      "bytes": 922,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/three/build/three.core.js": {
+      "bytes": 1387567,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/three/build/three.module.js": {
+      "bytes": 599539,
+      "imports": [
+        {
+          "path": "node_modules/three/build/three.core.js",
+          "kind": "import-statement",
+          "original": "./three.core.js"
+        },
+        {
+          "path": "node_modules/three/build/three.core.js",
+          "kind": "import-statement",
+          "original": "./three.core.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "node_modules/three/examples/jsm/utils/BufferGeometryUtils.js": {
+      "bytes": 35538,
+      "imports": [
+        {
+          "path": "node_modules/three/build/three.module.js",
+          "kind": "import-statement",
+          "original": "three"
+        }
+      ],
+      "format": "esm"
+    },
+    "node_modules/three/examples/jsm/loaders/GLTFLoader.js": {
+      "bytes": 114649,
+      "imports": [
+        {
+          "path": "node_modules/three/build/three.module.js",
+          "kind": "import-statement",
+          "original": "three"
+        },
+        {
+          "path": "node_modules/three/examples/jsm/utils/BufferGeometryUtils.js",
+          "kind": "import-statement",
+          "original": "../utils/BufferGeometryUtils.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "src/js/PixiAlias.js": {
+      "bytes": 178,
+      "imports": [],
+      "format": "esm"
+    },
+    "src/js/LoadManager.js": {
+      "bytes": 4678,
+      "imports": [
+        {
+          "path": "node_modules/three/examples/jsm/loaders/GLTFLoader.js",
+          "kind": "import-statement",
+          "original": "three/addons/loaders/GLTFLoader.js"
+        },
+        {
+          "path": "src/js/PixiAlias.js",
+          "kind": "import-statement",
+          "original": "./PixiAlias"
+        }
+      ],
+      "format": "esm"
+    },
+    "src/js/Config.js": {
+      "bytes": 4593,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/gsap/gsap-core.js": {
+      "bytes": 171988,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/gsap/CSSPlugin.js": {
+      "bytes": 63989,
+      "imports": [
+        {
+          "path": "node_modules/gsap/gsap-core.js",
+          "kind": "import-statement",
+          "original": "./gsap-core.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "node_modules/gsap/index.js": {
+      "bytes": 664,
+      "imports": [
+        {
+          "path": "node_modules/gsap/gsap-core.js",
+          "kind": "import-statement",
+          "original": "./gsap-core.js"
+        },
+        {
+          "path": "node_modules/gsap/CSSPlugin.js",
+          "kind": "import-statement",
+          "original": "./CSSPlugin.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "node_modules/gsap/PixiPlugin.js": {
+      "bytes": 15319,
+      "imports": [],
+      "format": "esm"
+    },
+    "src/js/UI/UIFactory.js": {
+      "bytes": 18087,
+      "imports": [
+        {
+          "path": "src/js/Config.js",
+          "kind": "import-statement",
+          "original": "../Config"
+        },
+        {
+          "path": "src/js/PixiAlias.js",
+          "kind": "import-statement",
+          "original": "../PixiAlias"
+        },
+        {
+          "path": "node_modules/gsap/index.js",
+          "kind": "import-statement",
+          "original": "gsap"
+        },
+        {
+          "path": "node_modules/gsap/PixiPlugin.js",
+          "kind": "import-statement",
+          "original": "gsap/PixiPlugin"
+        }
+      ],
+      "format": "esm"
+    },
+    "src/assets/Image/UI/bat_sheet.png": {
+      "bytes": 7371,
+      "imports": []
+    },
+    "src/js/core/PixiApp.js": {
+      "bytes": 3568,
+      "imports": [
+        {
+          "path": "src/js/Event/EventEmitter.js",
+          "kind": "import-statement",
+          "original": "../Event/EventEmitter"
+        },
+        {
+          "path": "src/js/LoadManager.js",
+          "kind": "import-statement",
+          "original": "../LoadManager"
+        },
+        {
+          "path": "src/js/PixiAlias.js",
+          "kind": "import-statement",
+          "original": "../PixiAlias"
+        },
+        {
+          "path": "src/js/UI/UIFactory.js",
+          "kind": "import-statement",
+          "original": "../UI/UIFactory"
+        },
+        {
+          "path": "src/assets/Image/UI/bat_sheet.png",
+          "kind": "import-statement",
+          "original": "../../assets/Image/UI/bat_sheet.png"
+        },
+        {
+          "path": "node_modules/gsap/index.js",
+          "kind": "import-statement",
+          "original": "gsap"
+        }
+      ],
+      "format": "esm"
+    },
+    "src/js/Utils/RaycastUtils.js": {
+      "bytes": 2573,
+      "imports": [
+        {
+          "path": "node_modules/three/build/three.module.js",
+          "kind": "import-statement",
+          "original": "three"
+        }
+      ],
+      "format": "esm"
+    },
+    "src/js/Manager/GameManager.js": {
+      "bytes": 131,
+      "imports": [],
+      "format": "esm"
+    },
+    "src/js/Manager/TouchManager.js": {
+      "bytes": 2581,
+      "imports": [
+        {
+          "path": "src/js/Utils/RaycastUtils.js",
+          "kind": "import-statement",
+          "original": "../Utils/RaycastUtils"
+        },
+        {
+          "path": "src/js/Manager/GameManager.js",
+          "kind": "import-statement",
+          "original": "./GameManager"
+        }
+      ],
+      "format": "esm"
+    },
+    "node_modules/three/examples/jsm/libs/stats.module.js": {
+      "bytes": 3514,
+      "imports": [],
+      "format": "esm"
+    },
+    "src/js/Object/SuperObject/ObjectBase.js": {
+      "bytes": 1828,
+      "imports": [
+        {
+          "path": "node_modules/three/build/three.module.js",
+          "kind": "import-statement",
+          "original": "three"
+        }
+      ],
+      "format": "esm"
+    },
+    "src/js/components/Children.js": {
+      "bytes": 1592,
+      "imports": [],
+      "format": "esm"
+    },
+    "src/js/Object/SubObject/BlockObject.js": {
+      "bytes": 1594,
+      "imports": [
+        {
+          "path": "node_modules/three/build/three.module.js",
+          "kind": "import-statement",
+          "original": "three"
+        },
+        {
+          "path": "src/js/Object/SuperObject/ObjectBase.js",
+          "kind": "import-statement",
+          "original": "../SuperObject/ObjectBase"
+        },
+        {
+          "path": "src/js/components/Children.js",
+          "kind": "import-statement",
+          "original": "../../components/Children"
+        }
+      ],
+      "format": "esm"
+    },
+    "src/js/core/ThreeApp.js": {
+      "bytes": 5478,
+      "imports": [
+        {
+          "path": "node_modules/three/build/three.module.js",
+          "kind": "import-statement",
+          "original": "three"
+        },
+        {
+          "path": "src/js/LoadManager.js",
+          "kind": "import-statement",
+          "original": "../LoadManager"
+        },
+        {
+          "path": "src/js/Manager/TouchManager.js",
+          "kind": "import-statement",
+          "original": "../Manager/TouchManager"
+        },
+        {
+          "path": "src/js/Manager/GameManager.js",
+          "kind": "import-statement",
+          "original": "../Manager/GameManager"
+        },
+        {
+          "path": "node_modules/three/examples/jsm/libs/stats.module.js",
+          "kind": "import-statement",
+          "original": "three/examples/jsm/libs/stats.module.js"
+        },
+        {
+          "path": "node_modules/gsap/index.js",
+          "kind": "import-statement",
+          "original": "gsap"
+        },
+        {
+          "path": "src/js/Object/SubObject/BlockObject.js",
+          "kind": "import-statement",
+          "original": "../Object/SubObject/BlockObject"
+        }
+      ],
+      "format": "esm"
+    },
+    "node_modules/howler/dist/howler.js": {
+      "bytes": 107970,
+      "imports": [],
+      "format": "cjs"
+    },
+    "src/assets/Sound/halloween-background-music-412348.mp3": {
+      "bytes": 139070,
+      "imports": []
+    },
+    "src/assets/Sound/Sfx_Pick_Cake_1.mp3": {
+      "bytes": 3103,
+      "imports": []
+    },
+    "src/assets/Sound/Sfx_Move_Cake.mp3": {
+      "bytes": 2167,
+      "imports": []
+    },
+    "src/assets/Sound/win.mp3": {
+      "bytes": 13626,
+      "imports": []
+    },
+    "src/assets/Sound/Sfx_Fill_Cake.mp3": {
+      "bytes": 14954,
+      "imports": []
+    },
+    "src/assets/Sound/Sfx_Put_Cake.mp3": {
+      "bytes": 3247,
+      "imports": []
+    },
+    "src/assets/Sound/LoseGame.mp3": {
+      "bytes": 22613,
+      "imports": []
+    },
+    "src/assets/Sound/fly.mp3": {
+      "bytes": 35569,
+      "imports": []
+    },
+    "src/js/Sound/SoundManager.js": {
+      "bytes": 2884,
+      "imports": [
+        {
+          "path": "node_modules/howler/dist/howler.js",
+          "kind": "import-statement",
+          "original": "howler"
+        },
+        {
+          "path": "src/assets/Sound/halloween-background-music-412348.mp3",
+          "kind": "import-statement",
+          "original": "../../assets/Sound/halloween-background-music-412348.mp3"
+        },
+        {
+          "path": "src/assets/Sound/Sfx_Pick_Cake_1.mp3",
+          "kind": "import-statement",
+          "original": "../../assets/Sound/Sfx_Pick_Cake_1.mp3"
+        },
+        {
+          "path": "src/assets/Sound/Sfx_Move_Cake.mp3",
+          "kind": "import-statement",
+          "original": "../../assets/Sound/Sfx_Move_Cake.mp3"
+        },
+        {
+          "path": "src/assets/Sound/win.mp3",
+          "kind": "import-statement",
+          "original": "../../assets/Sound/win.mp3"
+        },
+        {
+          "path": "src/assets/Sound/Sfx_Fill_Cake.mp3",
+          "kind": "import-statement",
+          "original": "../../assets/Sound/Sfx_Fill_Cake.mp3"
+        },
+        {
+          "path": "src/assets/Sound/Sfx_Put_Cake.mp3",
+          "kind": "import-statement",
+          "original": "../../assets/Sound/Sfx_Put_Cake.mp3"
+        },
+        {
+          "path": "src/assets/Sound/LoseGame.mp3",
+          "kind": "import-statement",
+          "original": "../../assets/Sound/LoseGame.mp3"
+        },
+        {
+          "path": "src/assets/Sound/fly.mp3",
+          "kind": "import-statement",
+          "original": "../../assets/Sound/fly.mp3"
+        },
+        {
+          "path": "src/js/Config.js",
+          "kind": "import-statement",
+          "original": "../Config"
+        }
+      ],
+      "format": "esm"
+    },
+    "src/js/core/Integrator.js": {
+      "bytes": 2327,
+      "imports": [
+        {
+          "path": "src/js/Config.js",
+          "kind": "import-statement",
+          "original": "../Config"
+        },
+        {
+          "path": "src/js/Event/EventEmitter.js",
+          "kind": "import-statement",
+          "original": "../Event/EventEmitter"
+        },
+        {
+          "path": "src/js/Manager/GameManager.js",
+          "kind": "import-statement",
+          "original": "../Manager/GameManager"
+        },
+        {
+          "path": "src/js/Sound/SoundManager.js",
+          "kind": "import-statement",
+          "original": "../Sound/SoundManager"
+        },
+        {
+          "path": "src/js/UI/UIFactory.js",
+          "kind": "import-statement",
+          "original": "../UI/UIFactory"
+        }
+      ],
+      "format": "esm"
+    },
+    "src/js/Pooling/ObjectPool.js": {
+      "bytes": 1399,
+      "imports": [],
+      "format": "esm"
+    },
+    "src/js/Pooling/PoolManager.js": {
+      "bytes": 2246,
+      "imports": [
+        {
+          "path": "src/js/Pooling/ObjectPool.js",
+          "kind": "import-statement",
+          "original": "./ObjectPool.js"
+        },
+        {
+          "path": "src/js/LoadManager.js",
+          "kind": "import-statement",
+          "original": "../LoadManager.js"
+        },
+        {
+          "path": "src/js/LoadManager.js",
+          "kind": "import-statement",
+          "original": "../LoadManager.js"
+        },
+        {
+          "path": "src/js/LoadManager.js",
+          "kind": "import-statement",
+          "original": "../LoadManager.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "src/js/Pooling/CakePoolManager.js": {
+      "bytes": 6256,
+      "imports": [
+        {
+          "path": "src/js/Pooling/PoolManager.js",
+          "kind": "import-statement",
+          "original": "./PoolManager.js"
+        },
+        {
+          "path": "src/js/Pooling/ObjectPool.js",
+          "kind": "import-statement",
+          "original": "./ObjectPool.js"
+        },
+        {
+          "path": "node_modules/three/build/three.module.js",
+          "kind": "import-statement",
+          "original": "three"
+        }
+      ],
+      "format": "esm"
+    },
+    "src/js/main.js": {
+      "bytes": 882,
+      "imports": [
+        {
+          "path": "src/js/core/PixiApp.js",
+          "kind": "import-statement",
+          "original": "./core/PixiApp.js"
+        },
+        {
+          "path": "src/js/core/ThreeApp.js",
+          "kind": "import-statement",
+          "original": "./core/ThreeApp.js"
+        },
+        {
+          "path": "src/js/core/Integrator.js",
+          "kind": "import-statement",
+          "original": "./core/Integrator.js"
+        },
+        {
+          "path": "src/js/LoadManager.js",
+          "kind": "import-statement",
+          "original": "./LoadManager.js"
+        },
+        {
+          "path": "src/js/Pooling/CakePoolManager.js",
+          "kind": "import-statement",
+          "original": "./Pooling/CakePoolManager.js"
+        }
+      ],
+      "format": "esm"
+    }
+  },
+  "outputs": {
+    "dist/game.bundle.js": {
+      "imports": [],
+      "exports": [],
+      "entryPoint": "src/js/main.js",
+      "inputs": {
+        "node_modules/howler/dist/howler.js": {
+          "bytesInOutput": 36197
+        },
+        "src/js/Event/EventEmitter.js": {
+          "bytesInOutput": 330
+        },
+        "node_modules/three/build/three.core.js": {
+          "bytesInOutput": 202346
+        },
+        "node_modules/three/build/three.module.js": {
+          "bytesInOutput": 319737
+        },
+        "node_modules/three/examples/jsm/utils/BufferGeometryUtils.js": {
+          "bytesInOutput": 991
+        },
+        "node_modules/three/examples/jsm/loaders/GLTFLoader.js": {
+          "bytesInOutput": 43080
+        },
+        "src/js/PixiAlias.js": {
+          "bytesInOutput": 151
+        },
+        "src/js/LoadManager.js": {
+          "bytesInOutput": 1341
+        },
+        "src/js/Config.js": {
+          "bytesInOutput": 2912
+        },
+        "src/js/core/PixiApp.js": {
+          "bytesInOutput": 854
+        },
+        "src/js/Utils/RaycastUtils.js": {
+          "bytesInOutput": 1007
+        },
+        "src/js/Manager/GameManager.js": {
+          "bytesInOutput": 52
+        },
+        "src/js/Manager/TouchManager.js": {
+          "bytesInOutput": 1353
+        },
+        "node_modules/three/examples/jsm/libs/stats.module.js": {
+          "bytesInOutput": 1747
+        },
+        "src/js/Object/SuperObject/ObjectBase.js": {
+          "bytesInOutput": 978
+        },
+        "src/js/components/Children.js": {
+          "bytesInOutput": 940
+        },
+        "src/js/Object/SubObject/BlockObject.js": {
+          "bytesInOutput": 858
+        },
+        "src/js/core/ThreeApp.js": {
+          "bytesInOutput": 2396
+        },
+        "src/js/Sound/SoundManager.js": {
+          "bytesInOutput": 1180
+        },
+        "src/assets/Sound/halloween-background-music-412348.mp3": {
+          "bytesInOutput": 185461
+        },
+        "src/assets/Sound/Sfx_Pick_Cake_1.mp3": {
+          "bytesInOutput": 4173
+        },
+        "src/assets/Sound/Sfx_Move_Cake.mp3": {
+          "bytesInOutput": 2925
+        },
+        "src/assets/Sound/win.mp3": {
+          "bytesInOutput": 18201
+        },
+        "src/assets/Sound/Sfx_Fill_Cake.mp3": {
+          "bytesInOutput": 19973
+        },
+        "src/assets/Sound/Sfx_Put_Cake.mp3": {
+          "bytesInOutput": 4365
+        },
+        "src/assets/Sound/LoseGame.mp3": {
+          "bytesInOutput": 30185
+        },
+        "src/assets/Sound/fly.mp3": {
+          "bytesInOutput": 47461
+        },
+        "src/js/core/Integrator.js": {
+          "bytesInOutput": 1139
+        },
+        "src/js/Pooling/ObjectPool.js": {
+          "bytesInOutput": 660
+        },
+        "src/js/Pooling/PoolManager.js": {
+          "bytesInOutput": 1015
+        },
+        "src/js/Pooling/CakePoolManager.js": {
+          "bytesInOutput": 2510
+        },
+        "src/js/main.js": {
+          "bytesInOutput": 292
+        }
+      },
+      "bytes": 937369
+    }
+  }
+}

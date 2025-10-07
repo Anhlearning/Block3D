@@ -1,0 +1,1999 @@
+{
+    "metadata": {
+        "version": 4.6,
+        "type": "Object",
+        "generator": "Object3D.toJSON"
+    },
+    "geometries": [
+        {
+            "uuid": "4531c567-42e0-4efe-bf25-0d26a87a1f8c",
+            "type": "PlaneGeometry",
+            "width": 1,
+            "height": 1,
+            "widthSegments": 1,
+            "heightSegments": 1
+        },
+        {
+            "uuid": "2581013c-3235-433c-988d-0ecc35c870eb",
+            "type": "SphereGeometry",
+            "radius": 0.5,
+            "widthSegments": 16,
+            "heightSegments": 8,
+            "phiStart": 0,
+            "phiLength": 6.283185307179586,
+            "thetaStart": 0,
+            "thetaLength": 3.141592653589793
+        }
+    ],
+    "materials": [
+        {
+            "uuid": "1081b305-3ff6-4017-9fc4-b73d8e3daded",
+            "type": "MeshBasicMaterial",
+            "color": 16777215,
+            "map": "76eb0d2e-2ece-4c0c-a5cb-12f19a711430",
+            "reflectivity": 1,
+            "refractionRatio": 0.98,
+            "side": 2,
+            "transparent": true,
+            "depthFunc": 3,
+            "depthTest": true,
+            "depthWrite": false,
+            "colorWrite": true,
+            "stencilWrite": false,
+            "stencilWriteMask": 255,
+            "stencilFunc": 519,
+            "stencilRef": 0,
+            "stencilFuncMask": 255,
+            "stencilFail": 7680,
+            "stencilZFail": 7680,
+            "stencilZPass": 7680
+        },
+        {
+            "uuid": "41004d71-7986-45a5-88a1-7910ed199643",
+            "type": "MeshBasicMaterial",
+            "color": 16777215,
+            "map": "76eb0d2e-2ece-4c0c-a5cb-12f19a711430",
+            "reflectivity": 1,
+            "refractionRatio": 0.98,
+            "side": 2,
+            "transparent": true,
+            "depthFunc": 3,
+            "depthTest": true,
+            "depthWrite": false,
+            "colorWrite": true,
+            "stencilWrite": false,
+            "stencilWriteMask": 255,
+            "stencilFunc": 519,
+            "stencilRef": 0,
+            "stencilFuncMask": 255,
+            "stencilFail": 7680,
+            "stencilZFail": 7680,
+            "stencilZPass": 7680
+        },
+        {
+            "uuid": "e9e56599-ffdb-4d94-8778-032ef9917d46",
+            "type": "MeshBasicMaterial",
+            "color": 16777215,
+            "map": "bd182cf3-a71e-41eb-9710-b433005258d8",
+            "reflectivity": 1,
+            "refractionRatio": 0.98,
+            "side": 2,
+            "transparent": true,
+            "depthFunc": 3,
+            "depthTest": true,
+            "depthWrite": false,
+            "colorWrite": true,
+            "stencilWrite": false,
+            "stencilWriteMask": 255,
+            "stencilFunc": 519,
+            "stencilRef": 0,
+            "stencilFuncMask": 255,
+            "stencilFail": 7680,
+            "stencilZFail": 7680,
+            "stencilZPass": 7680
+        },
+        {
+            "uuid": "7fada213-4f4b-481b-bdf6-2e161af55480",
+            "type": "MeshBasicMaterial",
+            "color": 16777215,
+            "map": "bd182cf3-a71e-41eb-9710-b433005258d8",
+            "reflectivity": 1,
+            "refractionRatio": 0.98,
+            "side": 2,
+            "transparent": true,
+            "depthFunc": 3,
+            "depthTest": true,
+            "depthWrite": false,
+            "colorWrite": true,
+            "stencilWrite": false,
+            "stencilWriteMask": 255,
+            "stencilFunc": 519,
+            "stencilRef": 0,
+            "stencilFuncMask": 255,
+            "stencilFail": 7680,
+            "stencilZFail": 7680,
+            "stencilZPass": 7680
+        },
+        {
+            "uuid": "06a9d798-34ad-4c7c-8394-06e5a488b2cb",
+            "type": "MeshBasicMaterial",
+            "color": 16777215,
+            "reflectivity": 1,
+            "refractionRatio": 0.98,
+            "side": 2,
+            "transparent": true,
+            "depthFunc": 3,
+            "depthTest": true,
+            "depthWrite": false,
+            "colorWrite": true,
+            "stencilWrite": false,
+            "stencilWriteMask": 255,
+            "stencilFunc": 519,
+            "stencilRef": 0,
+            "stencilFuncMask": 255,
+            "stencilFail": 7680,
+            "stencilZFail": 7680,
+            "stencilZPass": 7680
+        },
+        {
+            "uuid": "d1c008f4-0244-4dd3-abcb-62f194501f68",
+            "type": "MeshBasicMaterial",
+            "color": 16777215,
+            "map": "a727d0b1-e00c-4850-ad65-c7374481ac7f",
+            "reflectivity": 1,
+            "refractionRatio": 0.98,
+            "blending": 2,
+            "side": 2,
+            "transparent": true,
+            "depthFunc": 3,
+            "depthTest": true,
+            "depthWrite": false,
+            "colorWrite": true,
+            "stencilWrite": false,
+            "stencilWriteMask": 255,
+            "stencilFunc": 519,
+            "stencilRef": 0,
+            "stencilFuncMask": 255,
+            "stencilFail": 7680,
+            "stencilZFail": 7680,
+            "stencilZPass": 7680
+        },
+        {
+            "uuid": "1a885a94-6aad-4b1b-bf4c-a8d033f30d52",
+            "type": "MeshBasicMaterial",
+            "color": 16777215,
+            "map": "76eb0d2e-2ece-4c0c-a5cb-12f19a711430",
+            "reflectivity": 1,
+            "refractionRatio": 0.98,
+            "side": 2,
+            "transparent": true,
+            "depthFunc": 3,
+            "depthTest": true,
+            "depthWrite": false,
+            "colorWrite": true,
+            "stencilWrite": false,
+            "stencilWriteMask": 255,
+            "stencilFunc": 519,
+            "stencilRef": 0,
+            "stencilFuncMask": 255,
+            "stencilFail": 7680,
+            "stencilZFail": 7680,
+            "stencilZPass": 7680
+        },
+        {
+            "uuid": "4e528963-41af-4bf4-ac22-53e1bff976f5",
+            "type": "MeshBasicMaterial",
+            "color": 16777215,
+            "map": "bd182cf3-a71e-41eb-9710-b433005258d8",
+            "reflectivity": 1,
+            "refractionRatio": 0.98,
+            "side": 2,
+            "transparent": true,
+            "depthFunc": 3,
+            "depthTest": true,
+            "depthWrite": false,
+            "colorWrite": true,
+            "stencilWrite": false,
+            "stencilWriteMask": 255,
+            "stencilFunc": 519,
+            "stencilRef": 0,
+            "stencilFuncMask": 255,
+            "stencilFail": 7680,
+            "stencilZFail": 7680,
+            "stencilZPass": 7680
+        },
+        {
+            "uuid": "13f34078-7681-422e-b663-05edadb0bb94",
+            "type": "MeshBasicMaterial",
+            "color": 16777215,
+            "map": "64fcddbd-c674-4398-85c8-f0073ad27f82",
+            "reflectivity": 1,
+            "refractionRatio": 0.98,
+            "blending": 2,
+            "side": 2,
+            "transparent": true,
+            "depthFunc": 3,
+            "depthTest": true,
+            "depthWrite": false,
+            "colorWrite": true,
+            "stencilWrite": false,
+            "stencilWriteMask": 255,
+            "stencilFunc": 519,
+            "stencilRef": 0,
+            "stencilFuncMask": 255,
+            "stencilFail": 7680,
+            "stencilZFail": 7680,
+            "stencilZPass": 7680
+        },
+        {
+            "uuid": "new-material-uuid-789",
+            "type": "MeshBasicMaterial",
+            "color": 16777215,
+            "map": "new-texture-uuid-456",
+            "reflectivity": 1,
+            "refractionRatio": 0.98,
+            "blending": 2,
+            "side": 2,
+            "transparent": true,
+            "depthFunc": 3,
+            "depthTest": true,
+            "depthWrite": false,
+            "colorWrite": true,
+            "stencilWrite": false,
+            "stencilWriteMask": 255,
+            "stencilFunc": 519,
+            "stencilRef": 0,
+            "stencilFuncMask": 255,
+            "stencilFail": 7680,
+            "stencilZFail": 7680,
+            "stencilZPass": 7680
+        }
+    ],
+    "textures": [
+        {
+            "uuid": "76eb0d2e-2ece-4c0c-a5cb-12f19a711430",
+            "name": "",
+            "image": "090d0844-fbf9-448a-9c94-43800f3ebf0d",
+            "mapping": 300,
+            "channel": 0,
+            "repeat": [
+                1,
+                1
+            ],
+            "offset": [
+                0,
+                0
+            ],
+            "center": [
+                0,
+                0
+            ],
+            "rotation": 0,
+            "wrap": [
+                1001,
+                1001
+            ],
+            "format": 1023,
+            "internalFormat": null,
+            "type": 1009,
+            "colorSpace": "",
+            "minFilter": 1008,
+            "magFilter": 1006,
+            "anisotropy": 1,
+            "flipY": true,
+            "generateMipmaps": true,
+            "premultiplyAlpha": false,
+            "unpackAlignment": 4
+        },
+        {
+            "uuid": "bd182cf3-a71e-41eb-9710-b433005258d8",
+            "name": "",
+            "image": "a932f1be-2bf4-4f70-9f16-669e383222f2",
+            "mapping": 300,
+            "channel": 0,
+            "repeat": [
+                1,
+                1
+            ],
+            "offset": [
+                0,
+                0
+            ],
+            "center": [
+                0,
+                0
+            ],
+            "rotation": 0,
+            "wrap": [
+                1001,
+                1001
+            ],
+            "format": 1023,
+            "internalFormat": null,
+            "type": 1009,
+            "colorSpace": "",
+            "minFilter": 1008,
+            "magFilter": 1006,
+            "anisotropy": 1,
+            "flipY": true,
+            "generateMipmaps": true,
+            "premultiplyAlpha": false,
+            "unpackAlignment": 4
+        },
+        {
+            "uuid": "a727d0b1-e00c-4850-ad65-c7374481ac7f",
+            "name": "",
+            "image": "a9372d81-f507-4e04-bc8c-83bb328dc426",
+            "mapping": 300,
+            "channel": 0,
+            "repeat": [
+                1,
+                1
+            ],
+            "offset": [
+                0,
+                0
+            ],
+            "center": [
+                0,
+                0
+            ],
+            "rotation": 0,
+            "wrap": [
+                1001,
+                1001
+            ],
+            "format": 1023,
+            "internalFormat": null,
+            "type": 1009,
+            "colorSpace": "",
+            "minFilter": 1008,
+            "magFilter": 1006,
+            "anisotropy": 1,
+            "flipY": true,
+            "generateMipmaps": true,
+            "premultiplyAlpha": false,
+            "unpackAlignment": 4
+        },
+        {
+            "uuid": "new-texture-uuid-456",
+            "image": "new-image-uuid-123",
+            "mapping": 300,
+            "channel": 0,
+            "repeat": [
+                1,
+                1
+            ],
+            "offset": [
+                0,
+                0
+            ],
+            "center": [
+                0,
+                0
+            ],
+            "rotation": 0,
+            "wrap": [
+                1001,
+                1001
+            ],
+            "format": 1023,
+            "internalFormat": null,
+            "type": 1009,
+            "colorSpace": "",
+            "minFilter": 1008,
+            "magFilter": 1006,
+            "anisotropy": 1,
+            "flipY": true,
+            "generateMipmaps": true,
+            "premultiplyAlpha": false,
+            "unpackAlignment": 4
+        },
+        {
+            "uuid": "64fcddbd-c674-4398-85c8-f0073ad27f82",
+            "name": "",
+            "image": "ad375853-f981-472d-855e-341cb727b7ed",
+            "mapping": 300,
+            "channel": 0,
+            "repeat": [
+                1,
+                1
+            ],
+            "offset": [
+                0,
+                0
+            ],
+            "center": [
+                0,
+                0
+            ],
+            "rotation": 0,
+            "wrap": [
+                1001,
+                1001
+            ],
+            "format": 1023,
+            "internalFormat": null,
+            "type": 1009,
+            "colorSpace": "",
+            "minFilter": 1008,
+            "magFilter": 1006,
+            "anisotropy": 1,
+            "flipY": true,
+            "generateMipmaps": true,
+            "premultiplyAlpha": false,
+            "unpackAlignment": 4
+        }
+    ],
+    "images": [
+        {
+            "uuid": "090d0844-fbf9-448a-9c94-43800f3ebf0d",
+            "url": "data:image/png;base64,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"
+        },
+        {
+            "uuid": "a932f1be-2bf4-4f70-9f16-669e383222f2",
+            "url": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAMAAACdt4HsAAAAclBMVEUAAAD///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////9eWEHEAAAAJXRSTlMA/ckWBvbtjXIQ8tC5ooBdUUZBOzItDNjUxOPbsaunSDYjHgRii6r7+QAAAU5JREFUWMPdl9uagjAMhLdFoJxROXpWnPd/xb0RRRFoOzf77X8/IV9oksnPf2dVBUG1stMGRZYmcStlGydpVgSG6rMvPYEnwpP+WT/GTUkXI1ypblpyR9WYoFbOorzLpcAkQubdwuf9ELOE/mwSZYxF4nJav42gQbSd0m/20GK/+a6/1NCkvnzTXyW0kdexvjrBgFM1CqAEDBDqU1/sYMSu+OjbBIYk712+DmFIuH5L4AhjjsMUth6M8YYP0ocF/qAHI1gQOa8SurDAfZUxhRXp8x8cYMVh1ZeggRVNX4TSgxVe2Q8SF1a4/WDJBawQ+SNAZhsgewS42wa40xnQNaD/Av0O6JdI9wLbjfQ8oCcSPxP5qczvBX4z8buR3868P+AdCu+ReJfG+0TeqfJemXfr/b3Qzt0Lbd5pXCyNmJA3yiFvJvJq4+5G6nL92/wCSRRnBGltBX4AAAAASUVORK5CYII="
+        },
+        {
+            "uuid": "a9372d81-f507-4e04-bc8c-83bb328dc426",
+            "url": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABAAAAAIACAMAAAArE+6LAAAArlBMVEUAAAD///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////8tivQqAAAAOXRSTlMABPz1C/niDwjm8BYTLrmpSiaix8xQwerRIyo7QGJU34Jdh5toRZQa7DZtvR20czJ8i1jXeNofr48l5KvhAAAzaUlEQVR42uzBgQAAAACAoP2pF6kCAAAAAAAAAAAAAAAAAACYHTvRTRQKowDMdlGQRTahCCiLgIiIoizv/2LTqWntMB1iJ1Fuk/97gpPD4ebmAgAAAAAAAAAAAAAAAAAAAAB+JnKSvCi2KIq28jJjSAJfJCPU16S2kgtTAmNQ6iNMhVyxr63WAuatzj6+fzLBNSlTL/11uNcuLMeZqclxbLVo4rN3SHDbATmz59lRXli/k77iuJUuqUHkKBMCM1DqI0wUJwpUSV+9R2WthXzM5vYMt59rmhy8c9y8tXpNetH24dpf1gyBE0b0292Kp7q/UWm1D4wXXPZKJpuzbJmo+wLNamG0FQhMQKmPIGyjUGPp7gvItOTzJsHlEJi+GOt9lX75/fnVrvVFTA4BYRMsTKobgth9sR0/Lqm4akV3g3g99nJidFDqI+RerPPdILpSXWX8M4DZFg2LuiGUuQs2o5+sjBPodD8ZhRBF9deb7gpx1GJrV2b7Sa9R+39WFRojFTtcKvoRpXZ4lkoIRlihu6bKym5NjIgUCym9a6q0HjgMMZ48kvjuA+IsKQwK92TM53PPj8pY1v64wnLyaBuYOu2F+nyF0uS4jHzvNalxcosglCzu0zqQXo70Y/VLpdJqobbn6GS8RY3OrbqoUhxL7WhW34frzPWM16Sem63Dvc7SeJRKiKWO7p8qdWmdKTEOwVC57v6p8lKUE+Ow19UthqUWc3s27T9f10v/KN3uMkjLEuL5Jl7D327O0tFf1v3H1OnMnheqxd9+rNB59lr7pdKXpvQOSf+IZ5KDVzYXGqNS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"
+        },
+        {
+            "uuid": "ad375853-f981-472d-855e-341cb727b7ed",
+            "url": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAMAAAD04JH5AAAAtFBMVEUAAAD////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////oK74hAAAAPHRSTlMABAgMEBQZJh0hLzQqPDhJQERNXWNVaFFZeWx0r4V9pXGNn8G4ioHGz6qV3JGcmPXo17yz5PDK0/ns/eBzHPpPAAAJQklEQVR42uyVQXbCMAwFUUmbFvp6/+M2kXgZS9jg2Amw4AuyndF3DId33umJHF4gwucRgahAeVoPoqMizL5NsDnzSDwWEGUGTt99PQDDyIZ+dqpBmHJMApFtt4d8KwbfNlLLjz1QQv9bl82HzvQJAd8f2o9kGx5Zi233h54LFuEg+k8/bH4jONBB7y9fefcjU1DYogGPBx2DRbYFaYEX8aXkFFr/MOm/SB/IcbhySBUaJMSGgIcdw1mEFlobYH0OHvqni5OIJViZqy9AXB86cJeoEEuQ1v3BQ/+KwcEpOIOW84/bp/DvJakFCq6ExvvH+uBh/1yChVMI74HO2v4dHzrscRwTi0QhdlANN824/wDf4KPmd3mox0WBEta9B1yA8vq2u2Itp2k0zoESXAdVBmH/yDf8TJ5zPi1ZHKwFZ+DuYn0D8MFDP1v+ptGYgypQgu+gCn+Xr/SZ/M9rue02DQVRVKFAQAJBuSRpE1Jj2tCkTi+50vj//4s1Myee+Mg2Bx4YVa3Th+41e++xyrwPI89HBiN4ExGkvxI9AJ2j/y6v6qb90YdPyuAISuBNTK9hbADyrm/bI4/4OfNBR55gAEFd6CRAIPENFOtX6wd1hD9Vw4fAUJkAgVUxqoE3MXH/l64f5FEX8eFw+DUMj0DAUCEogXuQHEIvKkCDvsmL+Gg0+iwzYgTCEGICK2LCJZgzkQGRvq7P8qiL9pdq+ACD2EAQIDhBZIGn0AbRqm/r6/bsLuqDweBShwdhwAd14U8EKRfgAdCkU33k0UddxLMsG8tkGRDCAAEI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"
+        },
+        {
+            "uuid": "new-image-uuid-123",
+            "url": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAMAAAD04JH5AAABy1BMVEUAAAAA//8A//8A//8A//8A//8A//8A//8A//8A//8A//8A//8A//8A//8A//8A//8A//8A//8A//8A//8A//8A//8A//8A//8A//8A//8A//8A//8A//8A//8A//8A//8A//8A//8A//8A//8A//8A//8A//8A//8A//8A//8A//8A//8A//8A//8A//8A//8A//8A//8A//8A//8A//8A//8A//8A//8A//8A//8A//8A//8A//8B///////b//8A///////////7///w///B///////////4///Q///M///////+///p///s///l//+5//+y//+N//9V//8t//8e///H//+4//+G//9Q//9n//+Z//9G//+V//9c//9W//8f///0///U//+k//+W//+J//+E//98//+i//96//9x//9i//+E//8y//89//91//8h//8p//9H//85//8v///G///C///U//+o//+d//+e//+q///J//+O//+Y//90//+s//99//9V//9y//+P//+F//8Q//9A///q///e///S///X//+q///S//+y//+b//+o///A//+N//+Z//9q//8U//9r//8I//////9LYr10AAAAmHRSTlMABAYLDggQCRMhFgwYGw0dLSQSKhUaNTEzHzgmOjwjPyhEQScrRy9NUExVPTZKRUJaWU9JSFdUU2BcXlhSYfzXXfH56OPJ9e3l0c/z6+Hb2sa+rIRuY7Ctin18e3drW0M33tO4rKaiop6Zl4xsaFtUU089OjTMv729tbOnl5eOiIB9b2ZfWVZIzcjFwqyioZmPjnZza09MRUVdAoQAAAvTSURBVHja7JPBToNAFEWlFKpSMVNgYUgaEvp/Jm78Chf+se++y/AG0U0ZWHGSBtrNOe/N9GFnZ2fnfhJgz40RZRKCHzYj+Y9NIhLjMLJVw9y+bcNf9izL7Mu6CTN7ZljFeglz+ylk3rCKf2JPQyRBmCTE95t91BfAJ5x+Jayo9+6SIMIaLCG+31av8qNHI+wobAdx/cHwlOfHHMhTQIMlxCxQP/Vmp/pC8MqGWUJMv+rL4ghU/mhohK0BCbEK6NflF6kND3td189Anj4BFCUSUruJMc5ft49r52en+6xohe6BZzFu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"
+        }
+    ],
+    "object": {
+        "uuid": "e43f98c8-9a29-4d79-92cf-ba781ae8dd0c",
+        "type": "Group",
+        "name": "NukeConeExplosionBlue",
+        "layers": 1,
+        "matrix": [
+            1,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            1
+        ],
+        "up": [
+            0,
+            1,
+            0
+        ],
+        "children": [
+            {
+                "uuid": "eebefb46-40a6-4cde-bf1a-83b81ecd1ce9",
+                "type": "Group",
+                "name": "SmokeClouds",
+                "layers": 1,
+                "matrix": [
+                    1,
+                    0,
+                    0,
+                    0,
+                    0,
+                    5.124728799099643e-7,
+                    -0.99999998250174,
+                    0,
+                    0,
+                    0.99999998250174,
+                    5.124728799099643e-7,
+                    0,
+                    0,
+                    0,
+                    0,
+                    1
+                ],
+                "up": [
+                    0,
+                    1,
+                    0
+                ],
+                "children": [
+                    {
+                        "uuid": "eba615c7-5b67-44cc-9c06-35455e57f800",
+                        "type": "ParticleEmitter",
+                        "name": "SmokeCloudsEmitter",
+                        "layers": 1,
+                        "matrix": [
+                            1,
+                            0,
+                            0,
+                            0,
+                            0,
+                            1,
+                            0,
+                            0,
+                            0,
+                            0,
+                            1,
+                            0,
+                            0,
+                            0,
+                            0,
+                            1
+                        ],
+                        "ps": {
+                            "version": "2.0",
+                            "autoDestroy": false,
+                            "looping": false,
+                            "prewarm": false,
+                            "duration": 1.5,
+                            "shape": {
+                                "type": "circle",
+                                "radius": 0.4,
+                                "arc": 6.283185307179586,
+                                "thickness": 0
+                            },
+                            "startLife": {
+                                "type": "IntervalValue",
+                                "a": 0.5,
+                                "b": 0.6
+                            },
+                            "startSpeed": {
+                                "type": "IntervalValue",
+                                "a": 1,
+                                "b": 2
+                            },
+                            "startRotation": {
+                                "type": "IntervalValue",
+                                "a": 0,
+                                "b": 6.283185
+                            },
+                            "startSize": {
+                                "type": "IntervalValue",
+                                "a": 3,
+                                "b": 4
+                            },
+                            "startColor": {
+                                "type": "RandomColorBetweenGradient",
+                                "gradient1": {
+                                    "type": "Gradient",
+                                    "color": {
+                                        "type": "CLinearFunction",
+                                        "subType": "Color",
+                                        "keys": [
+                                            {
+                                                "value": {
+                                                    "r": 1,
+                                                    "g": 1,
+                                                    "b": 1
+                                                },
+                                                "pos": 0
+                                            },
+                                            {
+                                                "value": {
+                                                    "r": 1,
+                                                    "g": 1,
+                                                    "b": 1
+                                                },
+                                                "pos": 1
+                                            }
+                                        ]
+                                    },
+                                    "alpha": {
+                                        "type": "CLinearFunction",
+                                        "subType": "Number",
+                                        "keys": [
+                                            {
+                                                "value": 1,
+                                                "pos": 0
+                                            },
+                                            {
+                                                "value": 1,
+                                                "pos": 1
+                                            }
+                                        ]
+                                    }
+                                },
+                                "gradient2": {
+                                    "type": "Gradient",
+                                    "color": {
+                                        "type": "CLinearFunction",
+                                        "subType": "Color",
+                                        "keys": [
+                                            {
+                                                "value": {
+                                                    "r": 1,
+                                                    "g": 1,
+                                                    "b": 1
+                                                },
+                                                "pos": 0
+                                            },
+                                            {
+                                                "value": {
+                                                    "r": 1,
+                                                    "g": 1,
+                                                    "b": 1
+                                                },
+                                                "pos": 1
+                                            }
+                                        ]
+                                    },
+                                    "alpha": {
+                                        "type": "CLinearFunction",
+                                        "subType": "Number",
+                                        "keys": [
+                                            {
+                                                "value": 1,
+                                                "pos": 0
+                                            },
+                                            {
+                                                "value": 1,
+                                                "pos": 1
+                                            }
+                                        ]
+                                    }
+                                }
+                            },
+                            "emissionOverTime": {
+                                "type": "ConstantValue",
+                                "value": 0
+                            },
+                            "emissionOverDistance": {
+                                "type": "ConstantValue",
+                                "value": 0
+                            },
+                            "emissionBursts": [
+                                {
+                                    "time": 0,
+                                    "count": {
+                                        "type": "ConstantValue",
+                                        "value": 10
+                                    },
+                                    "probability": 1,
+                                    "interval": 0.01,
+                                    "cycle": 1
+                                }
+                            ],
+                            "onlyUsedByOther": false,
+                            "instancingGeometry": "4531c567-42e0-4efe-bf25-0d26a87a1f8c",
+                            "renderOrder": 0,
+                            "renderMode": 4,
+                            "rendererEmitterSettings": {},
+                            "material": "41004d71-7986-45a5-88a1-7910ed199643",
+                            "layers": 1,
+                            "startTileIndex": {
+                                "type": "ConstantValue",
+                                "value": 0
+                            },
+                            "uTileCount": 2,
+                            "vTileCount": 2,
+                            "behaviors": [
+                                {
+                                    "type": "ForceOverLife",
+                                    "x": {
+                                        "type": "ConstantValue",
+                                        "value": 0
+                                    },
+                                    "y": {
+                                        "type": "ConstantValue",
+                                        "value": 0
+                                    },
+                                    "z": {
+                                        "type": "ConstantValue",
+                                        "value": 0
+                                    }
+                                },
+                                {
+                                    "type": "SizeOverLife",
+                                    "size": {
+                                        "type": "PiecewiseBezier",
+                                        "functions": [
+                                            {
+                                                "function": {
+                                                    "p0": 1,
+                                                    "p1": 1,
+                                                    "p2": 1,
+                                                    "p3": 1
+                                                },
+                                                "start": 0
+                                            },
+                                            {
+                                                "function": {
+                                                    "p0": 1,
+                                                    "p1": 1,
+                                                    "p2": 0.5256705,
+                                                    "p3": 0
+                                                },
+                                                "start": 0.21149425
+                                            }
+                                        ]
+                                    }
+                                },
+                                {
+                                    "type": "RotationOverLife",
+                                    "angularVelocity": {
+                                        "type": "PiecewiseBezier",
+                                        "functions": [
+                                            {
+                                                "function": {
+                                                    "p0": 1,
+                                                    "p1": 1,
+                                                    "p2": 0,
+                                                    "p3": 0
+                                                },
+                                                "start": 0
+                                            }
+                                        ]
+                                    },
+                                    "dynamic": true
+                                },
+                                {
+                                    "type": "ColorOverLife",
+                                    "color": {
+                                        "type": "Gradient",
+                                        "color": {
+                                            "type": "CLinearFunction",
+                                            "subType": "Color",
+                                            "keys": [
+                                                {
+                                                    "value": {
+                                                        "r": 1,
+                                                        "g": 1,
+                                                        "b": 1
+                                                    },
+                                                    "pos": 0
+                                                },
+                                                {
+                                                    "value": {
+                                                        "r": 1,
+                                                        "g": 1,
+                                                        "b": 1
+                                                    },
+                                                    "pos": 0.3582970931563287
+                                                }
+                                            ]
+                                        },
+                                        "alpha": {
+                                            "type": "CLinearFunction",
+                                            "subType": "Number",
+                                            "keys": [
+                                                {
+                                                    "value": 0.5,
+                                                    "pos": 0
+                                                },
+                                                {
+                                                    "value": 0.25,
+                                                    "pos": 0.9000076295109484
+                                                },
+                                                {
+                                                    "value": 0,
+                                                    "pos": 1
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "type": "FrameOverLife",
+                                    "frame": {
+                                        "type": "IntervalValue",
+                                        "a": 0,
+                                        "b": 3.9996
+                                    }
+                                },
+                                {
+                                    "type": "LimitSpeedOverLife",
+                                    "speed": {
+                                        "type": "ConstantValue",
+                                        "value": 0.5
+                                    },
+                                    "dampen": 0.15
+                                }
+                            ],
+                            "worldSpace": true
+                        }
+                    }
+                ]
+            },
+            {
+                "uuid": "10afc2cc-feeb-4233-be6e-30e03d954e4c",
+                "type": "Group",
+                "name": "Sparks",
+                "layers": 1,
+                "matrix": [
+                    1,
+                    0,
+                    0,
+                    0,
+                    0,
+                    5.124728799099643e-7,
+                    -0.99999998250174,
+                    0,
+                    0,
+                    0.99999998250174,
+                    5.124728799099643e-7,
+                    0,
+                    0,
+                    0,
+                    0,
+                    1
+                ],
+                "up": [
+                    0,
+                    1,
+                    0
+                ],
+                "children": [
+                    {
+                        "uuid": "5e06e789-8727-4c2c-9ee2-75eaf52db83c",
+                        "type": "ParticleEmitter",
+                        "name": "SparksEmitter",
+                        "layers": 1,
+                        "matrix": [
+                            1,
+                            0,
+                            0,
+                            0,
+                            0,
+                            1,
+                            0,
+                            0,
+                            0,
+                            0,
+                            1,
+                            0,
+                            0,
+                            0,
+                            0,
+                            1
+                        ],
+                        "ps": {
+                            "version": "2.0",
+                            "autoDestroy": false,
+                            "looping": false,
+                            "prewarm": false,
+                            "duration": 1,
+                            "shape": {
+                                "type": "cone",
+                                "radius": 0.8,
+                                "arc": 6.283185307179586,
+                                "thickness": 1,
+                                "angle": 0.7312929565856241
+                            },
+                            "startLife": {
+                                "type": "IntervalValue",
+                                "a": 0.25,
+                                "b": 1.2
+                            },
+                            "startSpeed": {
+                                "type": "IntervalValue",
+                                "a": 11,
+                                "b": 31
+                            },
+                            "startRotation": {
+                                "type": "ConstantValue",
+                                "value": 0
+                            },
+                            "startSize": {
+                                "type": "IntervalValue",
+                                "a": 0.08,
+                                "b": 0.15
+                            },
+                            "startColor": {
+                                "type": "ConstantColor",
+                                "color": {
+                                    "r": 1,
+                                    "g": 1,
+                                    "b": 1,
+                                    "a": 1
+                                }
+                            },
+                            "emissionOverTime": {
+                                "type": "ConstantValue",
+                                "value": 0
+                            },
+                            "emissionOverDistance": {
+                                "type": "ConstantValue",
+                                "value": 0
+                            },
+                            "emissionBursts": [
+                                {
+                                    "time": 0,
+                                    "count": {
+                                        "type": "ConstantValue",
+                                        "value": 25
+                                    },
+                                    "probability": 1,
+                                    "interval": 0.01,
+                                    "cycle": 1
+                                }
+                            ],
+                            "onlyUsedByOther": false,
+                            "instancingGeometry": "4531c567-42e0-4efe-bf25-0d26a87a1f8c",
+                            "renderOrder": -5,
+                            "renderMode": 1,
+                            "rendererEmitterSettings": {
+                                "speedFactor": 0.01,
+                                "lengthFactor": 1
+                            },
+                            "material": "e9e56599-ffdb-4d94-8778-032ef9917d46",
+                            "layers": 1,
+                            "startTileIndex": {
+                                "type": "ConstantValue",
+                                "value": 0
+                            },
+                            "uTileCount": 1,
+                            "vTileCount": 1,
+                            "behaviors": [
+                                {
+                                    "type": "ForceOverLife",
+                                    "x": {
+                                        "type": "ConstantValue",
+                                        "value": 0
+                                    },
+                                    "y": {
+                                        "type": "ConstantValue",
+                                        "value": -9.8
+                                    },
+                                    "z": {
+                                        "type": "ConstantValue",
+                                        "value": 0
+                                    }
+                                },
+                                {
+                                    "type": "SizeOverLife",
+                                    "size": {
+                                        "type": "PiecewiseBezier",
+                                        "functions": [
+                                            {
+                                                "function": {
+                                                    "p0": 1,
+                                                    "p1": 1,
+                                                    "p2": 0.6666666666666666,
+                                                    "p3": 0
+                                                },
+                                                "start": 0
+                                            }
+                                        ]
+                                    }
+                                },
+                                {
+                                    "type": "ColorOverLife",
+                                    "color": {
+                                        "type": "Gradient",
+                                        "color": {
+                                            "type": "CLinearFunction",
+                                            "subType": "Color",
+                                            "keys": [
+                                                {
+                                                    "value": {
+                                                        "r": 1,
+                                                        "g": 1,
+                                                        "b": 1
+                                                    },
+                                                    "pos": 0
+                                                },
+                                                {
+                                                    "value": {
+                                                        "r": 0,
+                                                        "g": 0.8352941,
+                                                        "b": 1
+                                                    },
+                                                    "pos": 1
+                                                }
+                                            ]
+                                        },
+                                        "alpha": {
+                                            "type": "CLinearFunction",
+                                            "subType": "Number",
+                                            "keys": [
+                                                {
+                                                    "value": 0,
+                                                    "pos": 0
+                                                },
+                                                {
+                                                    "value": 1,
+                                                    "pos": 0.0942549782558938
+                                                },
+                                                {
+                                                    "value": 1,
+                                                    "pos": 0.8348668650339514
+                                                },
+                                                {
+                                                    "value": 0,
+                                                    "pos": 1
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "type": "LimitSpeedOverLife",
+                                    "speed": {
+                                        "type": "ConstantValue",
+                                        "value": 0
+                                    },
+                                    "dampen": 0.15
+                                }
+                            ],
+                            "worldSpace": true
+                        }
+                    }
+                ]
+            },
+            {
+                "uuid": "e9739e6d-1604-421c-a8b0-2f650edc9a7e",
+                "type": "Group",
+                "name": "Sphere",
+                "layers": 1,
+                "matrix": [
+                    1,
+                    0,
+                    0,
+                    0,
+                    0,
+                    5.124728799099643e-7,
+                    -0.99999998250174,
+                    0,
+                    0,
+                    0.99999998250174,
+                    5.124728799099643e-7,
+                    0,
+                    0,
+                    0,
+                    0,
+                    1
+                ],
+                "up": [
+                    0,
+                    1,
+                    0
+                ],
+                "children": [
+                    {
+                        "uuid": "39eaea85-f106-4617-b499-3348d08562b7",
+                        "type": "ParticleEmitter",
+                        "name": "SphereEmitter",
+                        "layers": 1,
+                        "matrix": [
+                            1,
+                            0,
+                            0,
+                            0,
+                            0,
+                            1,
+                            0,
+                            0,
+                            0,
+                            0,
+                            1,
+                            0,
+                            0,
+                            0,
+                            0,
+                            1
+                        ],
+                        "ps": {
+                            "version": "2.0",
+                            "autoDestroy": false,
+                            "looping": false,
+                            "prewarm": false,
+                            "duration": 2,
+                            "shape": {
+                                "type": "sphere",
+                                "radius": 0.01,
+                                "arc": 6.283185307179586,
+                                "thickness": 1
+                            },
+                            "startLife": {
+                                "type": "ConstantValue",
+                                "value": 0.5
+                            },
+                            "startSpeed": {
+                                "type": "ConstantValue",
+                                "value": 0
+                            },
+                            "startRotation": {
+                                "type": "IntervalValue",
+                                "a": 0,
+                                "b": 0
+                            },
+                            "startSize": {
+                                "type": "ConstantValue",
+                                "value": 5.9
+                            },
+                            "startColor": {
+                                "type": "ConstantColor",
+                                "color": {
+                                    "r": 1,
+                                    "g": 1,
+                                    "b": 1,
+                                    "a": 0.29411766
+                                }
+                            },
+                            "emissionOverTime": {
+                                "type": "ConstantValue",
+                                "value": 0
+                            },
+                            "emissionOverDistance": {
+                                "type": "ConstantValue",
+                                "value": 0
+                            },
+                            "emissionBursts": [
+                                {
+                                    "time": 0,
+                                    "count": {
+                                        "type": "ConstantValue",
+                                        "value": 1
+                                    },
+                                    "probability": 1,
+                                    "interval": 0.01,
+                                    "cycle": 1
+                                }
+                            ],
+                            "onlyUsedByOther": false,
+                            "instancingGeometry": "2581013c-3235-433c-988d-0ecc35c870eb",
+                            "renderOrder": 0,
+                            "renderMode": 2,
+                            "rendererEmitterSettings": {},
+                            "material": "06a9d798-34ad-4c7c-8394-06e5a488b2cb",
+                            "layers": 1,
+                            "startTileIndex": {
+                                "type": "ConstantValue",
+                                "value": 0
+                            },
+                            "uTileCount": 1,
+                            "vTileCount": 1,
+                            "behaviors": [
+                                {
+                                    "type": "ForceOverLife",
+                                    "x": {
+                                        "type": "ConstantValue",
+                                        "value": 0
+                                    },
+                                    "y": {
+                                        "type": "ConstantValue",
+                                        "value": 0
+                                    },
+                                    "z": {
+                                        "type": "ConstantValue",
+                                        "value": 0
+                                    }
+                                },
+                                {
+                                    "type": "SizeOverLife",
+                                    "size": {
+                                        "type": "PiecewiseBezier",
+                                        "functions": [
+                                            {
+                                                "function": {
+                                                    "p0": 0.71226704,
+                                                    "p1": 0.9811159733333332,
+                                                    "p2": 1,
+                                                    "p3": 1
+                                                },
+                                                "start": 0
+                                            }
+                                        ]
+                                    }
+                                },
+                                {
+                                    "type": "ColorOverLife",
+                                    "color": {
+                                        "type": "Gradient",
+                                        "color": {
+                                            "type": "CLinearFunction",
+                                            "subType": "Color",
+                                            "keys": [
+                                                {
+                                                    "value": {
+                                                        "r": 0.9,
+                                                        "g": 0.9,
+                                                        "b": 0.9
+                                                    },
+                                                    "pos": 0.008819714656290532
+                                                },
+                                                {
+                                                    "value": {
+                                                        "r": 1,
+                                                        "g": 1,
+                                                        "b": 1
+                                                    },
+                                                    "pos": 0.9941252765697719
+                                                }
+                                            ]
+                                        },
+                                        "alpha": {
+                                            "type": "CLinearFunction",
+                                            "subType": "Number",
+                                            "keys": [
+                                                {
+                                                    "value": 1,
+                                                    "pos": 0
+                                                },
+                                                {
+                                                    "value": 0,
+                                                    "pos": 0.5
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ],
+                            "worldSpace": true
+                        }
+                    }
+                ]
+            },
+            {
+                "uuid": "eebefb46-40a6-4cde-bf1a-83b81ecd1ce9",
+                "type": "Group",
+                "name": "Twinkle",
+                "layers": 1,
+                "matrix": [
+                    1,
+                    0,
+                    0,
+                    0,
+                    0,
+                    5.124728799099643e-7,
+                    -0.99999998250174,
+                    0,
+                    0,
+                    0.99999998250174,
+                    5.124728799099643e-7,
+                    0,
+                    0,
+                    0,
+                    0,
+                    1
+                ],
+                "up": [
+                    0,
+                    1,
+                    0
+                ],
+                "children": [
+                    {
+                        "uuid": "eba615c7-5b67-44cc-9c06-35455e57f800",
+                        "type": "ParticleEmitter",
+                        "name": "TwinkleEmitter",
+                        "layers": 1,
+                        "matrix": [
+                            1,
+                            0,
+                            0,
+                            0,
+                            0,
+                            1,
+                            0,
+                            0,
+                            0,
+                            0,
+                            1,
+                            0,
+                            0,
+                            0,
+                            0,
+                            1
+                        ],
+                        "ps": {
+                            "version": "2.0",
+                            "autoDestroy": false,
+                            "looping": false,
+                            "prewarm": false,
+                            "duration": 1,
+                            "shape": {
+                                "type": "sphere",
+                                "radius": 0.0001,
+                                "arc": 6.283185307179586,
+                                "thickness": 0.4
+                            },
+                            "startLife": {
+                                "type": "IntervalValue",
+                                "a": 0.35,
+                                "b": 0.45
+                            },
+                            "startSpeed": {
+                                "type": "IntervalValue",
+                                "a": 5,
+                                "b": 10
+                            },
+                            "startRotation": {
+                                "type": "IntervalValue",
+                                "a": 0,
+                                "b": 6.283185
+                            },
+                            "startSize": {
+                                "type": "ConstantValue",
+                                "value": 3.5
+                            },
+                            "startColor": {
+                                "type": "RandomColorBetweenGradient",
+                                "gradient1": {
+                                    "type": "Gradient",
+                                    "color": {
+                                        "type": "CLinearFunction",
+                                        "subType": "Color",
+                                        "keys": [
+                                            {
+                                                "value": {
+                                                    "r": 1,
+                                                    "g": 1,
+                                                    "b": 1
+                                                },
+                                                "pos": 0
+                                            },
+                                            {
+                                                "value": {
+                                                    "r": 1,
+                                                    "g": 1,
+                                                    "b": 1
+                                                },
+                                                "pos": 1
+                                            }
+                                        ]
+                                    },
+                                    "alpha": {
+                                        "type": "CLinearFunction",
+                                        "subType": "Number",
+                                        "keys": [
+                                            {
+                                                "value": 1,
+                                                "pos": 0
+                                            },
+                                            {
+                                                "value": 0,
+                                                "pos": 1
+                                            }
+                                        ]
+                                    }
+                                },
+                                "gradient2": {
+                                    "type": "Gradient",
+                                    "color": {
+                                        "type": "CLinearFunction",
+                                        "subType": "Color",
+                                        "keys": [
+                                            {
+                                                "value": {
+                                                    "r": 1,
+                                                    "g": 1,
+                                                    "b": 1
+                                                },
+                                                "pos": 0
+                                            },
+                                            {
+                                                "value": {
+                                                    "r": 1,
+                                                    "g": 1,
+                                                    "b": 1
+                                                },
+                                                "pos": 1
+                                            }
+                                        ]
+                                    },
+                                    "alpha": {
+                                        "type": "CLinearFunction",
+                                        "subType": "Number",
+                                        "keys": [
+                                            {
+                                                "value": 1,
+                                                "pos": 0
+                                            },
+                                            {
+                                                "value": 1,
+                                                "pos": 1
+                                            }
+                                        ]
+                                    }
+                                }
+                            },
+                            "emissionOverTime": {
+                                "type": "ConstantValue",
+                                "value": 0
+                            },
+                            "emissionOverDistance": {
+                                "type": "ConstantValue",
+                                "value": 0
+                            },
+                            "emissionBursts": [
+                                {
+                                    "time": 0,
+                                    "count": {
+                                        "type": "ConstantValue",
+                                        "value": 10
+                                    },
+                                    "probability": 1,
+                                    "interval": 0.01,
+                                    "cycle": 1
+                                }
+                            ],
+                            "onlyUsedByOther": false,
+                            "instancingGeometry": "4531c567-42e0-4efe-bf25-0d26a87a1f8c",
+                            "renderOrder": 0,
+                            "renderMode": 0,
+                            "rendererEmitterSettings": {},
+                            "material": "new-material-uuid-789",
+                            "layers": 1,
+                            "startTileIndex": {
+                                "type": "ConstantValue",
+                                "value": 0
+                            },
+                            "uTileCount": 1,
+                            "vTileCount": 1,
+                            "behaviors": [
+                                {
+                                    "type": "ForceOverLife",
+                                    "x": {
+                                        "type": "ConstantValue",
+                                        "value": 0
+                                    },
+                                    "y": {
+                                        "type": "ConstantValue",
+                                        "value": 0
+                                    },
+                                    "z": {
+                                        "type": "ConstantValue",
+                                        "value": 0
+                                    }
+                                },
+                                {
+                                    "type": "SizeOverLife",
+                                    "size": {
+                                        "type": "PiecewiseBezier",
+                                        "functions": [
+                                            {
+                                                "function": {
+                                                    "p0": 1,
+                                                    "p1": 1,
+                                                    "p2": 1,
+                                                    "p3": 1
+                                                },
+                                                "start": 0
+                                            },
+                                            {
+                                                "function": {
+                                                    "p0": 1,
+                                                    "p1": 1,
+                                                    "p2": 0.5256705,
+                                                    "p3": 0
+                                                },
+                                                "start": 0.21149425
+                                            }
+                                        ]
+                                    }
+                                },
+                                {
+                                    "type": "RotationOverLife",
+                                    "angularVelocity": {
+                                        "type": "PiecewiseBezier",
+                                        "functions": [
+                                            {
+                                                "function": {
+                                                    "p0": 1,
+                                                    "p1": 1,
+                                                    "p2": 0,
+                                                    "p3": 0
+                                                },
+                                                "start": 0
+                                            }
+                                        ]
+                                    },
+                                    "dynamic": true
+                                },
+                                {
+                                    "type": "ColorOverLife",
+                                    "color": {
+                                        "type": "Gradient",
+                                        "color": {
+                                            "type": "CLinearFunction",
+                                            "subType": "Color",
+                                            "keys": [
+                                                {
+                                                    "value": {
+                                                        "r": 0,
+                                                        "g": 0.627451,
+                                                        "b": 1
+                                                    },
+                                                    "pos": 0
+                                                },
+                                                {
+                                                    "value": {
+                                                        "r": 1,
+                                                        "g": 1,
+                                                        "b": 1
+                                                    },
+                                                    "pos": 0.3582970931563287
+                                                }
+                                            ]
+                                        },
+                                        "alpha": {
+                                            "type": "CLinearFunction",
+                                            "subType": "Number",
+                                            "keys": [
+                                                {
+                                                    "value": 1,
+                                                    "pos": 0
+                                                },
+                                                {
+                                                    "value": 0.5,
+                                                    "pos": 0.9000076295109484
+                                                },
+                                                {
+                                                    "value": 0,
+                                                    "pos": 1
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "type": "LimitSpeedOverLife",
+                                    "speed": {
+                                        "type": "ConstantValue",
+                                        "value": 0.6
+                                    },
+                                    "dampen": 0.64
+                                }
+                            ],
+                            "worldSpace": true
+                        }
+                    }
+                ]
+            },
+            {
+                "uuid": "53023bd5-0465-4ce0-82a7-7ef409ad8991",
+                "type": "Group",
+                "name": "Nova",
+                "layers": 1,
+                "matrix": [
+                    1,
+                    0,
+                    0,
+                    0,
+                    0,
+                    5.124728799099643e-7,
+                    -0.99999998250174,
+                    0,
+                    0,
+                    0.99999998250174,
+                    5.124728799099643e-7,
+                    0,
+                    0,
+                    0,
+                    0,
+                    1
+                ],
+                "up": [
+                    0,
+                    1,
+                    0
+                ],
+                "children": [
+                    {
+                        "uuid": "51db1946-6641-432d-8a53-dbeedbeb582e",
+                        "type": "ParticleEmitter",
+                        "name": "NovaEmitter",
+                        "layers": 1,
+                        "matrix": [
+                            1,
+                            0,
+                            0,
+                            0,
+                            0,
+                            1,
+                            0,
+                            0,
+                            0,
+                            0,
+                            1,
+                            0,
+                            0,
+                            0,
+                            0,
+                            1
+                        ],
+                        "ps": {
+                            "version": "2.0",
+                            "autoDestroy": false,
+                            "looping": false,
+                            "prewarm": false,
+                            "duration": 1,
+                            "shape": {
+                                "type": "point"
+                            },
+                            "startLife": {
+                                "type": "ConstantValue",
+                                "value": 0.5
+                            },
+                            "startSpeed": {
+                                "type": "ConstantValue",
+                                "value": 0
+                            },
+                            "startRotation": {
+                                "type": "Euler",
+                                "angleX": {
+                                    "type": "IntervalValue",
+                                    "a": 0,
+                                    "b": 0
+                                },
+                                "angleY": {
+                                    "type": "IntervalValue",
+                                    "a": 0,
+                                    "b": 0
+                                },
+                                "angleZ": {
+                                    "type": "IntervalValue",
+                                    "a": 6.283185,
+                                    "b": 0
+                                },
+                                "eulerOrder": "ZYX"
+                            },
+                            "startSize": {
+                                "type": "ConstantValue",
+                                "value": 8
+                            },
+                            "startColor": {
+                                "type": "ConstantColor",
+                                "color": {
+                                    "r": 1,
+                                    "g": 1,
+                                    "b": 1,
+                                    "a": 1
+                                }
+                            },
+                            "emissionOverTime": {
+                                "type": "ConstantValue",
+                                "value": 0
+                            },
+                            "emissionOverDistance": {
+                                "type": "ConstantValue",
+                                "value": 0
+                            },
+                            "emissionBursts": [
+                                {
+                                    "time": 0,
+                                    "count": {
+                                        "type": "ConstantValue",
+                                        "value": 1
+                                    },
+                                    "probability": 1,
+                                    "interval": 0.01,
+                                    "cycle": 1
+                                }
+                            ],
+                            "onlyUsedByOther": false,
+                            "instancingGeometry": "4531c567-42e0-4efe-bf25-0d26a87a1f8c",
+                            "renderOrder": 5,
+                            "renderMode": 2,
+                            "rendererEmitterSettings": {},
+                            "material": "d1c008f4-0244-4dd3-abcb-62f194501f68",
+                            "layers": 1,
+                            "startTileIndex": {
+                                "type": "ConstantValue",
+                                "value": 0
+                            },
+                            "uTileCount": 6,
+                            "vTileCount": 3,
+                            "behaviors": [
+                                {
+                                    "type": "ForceOverLife",
+                                    "x": {
+                                        "type": "ConstantValue",
+                                        "value": 0
+                                    },
+                                    "y": {
+                                        "type": "ConstantValue",
+                                        "value": 0
+                                    },
+                                    "z": {
+                                        "type": "ConstantValue",
+                                        "value": 0
+                                    }
+                                },
+                                {
+                                    "type": "SizeOverLife",
+                                    "size": {
+                                        "type": "PiecewiseBezier",
+                                        "functions": [
+                                            {
+                                                "function": {
+                                                    "p0": 0.6454825,
+                                                    "p1": 1.0058953333333334,
+                                                    "p2": 1,
+                                                    "p3": 1
+                                                },
+                                                "start": 0
+                                            }
+                                        ]
+                                    }
+                                },
+                                {
+                                    "type": "ColorOverLife",
+                                    "color": {
+                                        "type": "Gradient",
+                                        "color": {
+                                            "type": "CLinearFunction",
+                                            "subType": "Color",
+                                            "keys": [
+                                                {
+                                                    "value": {
+                                                        "r": 1,
+                                                        "g": 1,
+                                                        "b": 1
+                                                    },
+                                                    "pos": 0
+                                                },
+                                                {
+                                                    "value": {
+                                                        "r": 0.23,
+                                                        "g": 0.819,
+                                                        "b": 0.76
+                                                    },
+                                                    "pos": 0.5
+                                                }
+                                            ]
+                                        },
+                                        "alpha": {
+                                            "type": "CLinearFunction",
+                                            "subType": "Number",
+                                            "keys": [
+                                                {
+                                                    "value": 1,
+                                                    "pos": 0
+                                                },
+                                                {
+                                                    "value": 1,
+                                                    "pos": 1
+                                                }
+                                            ]
+                                        }
+                                    }
+                                },
+                                {
+                                    "type": "FrameOverLife",
+                                    "frame": {
+                                        "type": "PiecewiseBezier",
+                                        "functions": [
+                                            {
+                                                "function": {
+                                                    "p0": 0,
+                                                    "p1": 0,
+                                                    "p2": 0,
+                                                    "p3": 0
+                                                },
+                                                "start": 0
+                                            },
+                                            {
+                                                "function": {
+                                                    "p0": 0,
+                                                    "p1": 5.88819908198844,
+                                                    "p2": 11.776397198011562,
+                                                    "p3": 17.66459628
+                                                },
+                                                "start": 0.21994135
+                                            }
+                                        ]
+                                    }
+                                },
+                                {
+                                    "type": "LimitSpeedOverLife",
+                                    "speed": {
+                                        "type": "ConstantValue",
+                                        "value": 0.7
+                                    },
+                                    "dampen": 0.09
+                                }
+                            ],
+                            "worldSpace": true
+                        }
+                    }
+                ]
+            },
+            {
+                "uuid": "0750cd8b-8b6b-4c21-9d76-6aa41c6aab8b",
+                "type": "ParticleEmitter",
+                "name": "NukeConeExplosionBlueEmitter",
+                "layers": 1,
+                "matrix": [
+                    1,
+                    0,
+                    0,
+                    0,
+                    0,
+                    1,
+                    0,
+                    0,
+                    0,
+                    0,
+                    1,
+                    0,
+                    0,
+                    0,
+                    0,
+                    1
+                ],
+                "ps": {
+                    "version": "2.0",
+                    "autoDestroy": false,
+                    "looping": false,
+                    "prewarm": false,
+                    "duration": 1.5,
+                    "shape": {
+                        "type": "point"
+                    },
+                    "startLife": {
+                        "type": "ConstantValue",
+                        "value": 0.5
+                    },
+                    "startSpeed": {
+                        "type": "ConstantValue",
+                        "value": 0
+                    },
+                    "startRotation": {
+                        "type": "IntervalValue",
+                        "a": 0,
+                        "b": 6.283185
+                    },
+                    "startSize": {
+                        "type": "ConstantValue",
+                        "value": 12
+                    },
+                    "startColor": {
+                        "type": "ConstantColor",
+                        "color": {
+                            "r": 1,
+                            "g": 1,
+                            "b": 1,
+                            "a": 1
+                        }
+                    },
+                    "emissionOverTime": {
+                        "type": "ConstantValue",
+                        "value": 0
+                    },
+                    "emissionOverDistance": {
+                        "type": "ConstantValue",
+                        "value": 0
+                    },
+                    "emissionBursts": [
+                        {
+                            "time": 0,
+                            "count": {
+                                "type": "ConstantValue",
+                                "value": 1
+                            },
+                            "probability": 1,
+                            "interval": 0.01,
+                            "cycle": 1
+                        }
+                    ],
+                    "onlyUsedByOther": false,
+                    "instancingGeometry": "4531c567-42e0-4efe-bf25-0d26a87a1f8c",
+                    "renderOrder": -5,
+                    "renderMode": 0,
+                    "rendererEmitterSettings": {},
+                    "material": "13f34078-7681-422e-b663-05edadb0bb94",
+                    "layers": 1,
+                    "startTileIndex": {
+                        "type": "ConstantValue",
+                        "value": 0
+                    },
+                    "uTileCount": 1,
+                    "vTileCount": 1,
+                    "behaviors": [
+                        {
+                            "type": "ForceOverLife",
+                            "x": {
+                                "type": "ConstantValue",
+                                "value": 0
+                            },
+                            "y": {
+                                "type": "ConstantValue",
+                                "value": 0
+                            },
+                            "z": {
+                                "type": "ConstantValue",
+                                "value": 0
+                            }
+                        },
+                        {
+                            "type": "SizeOverLife",
+                            "size": {
+                                "type": "PiecewiseBezier",
+                                "functions": [
+                                    {
+                                        "function": {
+                                            "p0": 1,
+                                            "p1": 1,
+                                            "p2": 0.9249999,
+                                            "p3": 0.6923077
+                                        },
+                                        "start": 0
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "type": "RotationOverLife",
+                            "angularVelocity": {
+                                "type": "PiecewiseBezier",
+                                "functions": [
+                                    {
+                                        "function": {
+                                            "p0": 1,
+                                            "p1": 1,
+                                            "p2": 0,
+                                            "p3": 0
+                                        },
+                                        "start": 0
+                                    }
+                                ]
+                            },
+                            "dynamic": true
+                        },
+                        {
+                            "type": "ColorOverLife",
+                            "color": {
+                                "type": "Gradient",
+                                "color": {
+                                    "type": "CLinearFunction",
+                                    "subType": "Color",
+                                    "keys": [
+                                        {
+                                            "value": {
+                                                "r": 0,
+                                                "g": 0.7921569,
+                                                "b": 1
+                                            },
+                                            "pos": 0
+                                        },
+                                        {
+                                            "value": {
+                                                "r": 0,
+                                                "g": 0.12941177,
+                                                "b": 1
+                                            },
+                                            "pos": 1
+                                        }
+                                    ]
+                                },
+                                "alpha": {
+                                    "type": "CLinearFunction",
+                                    "subType": "Number",
+                                    "keys": [
+                                        {
+                                            "value": 1,
+                                            "pos": 0
+                                        },
+                                        {
+                                            "value": 0,
+                                            "pos": 1
+                                        }
+                                    ]
+                                }
+                            }
+                        },
+                        {
+                            "type": "LimitSpeedOverLife",
+                            "speed": {
+                                "type": "ConstantValue",
+                                "value": 0.7
+                            },
+                            "dampen": 0.09
+                        }
+                    ],
+                    "worldSpace": true
+                }
+            }
+        ]
+    }
+}

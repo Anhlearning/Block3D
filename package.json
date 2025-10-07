@@ -1,0 +1,46 @@
+{
+  "name": "pixi-webpack-demo",
+  "version": "1.0.0",
+  "description": "make pixi.js game with webpack",
+  "main": "src/js/main.js",
+  "keywords": [
+    "pixi.js",
+    "webpack"
+  ],
+  "scripts": {
+    "start": "cross-env NODE_ENV=development webpack-dev-server --open 'google chrome' --config webpack.dev.js",
+    "clean": "rimraf dist",
+    "build:es": "node build.js"
+  },
+  "sideEffects": false,
+  "dependencies": {
+    "@babel/runtime": "^7.28.2",
+    "@esotericsoftware/spine-pixi-v8": "^4.2.82",
+    "@pixi/devtools": "^2.0.1",
+    "@pixi/utils": "^7.4.3",
+    "cannon-es": "^0.20.0",
+    "cannon-es-debugger": "^1.0.0",
+    "core-js": "^3.44.0",
+    "gsap": "^3.13.0",
+    "howler": "^2.2.4",
+    "pixi.js": "^8.12.0",
+    "three": "^0.177.0",
+    "three.quarks": "^0.16.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.27.4",
+    "@babel/plugin-transform-runtime": "^7.27.4",
+    "@babel/preset-env": "^7.27.2",
+    "babel-loader": "^10.0.0",
+    "copy-webpack-plugin": "^13.0.0",
+    "cross-env": "^7.0.3",
+    "esbuild": "^0.25.9",
+    "esbuild-visualizer": "^0.7.0",
+    "glsl-shader-loader": "^0.1.6",
+    "raw-loader": "^4.0.2",
+    "rimraf": "^3.0.2"
+  },
+  "directories": {
+    "doc": "doc"
+  }
+}
