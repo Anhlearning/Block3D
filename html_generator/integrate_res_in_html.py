@@ -11,11 +11,10 @@ import zipfile
 import shutil
 from pathlib import Path
 
-date = '061025'
-# titles = ['HOXE_RUN']
-titles = ['CakeSorts']
-version = ['10a25']
-dev = 'AnhDH'
+date = '260925'
+titles = ['GoodSort']
+version = ['9a25','9b25','9c25']
+dev = 'Thepn'
 language = 'EN'
 
 ads = ['IronSource', 'Unity', 'Adwords_48x32','Adwords_32x48', 'Applovin', 'Facebook', 'Adcolony', 'Mintegral','Pangle', 'Vungle', 'Moloco']
@@ -64,7 +63,7 @@ def integrate(projectRootPath):
                 Path("./output/" + title + '/'  + v + '/'  + x).mkdir(parents=True, exist_ok=True)
                 htmlPath = projectRootPath + '/build-templates/' + x + '.html'
                 
-                mainPath = projectRootPath + '/dist/game.bundle.js'
+                mainPath = projectRootPath + '/dist/bundle.js'
                 htmlStr = read_in_chunks(htmlPath)
                 
                 projectStr = read_in_chunks(mainPath)
