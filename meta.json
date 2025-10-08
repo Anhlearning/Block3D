@@ -199,7 +199,7 @@
       "format": "esm"
     },
     "src/js/Manager/TouchManager.js": {
-      "bytes": 2581,
+      "bytes": 2539,
       "imports": [
         {
           "path": "src/js/Utils/RaycastUtils.js",
@@ -236,7 +236,7 @@
       "format": "esm"
     },
     "src/js/Object/SubObject/BlockObject.js": {
-      "bytes": 1594,
+      "bytes": 4284,
       "imports": [
         {
           "path": "node_modules/three/build/three.module.js",
@@ -252,6 +252,11 @@
           "path": "src/js/components/Children.js",
           "kind": "import-statement",
           "original": "../../components/Children"
+        },
+        {
+          "path": "src/js/Utils/RaycastUtils.js",
+          "kind": "import-statement",
+          "original": "../../Utils/RaycastUtils"
         }
       ],
       "format": "esm"
@@ -548,7 +553,7 @@
           "bytesInOutput": 52
         },
         "src/js/Manager/TouchManager.js": {
-          "bytesInOutput": 1353
+          "bytesInOutput": 1324
         },
         "node_modules/three/examples/jsm/libs/stats.module.js": {
           "bytesInOutput": 1747
@@ -560,7 +565,7 @@
           "bytesInOutput": 940
         },
         "src/js/Object/SubObject/BlockObject.js": {
-          "bytesInOutput": 858
+          "bytesInOutput": 2133
         },
         "src/js/core/ThreeApp.js": {
           "bytesInOutput": 2396
@@ -608,7 +613,7 @@
           "bytesInOutput": 292
         }
       },
-      "bytes": 937369
+      "bytes": 938615
     }
   }
 }
