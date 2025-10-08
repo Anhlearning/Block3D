@@ -34,7 +34,7 @@
     "babel-loader": "^10.0.0",
     "copy-webpack-plugin": "^13.0.0",
     "cross-env": "^7.0.3",
-    "esbuild": "^0.25.9",
+    "esbuild": "0.25.10",
     "esbuild-visualizer": "^0.7.0",
     "glsl-shader-loader": "^0.1.6",
     "raw-loader": "^4.0.2",

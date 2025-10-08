@@ -41,20 +41,49 @@ export class ObjectBase {
     if (!component || typeof component.onAttach !== "function") {
       throw new Error("Component must implement onAttach(owner)");
     }
+
     const type = component.getType?.() ?? component.constructor.name;
-    this.components.set(type, component);
+
+    // 🔹 Nếu đã có component cùng loại, lưu thành mảng
+    if (!this.components.has(type)) {
+      this.components.set(type, []);
+    }
+
+    const list = this.components.get(type);
+    list.push(component);
+
     component.onAttach(this);
     return component;
   }
 
-  getComponent(type) {
-    return this.components.get(type);
+  getComponent(type, index = 0) {
+    const list = this.components.get(type);
+    if (!list) return null;
+    return list[index] ?? null;
   }
 
-  removeComponent(type) {
-    const comp = this.components.get(type);
-    if (comp?.onDestroy) comp.onDestroy();
-    this.components.delete(type);
+  getComponents(type) {
+    return this.components.get(type) ?? [];
+  }
+
+  removeComponent(type, component = null) {
+    const list = this.components.get(type);
+    if (!list) return;
+
+    if (component) {
+      const idx = list.indexOf(component);
+      if (idx !== -1) {
+        list[idx].onDestroy?.();
+        list.splice(idx, 1);
+      }
+    } else {
+      // xóa toàn bộ loại đó
+      for (const comp of list) comp.onDestroy?.();
+      this.components.delete(type);
+    }
+
+    // Nếu list rỗng thì xoá luôn key
+    if (list.length === 0) this.components.delete(type);
   }
 
   syncPhysics() {

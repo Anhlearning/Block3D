@@ -58,8 +58,20 @@
       "imports": [],
       "format": "esm"
     },
+    "src/assets/Models/block_1.glb": {
+      "bytes": 65104,
+      "imports": []
+    },
+    "src/assets/Models/block_2.glb": {
+      "bytes": 65104,
+      "imports": []
+    },
+    "src/assets/Models/L2X2D90.glb": {
+      "bytes": 12700,
+      "imports": []
+    },
     "src/js/LoadManager.js": {
-      "bytes": 4678,
+      "bytes": 4908,
       "imports": [
         {
           "path": "node_modules/three/examples/jsm/loaders/GLTFLoader.js",
@@ -70,6 +82,21 @@
           "path": "src/js/PixiAlias.js",
           "kind": "import-statement",
           "original": "./PixiAlias"
+        },
+        {
+          "path": "src/assets/Models/block_1.glb",
+          "kind": "import-statement",
+          "original": "../assets/Models/block_1.glb"
+        },
+        {
+          "path": "src/assets/Models/block_2.glb",
+          "kind": "import-statement",
+          "original": "../assets/Models/block_2.glb"
+        },
+        {
+          "path": "src/assets/Models/L2X2D90.glb",
+          "kind": "import-statement",
+          "original": "../assets/Models/L2X2D90.glb"
         }
       ],
       "format": "esm"
@@ -220,7 +247,7 @@
       "format": "esm"
     },
     "src/js/Object/SuperObject/ObjectBase.js": {
-      "bytes": 1828,
+      "bytes": 2559,
       "imports": [
         {
           "path": "node_modules/three/build/three.module.js",
@@ -235,8 +262,40 @@
       "imports": [],
       "format": "esm"
     },
-    "src/js/Object/SubObject/BlockObject.js": {
-      "bytes": 4284,
+    "src/js/Object/BlockObject/BaseMoveScript.js": {
+      "bytes": 1411,
+      "imports": [
+        {
+          "path": "node_modules/three/build/three.module.js",
+          "kind": "import-statement",
+          "original": "three"
+        }
+      ],
+      "format": "esm"
+    },
+    "src/js/Object/BlockObject/BlockMoveScript.js": {
+      "bytes": 1521,
+      "imports": [
+        {
+          "path": "node_modules/three/build/three.module.js",
+          "kind": "import-statement",
+          "original": "three"
+        },
+        {
+          "path": "src/js/Object/BlockObject/BaseMoveScript.js",
+          "kind": "import-statement",
+          "original": "./BaseMoveScript.js"
+        },
+        {
+          "path": "src/js/Manager/GameManager.js",
+          "kind": "import-statement",
+          "original": "../../Manager/GameManager.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "src/js/Object/BlockObject/BlockGroup.js": {
+      "bytes": 1152,
       "imports": [
         {
           "path": "node_modules/three/build/three.module.js",
@@ -257,12 +316,69 @@
           "path": "src/js/Utils/RaycastUtils.js",
           "kind": "import-statement",
           "original": "../../Utils/RaycastUtils"
+        },
+        {
+          "path": "src/js/Object/BlockObject/BlockMoveScript.js",
+          "kind": "import-statement",
+          "original": "./BlockMoveScript"
+        }
+      ],
+      "format": "esm"
+    },
+    "src/js/Pooling/ObjectPool.js": {
+      "bytes": 1399,
+      "imports": [],
+      "format": "esm"
+    },
+    "src/js/Pooling/PoolManager.js": {
+      "bytes": 2246,
+      "imports": [
+        {
+          "path": "src/js/Pooling/ObjectPool.js",
+          "kind": "import-statement",
+          "original": "./ObjectPool.js"
+        },
+        {
+          "path": "src/js/LoadManager.js",
+          "kind": "import-statement",
+          "original": "../LoadManager.js"
+        },
+        {
+          "path": "src/js/LoadManager.js",
+          "kind": "import-statement",
+          "original": "../LoadManager.js"
+        },
+        {
+          "path": "src/js/LoadManager.js",
+          "kind": "import-statement",
+          "original": "../LoadManager.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "src/js/Pooling/BlockPoolManager.js": {
+      "bytes": 675,
+      "imports": [
+        {
+          "path": "src/js/Pooling/PoolManager.js",
+          "kind": "import-statement",
+          "original": "./PoolManager.js"
+        },
+        {
+          "path": "src/js/Pooling/ObjectPool.js",
+          "kind": "import-statement",
+          "original": "./ObjectPool.js"
+        },
+        {
+          "path": "node_modules/three/build/three.module.js",
+          "kind": "import-statement",
+          "original": "three"
         }
       ],
       "format": "esm"
     },
     "src/js/core/ThreeApp.js": {
-      "bytes": 5478,
+      "bytes": 6814,
       "imports": [
         {
           "path": "node_modules/three/build/three.module.js",
@@ -295,9 +411,19 @@
           "original": "gsap"
         },
         {
-          "path": "src/js/Object/SubObject/BlockObject.js",
+          "path": "src/js/Object/BlockObject/BlockGroup.js",
           "kind": "import-statement",
-          "original": "../Object/SubObject/BlockObject"
+          "original": "../Object/BlockObject/BlockGroup"
+        },
+        {
+          "path": "src/js/components/Children.js",
+          "kind": "import-statement",
+          "original": "../components/Children"
+        },
+        {
+          "path": "src/js/Pooling/BlockPoolManager.js",
+          "kind": "import-statement",
+          "original": "../Pooling/BlockPoolManager"
         }
       ],
       "format": "esm"
@@ -426,60 +552,8 @@
       ],
       "format": "esm"
     },
-    "src/js/Pooling/ObjectPool.js": {
-      "bytes": 1399,
-      "imports": [],
-      "format": "esm"
-    },
-    "src/js/Pooling/PoolManager.js": {
-      "bytes": 2246,
-      "imports": [
-        {
-          "path": "src/js/Pooling/ObjectPool.js",
-          "kind": "import-statement",
-          "original": "./ObjectPool.js"
-        },
-        {
-          "path": "src/js/LoadManager.js",
-          "kind": "import-statement",
-          "original": "../LoadManager.js"
-        },
-        {
-          "path": "src/js/LoadManager.js",
-          "kind": "import-statement",
-          "original": "../LoadManager.js"
-        },
-        {
-          "path": "src/js/LoadManager.js",
-          "kind": "import-statement",
-          "original": "../LoadManager.js"
-        }
-      ],
-      "format": "esm"
-    },
-    "src/js/Pooling/CakePoolManager.js": {
-      "bytes": 6256,
-      "imports": [
-        {
-          "path": "src/js/Pooling/PoolManager.js",
-          "kind": "import-statement",
-          "original": "./PoolManager.js"
-        },
-        {
-          "path": "src/js/Pooling/ObjectPool.js",
-          "kind": "import-statement",
-          "original": "./ObjectPool.js"
-        },
-        {
-          "path": "node_modules/three/build/three.module.js",
-          "kind": "import-statement",
-          "original": "three"
-        }
-      ],
-      "format": "esm"
-    },
     "src/js/main.js": {
-      "bytes": 882,
+      "bytes": 1116,
       "imports": [
         {
           "path": "src/js/core/PixiApp.js",
@@ -502,9 +576,9 @@
           "original": "./LoadManager.js"
         },
         {
-          "path": "src/js/Pooling/CakePoolManager.js",
+          "path": "src/js/Pooling/BlockPoolManager.js",
           "kind": "import-statement",
-          "original": "./Pooling/CakePoolManager.js"
+          "original": "./Pooling/BlockPoolManager.js"
         }
       ],
       "format": "esm"
@@ -523,7 +597,7 @@
           "bytesInOutput": 330
         },
         "node_modules/three/build/three.core.js": {
-          "bytesInOutput": 202346
+          "bytesInOutput": 201167
         },
         "node_modules/three/build/three.module.js": {
           "bytesInOutput": 319737
@@ -537,8 +611,17 @@
         "src/js/PixiAlias.js": {
           "bytesInOutput": 151
         },
+        "src/assets/Models/block_1.glb": {
+          "bytesInOutput": 86855
+        },
+        "src/assets/Models/block_2.glb": {
+          "bytesInOutput": 86855
+        },
+        "src/assets/Models/L2X2D90.glb": {
+          "bytesInOutput": 16983
+        },
         "src/js/LoadManager.js": {
-          "bytesInOutput": 1341
+          "bytesInOutput": 1373
         },
         "src/js/Config.js": {
           "bytesInOutput": 2912
@@ -559,16 +642,31 @@
           "bytesInOutput": 1747
         },
         "src/js/Object/SuperObject/ObjectBase.js": {
-          "bytesInOutput": 978
+          "bytesInOutput": 1243
         },
         "src/js/components/Children.js": {
           "bytesInOutput": 940
         },
-        "src/js/Object/SubObject/BlockObject.js": {
-          "bytesInOutput": 2133
+        "src/js/Object/BlockObject/BaseMoveScript.js": {
+          "bytesInOutput": 680
+        },
+        "src/js/Object/BlockObject/BlockMoveScript.js": {
+          "bytesInOutput": 674
+        },
+        "src/js/Object/BlockObject/BlockGroup.js": {
+          "bytesInOutput": 472
+        },
+        "src/js/Pooling/ObjectPool.js": {
+          "bytesInOutput": 660
+        },
+        "src/js/Pooling/PoolManager.js": {
+          "bytesInOutput": 1015
+        },
+        "src/js/Pooling/BlockPoolManager.js": {
+          "bytesInOutput": 236
         },
         "src/js/core/ThreeApp.js": {
-          "bytesInOutput": 2396
+          "bytesInOutput": 2836
         },
         "src/js/Sound/SoundManager.js": {
           "bytesInOutput": 1180
@@ -600,20 +698,11 @@
         "src/js/core/Integrator.js": {
           "bytesInOutput": 1139
         },
-        "src/js/Pooling/ObjectPool.js": {
-          "bytesInOutput": 660
-        },
-        "src/js/Pooling/PoolManager.js": {
-          "bytesInOutput": 1015
-        },
-        "src/js/Pooling/CakePoolManager.js": {
-          "bytesInOutput": 2510
-        },
         "src/js/main.js": {
-          "bytesInOutput": 292
+          "bytesInOutput": 439
         }
       },
-      "bytes": 938615
+      "bytes": 1126432
     }
   }
 }

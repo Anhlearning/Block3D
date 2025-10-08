@@ -10,13 +10,20 @@ import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 // import { Texture, Sprite } from 'pixi.js';
 import { Texture, Sprite, Rectangle } from "./PixiAlias";
 //#region  Model Assets
-
+import block_1 from '../assets/Models/block_1.glb';
+import block_2 from '../assets/Models/block_2.glb';
+import block_L from '../assets/Models/L2X2D90.glb';
 //#endregion
 
 //#region ImagesAssets
 
 //#endregion loadImage
-export const modelMap = {};
+export const modelMap = {
+  'block_1': block_1,
+  'block_2': block_2,
+  'block_L': block_L,
+};
+
 const loader = new GLTFLoader();
 export async function loadGLBFromBase64(base64WithPrefix) {
   const arrayBuffer = base64ToArrayBuffer(base64WithPrefix);

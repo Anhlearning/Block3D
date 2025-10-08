@@ -54,7 +54,7 @@ export class TouchManager {
 
     if (obj) {
       if (obj.isClickable && obj.onClick) {
-        const pos = this.utils.getWorldPosition(e, obj.group.position, "z");
+        const pos = this.utils.getWorldPosition(e, obj.group.position, "y");
         obj.onClick(e, pos);
       }
 
@@ -74,7 +74,7 @@ export class TouchManager {
       const pos = this.utils.getWorldPosition(
         e,
         this.dragging.group.position,
-        "z"
+        "y"
       );
       this.dragging.onDragMove(this.dragging.group, pos, e);
     }
