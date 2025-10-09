@@ -112,7 +112,6 @@ export function loadImage(imageSrc, scale = 1) {
     };
   });
 }
-
 export async function loadModel(key) {
   const glb = modelMap[key];
   if (!glb) throw new Error(`Model with key "${key}" not found.`);

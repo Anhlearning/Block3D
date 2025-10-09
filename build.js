@@ -7,7 +7,7 @@ esbuild.build({
     minify: true,
     treeShaking: true,
     sourcemap: false,
-    outfile: 'dist/game.bundle.js',
+    outfile: 'dist/bundle.js',
     format: 'iife',
     target: ['esnext'],
     legalComments: 'none',

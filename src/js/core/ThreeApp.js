@@ -26,10 +26,8 @@ import singletonMap from "../LoadManager";
 import { TOUCHMANAGER } from "../Manager/TouchManager";
 import { GAMEMANAGER } from "../Manager/GameManager";
 import Stats from "three/examples/jsm/libs/stats.module.js";
-import gsap from "gsap";
-import BlockGroup from "../Object/BlockObject/BlockGroup";
-import Children from "../components/Children";
-import { BlockManagerPool } from "../Pooling/BlockPoolManager";
+import BlockGroup from "../Object/Block/BlockGroup";
+
 // import CONFIG from '../Config';
 export default class ThreeApp {
   constructor(container = document.body) {
@@ -68,47 +66,6 @@ export default class ThreeApp {
       renderer: this.renderer,
       physicsWorld: this.physicsWorld,
     });
-    let block_L = BlockManagerPool.acquire('block_L');
-
-    block_L.position.set(-0.5, 0, 0.5)
-    block_L.name = " BLOCK L ";
-    const positions = [
-      new Vector3(-1, 0, 1),
-      new Vector3(-1, 0, 3),
-      new Vector3(-3, 0, 1)
-    ];
-
-    // Thông số hình dạng
-    const size = new Vector3(0.02, 0.02, 0.02);
-    const scale = new Vector3(100, 100, 100);
-    const center = new Vector3(0, 0.1, 0);
-
-    // Material hiển thị debug (nếu muốn thấy)
-    const debugMat = new MeshBasicMaterial({
-      color: 0x00ff00,
-      wireframe: true,
-      transparent: true,
-      opacity: 0.4,
-    });
-
-    for (let i = 0; i < positions.length; i++) {
-      // Tạo hình hộp nhỏ
-      const geo = new BoxGeometry(size.x, size.y, size.z);
-      const mesh = new Mesh(geo, debugMat.clone());
-      mesh.name = `Collider_${i + 1}`;
-      block_L.add(mesh);
-
-      // Thiết lập transform local
-      mesh.position.copy(positions[i]).add(center);
-      mesh.scale.copy(scale);
-
-      // Add trực tiếp collider vào block_L.group
-    }
-    block.addComponent(new Children({
-      child: block_L
-    }))
-    console.log(block.group);
-
     TOUCHMANAGER.addObject(block);
   }
   setupEnvironment() {

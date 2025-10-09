@@ -29,9 +29,8 @@ export class RaycastUtils {
         const intersects = this.raycastObjects(event, objects);
         if (intersects.length > 0) {
             const hit = intersects[0];
-            // Nếu object có parent là một Group trong list → trả về parent
-            const root = objects.find(o => o === hit.object || o === hit.object.parent);
-            return { ...hit, object: root || hit.object };
+            const worldPos = hit.point.clone();              // ✅ clone ra để dùng an toàn
+            return { ...hit, worldPos };         // ✅ thêm thuộc tính worldPos
         }
         return null;
     }
@@ -62,13 +61,31 @@ export class RaycastUtils {
         }
         return refPos.clone();
     }
-    static raycastFromPoint(origin, direction, targets, maxDistance = Infinity) {
+    static raycastFromPoint(origin, direction, targets, maxDistance = Infinity, ignoreParent = null) {
         const raycaster = new Raycaster(
             origin.clone(),
             direction.clone().normalize(),
             0,
             maxDistance
         );
-        return raycaster.intersectObjects(targets, true);
+        // ✅ Nếu có ignoreParent → loại bỏ nó và toàn bộ con của nó
+        let filteredTargets  = targets;
+        if (ignoreParent) {
+            const ignoreList = new Set();
+
+            // Duyệt đệ quy toàn bộ con cháu của ignoreParent
+            const collectChildren = (obj) => {
+                ignoreList.add(obj);
+                for (const c of obj.children) collectChildren(c);
+            };
+            collectChildren(ignoreParent);
+
+            filteredTargets = targets.filter(t => !ignoreList.has(t));
+        }
+
+        // ✅ intersectObjects(true) → quét cả các mesh con của các group
+        return raycaster.intersectObjects(filteredTargets, true);
+
     }
+
 }

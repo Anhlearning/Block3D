@@ -71,7 +71,7 @@
       "imports": []
     },
     "src/js/LoadManager.js": {
-      "bytes": 4908,
+      "bytes": 4906,
       "imports": [
         {
           "path": "node_modules/three/examples/jsm/loaders/GLTFLoader.js",
@@ -210,7 +210,7 @@
       "format": "esm"
     },
     "src/js/Utils/RaycastUtils.js": {
-      "bytes": 2573,
+      "bytes": 3214,
       "imports": [
         {
           "path": "node_modules/three/build/three.module.js",
@@ -226,7 +226,7 @@
       "format": "esm"
     },
     "src/js/Manager/TouchManager.js": {
-      "bytes": 2539,
+      "bytes": 2609,
       "imports": [
         {
           "path": "src/js/Utils/RaycastUtils.js",
@@ -262,7 +262,7 @@
       "imports": [],
       "format": "esm"
     },
-    "src/js/Object/BlockObject/BaseMoveScript.js": {
+    "src/js/Object/Block/BaseMoveScript.js": {
       "bytes": 1411,
       "imports": [
         {
@@ -273,54 +273,49 @@
       ],
       "format": "esm"
     },
-    "src/js/Object/BlockObject/BlockMoveScript.js": {
-      "bytes": 1521,
+    "src/js/Object/Block/BlockScript.js": {
+      "bytes": 1103,
       "imports": [
         {
           "path": "node_modules/three/build/three.module.js",
           "kind": "import-statement",
           "original": "three"
-        },
+        }
+      ],
+      "format": "esm"
+    },
+    "src/js/Object/Block/BlockMoveScript.js": {
+      "bytes": 16780,
+      "imports": [
         {
-          "path": "src/js/Object/BlockObject/BaseMoveScript.js",
+          "path": "node_modules/three/build/three.module.js",
           "kind": "import-statement",
-          "original": "./BaseMoveScript.js"
+          "original": "three"
         },
         {
           "path": "src/js/Manager/GameManager.js",
           "kind": "import-statement",
           "original": "../../Manager/GameManager.js"
-        }
-      ],
-      "format": "esm"
-    },
-    "src/js/Object/BlockObject/BlockGroup.js": {
-      "bytes": 1152,
-      "imports": [
-        {
-          "path": "node_modules/three/build/three.module.js",
-          "kind": "import-statement",
-          "original": "three"
         },
         {
-          "path": "src/js/Object/SuperObject/ObjectBase.js",
+          "path": "src/js/Object/Block/BaseMoveScript.js",
           "kind": "import-statement",
-          "original": "../SuperObject/ObjectBase"
+          "original": "./BaseMoveScript.js"
         },
         {
-          "path": "src/js/components/Children.js",
+          "path": "src/js/Object/Block/BlockScript.js",
           "kind": "import-statement",
-          "original": "../../components/Children"
+          "original": "./BlockScript.js"
         },
         {
           "path": "src/js/Utils/RaycastUtils.js",
           "kind": "import-statement",
-          "original": "../../Utils/RaycastUtils"
+          "original": "../../Utils/RaycastUtils.js"
         },
         {
-          "path": "src/js/Object/BlockObject/BlockMoveScript.js",
+          "path": "src/js/Manager/TouchManager.js",
           "kind": "import-statement",
-          "original": "./BlockMoveScript"
+          "original": "../../Manager/TouchManager.js"
         }
       ],
       "format": "esm"
@@ -377,8 +372,44 @@
       ],
       "format": "esm"
     },
+    "src/js/Object/Block/BlockGroup.js": {
+      "bytes": 4530,
+      "imports": [
+        {
+          "path": "node_modules/three/build/three.module.js",
+          "kind": "import-statement",
+          "original": "three"
+        },
+        {
+          "path": "src/js/Object/SuperObject/ObjectBase.js",
+          "kind": "import-statement",
+          "original": "../SuperObject/ObjectBase"
+        },
+        {
+          "path": "src/js/components/Children.js",
+          "kind": "import-statement",
+          "original": "../../components/Children"
+        },
+        {
+          "path": "src/js/Object/Block/BlockMoveScript.js",
+          "kind": "import-statement",
+          "original": "./BlockMoveScript"
+        },
+        {
+          "path": "src/js/Pooling/BlockPoolManager.js",
+          "kind": "import-statement",
+          "original": "../../Pooling/BlockPoolManager"
+        },
+        {
+          "path": "src/js/Object/Block/BlockScript.js",
+          "kind": "import-statement",
+          "original": "./BlockScript"
+        }
+      ],
+      "format": "esm"
+    },
     "src/js/core/ThreeApp.js": {
-      "bytes": 6814,
+      "bytes": 5474,
       "imports": [
         {
           "path": "node_modules/three/build/three.module.js",
@@ -406,24 +437,9 @@
           "original": "three/examples/jsm/libs/stats.module.js"
         },
         {
-          "path": "node_modules/gsap/index.js",
+          "path": "src/js/Object/Block/BlockGroup.js",
           "kind": "import-statement",
-          "original": "gsap"
-        },
-        {
-          "path": "src/js/Object/BlockObject/BlockGroup.js",
-          "kind": "import-statement",
-          "original": "../Object/BlockObject/BlockGroup"
-        },
-        {
-          "path": "src/js/components/Children.js",
-          "kind": "import-statement",
-          "original": "../components/Children"
-        },
-        {
-          "path": "src/js/Pooling/BlockPoolManager.js",
-          "kind": "import-statement",
-          "original": "../Pooling/BlockPoolManager"
+          "original": "../Object/Block/BlockGroup"
         }
       ],
       "format": "esm"
@@ -585,7 +601,7 @@
     }
   },
   "outputs": {
-    "dist/game.bundle.js": {
+    "dist/bundle.js": {
       "imports": [],
       "exports": [],
       "entryPoint": "src/js/main.js",
@@ -597,7 +613,7 @@
           "bytesInOutput": 330
         },
         "node_modules/three/build/three.core.js": {
-          "bytesInOutput": 201167
+          "bytesInOutput": 201932
         },
         "node_modules/three/build/three.module.js": {
           "bytesInOutput": 319737
@@ -630,13 +646,13 @@
           "bytesInOutput": 854
         },
         "src/js/Utils/RaycastUtils.js": {
-          "bytesInOutput": 1007
+          "bytesInOutput": 1084
         },
         "src/js/Manager/GameManager.js": {
           "bytesInOutput": 52
         },
         "src/js/Manager/TouchManager.js": {
-          "bytesInOutput": 1324
+          "bytesInOutput": 1377
         },
         "node_modules/three/examples/jsm/libs/stats.module.js": {
           "bytesInOutput": 1747
@@ -647,14 +663,14 @@
         "src/js/components/Children.js": {
           "bytesInOutput": 940
         },
-        "src/js/Object/BlockObject/BaseMoveScript.js": {
+        "src/js/Object/Block/BaseMoveScript.js": {
           "bytesInOutput": 680
         },
-        "src/js/Object/BlockObject/BlockMoveScript.js": {
-          "bytesInOutput": 674
+        "src/js/Object/Block/BlockScript.js": {
+          "bytesInOutput": 536
         },
-        "src/js/Object/BlockObject/BlockGroup.js": {
-          "bytesInOutput": 472
+        "src/js/Object/Block/BlockMoveScript.js": {
+          "bytesInOutput": 6923
         },
         "src/js/Pooling/ObjectPool.js": {
           "bytesInOutput": 660
@@ -665,8 +681,11 @@
         "src/js/Pooling/BlockPoolManager.js": {
           "bytesInOutput": 236
         },
+        "src/js/Object/Block/BlockGroup.js": {
+          "bytesInOutput": 1229
+        },
         "src/js/core/ThreeApp.js": {
-          "bytesInOutput": 2836
+          "bytesInOutput": 2387
         },
         "src/js/Sound/SoundManager.js": {
           "bytesInOutput": 1180
@@ -702,7 +721,7 @@
           "bytesInOutput": 439
         }
       },
-      "bytes": 1126432
+      "bytes": 1134420
     }
   }
 }
