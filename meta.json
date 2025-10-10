@@ -1,7 +1,7 @@
 {
   "inputs": {
     "src/js/Event/EventEmitter.js": {
-      "bytes": 922,
+      "bytes": 1056,
       "imports": [],
       "format": "esm"
     },
@@ -70,8 +70,12 @@
       "bytes": 12700,
       "imports": []
     },
+    "src/assets/Models/exit3.glb": {
+      "bytes": 6676,
+      "imports": []
+    },
     "src/js/LoadManager.js": {
-      "bytes": 4906,
+      "bytes": 4974,
       "imports": [
         {
           "path": "node_modules/three/examples/jsm/loaders/GLTFLoader.js",
@@ -97,6 +101,11 @@
           "path": "src/assets/Models/L2X2D90.glb",
           "kind": "import-statement",
           "original": "../assets/Models/L2X2D90.glb"
+        },
+        {
+          "path": "src/assets/Models/exit3.glb",
+          "kind": "import-statement",
+          "original": "../assets/Models/exit3.glb"
         }
       ],
       "format": "esm"
@@ -274,7 +283,7 @@
       "format": "esm"
     },
     "src/js/Object/Block/BlockScript.js": {
-      "bytes": 1103,
+      "bytes": 1065,
       "imports": [
         {
           "path": "node_modules/three/build/three.module.js",
@@ -285,7 +294,7 @@
       "format": "esm"
     },
     "src/js/Object/Block/BlockMoveScript.js": {
-      "bytes": 16780,
+      "bytes": 16586,
       "imports": [
         {
           "path": "node_modules/three/build/three.module.js",
@@ -372,8 +381,13 @@
       ],
       "format": "esm"
     },
+    "src/js/Const/GameConstant.js": {
+      "bytes": 1575,
+      "imports": [],
+      "format": "esm"
+    },
     "src/js/Object/Block/BlockGroup.js": {
-      "bytes": 4530,
+      "bytes": 3881,
       "imports": [
         {
           "path": "node_modules/three/build/three.module.js",
@@ -404,12 +418,17 @@
           "path": "src/js/Object/Block/BlockScript.js",
           "kind": "import-statement",
           "original": "./BlockScript"
+        },
+        {
+          "path": "src/js/Const/GameConstant.js",
+          "kind": "import-statement",
+          "original": "../../Const/GameConstant"
         }
       ],
       "format": "esm"
     },
     "src/js/core/ThreeApp.js": {
-      "bytes": 5474,
+      "bytes": 5782,
       "imports": [
         {
           "path": "node_modules/three/build/three.module.js",
@@ -610,7 +629,7 @@
           "bytesInOutput": 36197
         },
         "src/js/Event/EventEmitter.js": {
-          "bytesInOutput": 330
+          "bytesInOutput": 444
         },
         "node_modules/three/build/three.core.js": {
           "bytesInOutput": 201932
@@ -636,8 +655,11 @@
         "src/assets/Models/L2X2D90.glb": {
           "bytesInOutput": 16983
         },
+        "src/assets/Models/exit3.glb": {
+          "bytesInOutput": 8951
+        },
         "src/js/LoadManager.js": {
-          "bytesInOutput": 1373
+          "bytesInOutput": 1382
         },
         "src/js/Config.js": {
           "bytesInOutput": 2912
@@ -667,10 +689,10 @@
           "bytesInOutput": 680
         },
         "src/js/Object/Block/BlockScript.js": {
-          "bytesInOutput": 536
+          "bytesInOutput": 525
         },
         "src/js/Object/Block/BlockMoveScript.js": {
-          "bytesInOutput": 6923
+          "bytesInOutput": 7686
         },
         "src/js/Pooling/ObjectPool.js": {
           "bytesInOutput": 660
@@ -681,11 +703,14 @@
         "src/js/Pooling/BlockPoolManager.js": {
           "bytesInOutput": 236
         },
+        "src/js/Const/GameConstant.js": {
+          "bytesInOutput": 567
+        },
         "src/js/Object/Block/BlockGroup.js": {
-          "bytesInOutput": 1229
+          "bytesInOutput": 1695
         },
         "src/js/core/ThreeApp.js": {
-          "bytesInOutput": 2387
+          "bytesInOutput": 2573
         },
         "src/js/Sound/SoundManager.js": {
           "bytesInOutput": 1180
@@ -721,7 +746,7 @@
           "bytesInOutput": 439
         }
       },
-      "bytes": 1134420
+      "bytes": 1145465
     }
   }
 }

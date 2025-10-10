@@ -16,9 +16,10 @@ import Children from "../../components/Children";
 import BlockMoveScript from "./BlockMoveScript";
 import { BlockManagerPool } from "../../Pooling/BlockPoolManager";
 import { BlockScript } from "./BlockScript";
+import GameConstant from "../../Const/GameConstant";
 
 export class BlockGroup extends ObjectBase {
-  constructor({ scene, camera, renderer, physicsWorld }) {
+  constructor({ BlockName, scene, camera, renderer, physicsWorld }) {
     super({
       scene,
       camera,
@@ -30,93 +31,54 @@ export class BlockGroup extends ObjectBase {
     this.dragOffset = new Vector3(0, 0, 0);
     this.addComponent(new BlockScript());
     this.addComponent(new BlockMoveScript());
-    this.InitBlock();
-
-    console.log(this.group);
+    this.InitBlock(BlockName);
   }
-  InitBlock() {
-    let block_L = BlockManagerPool.acquire('block_L');
-    block_L.name = "BLOCK L";
-    block_L.rotation.y = MathUtils.degToRad(90);
-    block_L.position.set(-1.5, 0, -2.5);
-    //#region  child BoxCollider 
-    const positions = [
-      new Vector3(-1, 0, 1),
-      new Vector3(-1, 0, 3),
-      new Vector3(-3, 0, 1)
-    ];
-    // Thông số hình dạng
-    const size = new Vector3(0.02, 0.02, 0.02);
-    const scale = new Vector3(100, 100, 100);
-    const center = new Vector3(0, 0.1, 0);
-
-    // ✅ Mỗi collider có tông màu khác nhau
-    const colliderBaseColors = [0xff6600, 0x00ffaa, 0x3366ff]; // cam, xanh ngọc, xanh lam
-
-    const baseLength = 0.05;
-
-    // const directions = {
-    //   // thẳng
-    //   right: new Vector3(1, 0, 0),
-    //   left: new Vector3(-1, 0, 0),
-    //   forward: new Vector3(0, 0, 1),
-    //   back: new Vector3(0, 0, -1),
-    //   // chéo
-    //   frontRight: new Vector3(1, 0, 1).normalize(),
-    //   frontLeft: new Vector3(-1, 0, 1).normalize(),
-    //   backRight: new Vector3(1, 0, -1).normalize(),
-    //   backLeft: new Vector3(-1, 0, -1).normalize(),
-    // };
-
-    // ✅ Vẽ từng collider khác màu
-    for (let i = 0; i < positions.length; i++) {
-      const baseColor = colliderBaseColors[i % colliderBaseColors.length];
-
-      const debugMat = new MeshBasicMaterial({
-        color: baseColor,
-        wireframe: true,
-
-        transparent: true,
-        opacity: 0.6,
-      });
-
-      const geo = new BoxGeometry(size.x, size.y, size.z);
-      const mesh = new Mesh(geo, debugMat.clone());
-      mesh.name = `Collider_${i + 1}`;
-      block_L.add(mesh);
-
-      mesh.position.copy(positions[i]).add(center);
-      mesh.scale.copy(scale);
-
-      // // ✅ tạo 8 tia ray cố định
-      // mesh.userData.rays = {};
-      // for (const [key, dir] of Object.entries(directions)) {
-      //   const start = new Vector3(0, 0, 0);
-      //   const end = dir.clone().multiplyScalar(baseLength);
-
-      //   // 💡 Tạo màu ray bằng cách pha tông chính với hướng
-      //   const hueShift = (i * 0.2 + Math.random() * 0.05) % 1;
-      //   const color = new Color(baseColor).offsetHSL(hueShift, 0.2, 0);
-
-      //   const lineGeo = new BufferGeometry().setFromPoints([start, end]);
-      //   const lineMat = new LineBasicMaterial({
-      //     color: color,
-      //     transparent: true,
-      //     opacity: 0.9,
-      //   });
-
-      //   const line = new Line(lineGeo, lineMat);
-      //   line.name = `Ray_${key}`;
-      //   mesh.add(line);
-
-      //   mesh.userData.rays[key] = line;
-      // }
+  InitBlock(key) {
+    const detail = GameConstant.BLOCK_DETAIL[key];
+    this.sizeX = detail.size.x;
+    this.sizeY = detail.size.y;
+    if (!detail) {
+      console.warn(`⚠️ Không tìm thấy config cho key: ${key}`);
+      return;
     }
-    //#endregion
+    const block = BlockManagerPool.acquire(detail.name || key.toLowerCase());
+    block.name = detail.name || key;
 
-    this.addComponent(new Children({
-      child: block_L
-    }))
+    block.rotation.set(
+      MathUtils.degToRad(detail.rotation.x || 0),
+      MathUtils.degToRad(detail.rotation.y || 0),
+      MathUtils.degToRad(detail.rotation.z || 0)
+    );
+
+    if (detail.position)
+      block.position.set(detail.position.x, detail.position.y, detail.position.z);
+
+    // 🔸 3. Tạo collider theo thông số trong config
+    if (Array.isArray(detail.colliders)) {
+      const baseColors = [0xff6600, 0x00ffaa, 0x3366ff];
+      detail.colliders.forEach((col, i) => {
+        const geo = new BoxGeometry(col.size.x, col.size.y, col.size.z);
+        const mat = new MeshBasicMaterial({
+          color: baseColors[i % baseColors.length],
+          wireframe: true,
+          transparent: true,
+          opacity: 0.6,
+        });
+        const mesh = new Mesh(geo, mat);
+        mesh.name = col.name || `Collider_${i + 1}`;
+        block.add(mesh);
+
+        const pos = new Vector3(col.position.x, col.position.y, col.position.z);
+        const center = new Vector3(col.center.x, col.center.y, col.center.z);
+        mesh.position.copy(pos.add(center));
+
+        mesh.scale.set(col.scale.x, col.scale.y, col.scale.z);
+      });
+    }
+
+    // 🔸 4. Gắn block vào đối tượng hiện tại
+    this.addComponent(new Children({ child: block }));
+    //Pivot
     const circleGeo = new CircleGeometry(0.1, 32);
     const circleMat = new MeshBasicMaterial({
       color: 0xff0000,
@@ -127,10 +89,23 @@ export class BlockGroup extends ObjectBase {
     const circleMesh = new Mesh(circleGeo, circleMat);
     circleMesh.rotation.x = -Math.PI / 2;
     circleMesh.position.set(0, 0, 0);
+
     this.group.add(circleMesh);
-
   }
+  GetSize(dir) {
+    const up = new Vector3(0, 1, 0);
+    const down = new Vector3(0, -1, 0);
 
+    // Tính góc giữa vector dir và up/down
+    const angleToUp = dir.angleTo(up) * MathUtils.RAD2DEG;
+    const angleToDown = dir.angleTo(down) * MathUtils.RAD2DEG;
+
+    if (angleToUp < 15 || angleToDown < 15) {
+      return this._size.y;
+    }
+
+    return this._size.x;
+  }
   onClick(e, pos) {
 
   }

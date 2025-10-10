@@ -18,9 +18,9 @@ export class BlockMoveScript extends BaseMoveScript {
         super();
         this.scene = scene;
         this.OffsetForEffect = 0.1;
-        this.ScaleFactor = 1.0;
+        this.ScaleFactor = 4.0;
         this.Tolerance = 0.01;
-        this.PosRay = 0.25;
+        this.PosRay = 0.5;
     }
 
     getType() {
@@ -31,7 +31,7 @@ export class BlockMoveScript extends BaseMoveScript {
         super.onAttach(owner);
         this.blockScript = owner.getComponent("BlockScript");
     }
-    onDragStart(obj, hit) {
+    onDragStart(obj, e, hit) {
         this.dragging = true;
         this._loggedFirstFrame = false; // reset flag mỗi khi bắt đầu kéo
 
@@ -56,13 +56,9 @@ export class BlockMoveScript extends BaseMoveScript {
         const group = this.owner.group;
         const parent = group.parent || GAMEMANAGER.scene;
         const step = this.SPEED * GAMEMANAGER.delta;
-        // 1. Chuyển pos (raycast hit world-space) sang local-space
         const localPos = parent.worldToLocal(pos.clone());
-
-        // 2. Cộng offset local → tạo vị trí mới trong local-space
+        const objPos = group.position.clone();
         const newLocalPos = new Vector3().addVectors(localPos, this.dragOffset);
-
-        // 3. Chuyển ngược sang world-space
         const TempVector3 = parent.localToWorld(newLocalPos);
         TempVector3.y = 0;
 
@@ -77,38 +73,38 @@ export class BlockMoveScript extends BaseMoveScript {
             console.log("TempVector3 (final target world pos):", TempVector3);
         }
 
-        // // Nếu bị khóa
-        // if (this.blockScript.getLockState() !== LockState.None) {
-        //     this.MaxX = this.originPosition.x + this.OffsetForEffect;
-        //     this.MinX = this.originPosition.x - this.OffsetForEffect;
-        //     this.MaxZ = this.originPosition.z + this.OffsetForEffect;
-        //     this.MinZ = this.originPosition.z - this.OffsetForEffect;
-        //     this._moveLimited(objPos, TempVector3, step);
-        //     return;
-        // }
-        // // Horizontal
-        // if (this.blockScript.getMoveType() !== MoveType.Vertical) {
-        //     this.MaxX = 50;
-        //     this.MinX = -50;
-        //     if (this.blockScript.getMoveType() === MoveType.Free) {
-        //         this._rayCastCrossHorizontal(TempVector3);
-        //     }
-        //     this._rayCastStraightHorizontal(TempVector3);
-        //     objPos.copy(this._applyAxisMovementX(objPos, TempVector3, step));
-        // }
+        // Nếu bị khóa
+        if (this.blockScript.getLockState() !== LockState.None) {
+            this.MaxX = this.originPosition.x + this.OffsetForEffect;
+            this.MinX = this.originPosition.x - this.OffsetForEffect;
+            this.MaxZ = this.originPosition.z + this.OffsetForEffect;
+            this.MinZ = this.originPosition.z - this.OffsetForEffect;
+            this._moveLimited(objPos, TempVector3, step);
+            return;
+        }
+        // Horizontal
+        if (this.blockScript.getMoveType() !== MoveType.Vertical) {
+            this.MaxX = 50;
+            this.MinX = -50;
+            if (this.blockScript.getMoveType() === MoveType.Free) {
+                this._rayCastCrossHorizontal(TempVector3);
+            }
+            this._rayCastStraightHorizontal(TempVector3);
+            objPos.copy(this._applyAxisMovementX(objPos, TempVector3, step));
+        }
 
-        // // Vertical
-        // if (this.blockScript.getMoveType() !== MoveType.Horizontal) {
-        //     this.MaxZ = 50;
-        //     this.MinZ = -50;
-        //     if (this.blockScript.getMoveType() === MoveType.Free) {
-        //         this._rayCastCrossVertical(TempVector3);
-        //     }
-        //     this._rayCastStraightVertical(TempVector3);
-        //     objPos.copy(this._applyAxisMovementZ(objPos, TempVector3, step));
-        // }
+        // Vertical
+        if (this.blockScript.getMoveType() !== MoveType.Horizontal) {
+            this.MaxZ = 50;
+            this.MinZ = -50;
+            if (this.blockScript.getMoveType() === MoveType.Free) {
+                this._rayCastCrossVertical(TempVector3);
+            }
+            this._rayCastStraightVertical(TempVector3);
+            objPos.copy(this._applyAxisMovementZ(objPos, TempVector3, step));
+        }
 
-        this.owner.group.position.lerp(TempVector3, step);
+        this.owner.group.position.lerp(objPos, step);
     }
     onDragEnd(obj, e) {
         this.dragging = false;
@@ -118,10 +114,13 @@ export class BlockMoveScript extends BaseMoveScript {
     // Snap vị trí block về lưới gần nhất (giống Mathf.Round)
     snapGrid() {
         const p = this.owner.group.position;
-        p.x = Math.round(p.x);
-        p.z = Math.round(p.z);
+
+        // Làm tròn về bội số của 2
+        p.x = Math.round(p.x / 2) * 2;
+        p.z = Math.round(p.z / 2) * 2;
+
         this.owner.group.position.copy(p);
-        console.log("Snapped to grid:", p);
+        console.log("Snapped to grid (step=2):", p);
     }
     // =============== chuyển động giới hạn (MoveTowards + Lerp) ===============
     _moveLimited(position, target, step) {
@@ -207,9 +206,9 @@ export class BlockMoveScript extends BaseMoveScript {
         if (farH < 20 && hitFar) {
             const v = obj.position.clone();
             if (TempVector3.x > obj.position.x)
-                this.MaxX = Math.min(v.x + hitFar.distance - 0.5, this.MaxX) + this.OffsetForEffect;
+                this.MaxX = Math.min(v.x + hitFar.distance - 1, this.MaxX) + this.OffsetForEffect;
             else
-                this.MinX = Math.max(v.x - hitFar.distance + 0.5, this.MinX) - this.OffsetForEffect;
+                this.MinX = Math.max(v.x - hitFar.distance + 1, this.MinX) - this.OffsetForEffect;
 
             console.log('%cUpdated Limits (Horizontal):', 'color:#00ff00', {
                 MaxX: this.MaxX,
@@ -262,9 +261,9 @@ export class BlockMoveScript extends BaseMoveScript {
         if (farV < 20 && hitFar) {
             const v = obj.position.clone();
             if (TempVector3.z > obj.position.z)
-                this.MaxZ = Math.min(v.z + hitFar.distance - 0.5, this.MaxZ) + this.OffsetForEffect;
+                this.MaxZ = Math.min(v.z + hitFar.distance - 1, this.MaxZ) + this.OffsetForEffect;
             else
-                this.MinZ = Math.max(v.z - hitFar.distance + 0.5, this.MinZ) - this.OffsetForEffect;
+                this.MinZ = Math.max(v.z - hitFar.distance + 1, this.MinZ) - this.OffsetForEffect;
 
             console.log('%cUpdated Limits (Vertical):', 'color:#00ff00', {
                 MaxZ: this.MaxZ,
@@ -319,13 +318,13 @@ export class BlockMoveScript extends BaseMoveScript {
             console.log('%cClosest diagonal hit:', 'color:#ffcc00', { hitObject: hitFar.object.name, hitPoint, far });
 
             if (TempVector3.x > obj.position.x) {
-                if (Math.abs(hitPoint.x - hitFar.object.position.x + 0.5) < this.Tolerance) {
-                    const dis = hitFar.object.position.x - shortest.x - 0.5;
+                if (Math.abs(hitPoint.x - hitFar.object.position.x + 1) < this.Tolerance) {
+                    const dis = hitFar.object.position.x - shortest.x - 1;
                     this.MaxX = Math.round(obj.position.x + dis);
                 }
             } else {
-                if (Math.abs(hitPoint.x - hitFar.object.position.x - 0.5) < this.Tolerance) {
-                    const dis = shortest.x - hitFar.object.position.x - 0.5;
+                if (Math.abs(hitPoint.x - hitFar.object.position.x - 1) < this.Tolerance) {
+                    const dis = shortest.x - hitFar.object.position.x - 1;
                     this.MinX = Math.round(obj.position.x - dis);
                 }
             }
@@ -381,13 +380,13 @@ export class BlockMoveScript extends BaseMoveScript {
             console.log('%cClosest diagonal hit:', 'color:#ffcc00', { hitObject: hitFar.object.name, hitPoint, far });
 
             if (TempVector3.z > obj.position.z) {
-                if (Math.abs(hitPoint.z + 0.5 - hitFar.object.position.z) < this.Tolerance) {
-                    const dis = hitFar.object.position.z - shortest.z - 0.5;
+                if (Math.abs(hitPoint.z + 1 - hitFar.object.position.z) < this.Tolerance) {
+                    const dis = hitFar.object.position.z - shortest.z - 1;
                     this.MaxZ = Math.round(obj.position.z + dis);
                 }
             } else {
-                if (Math.abs(hitPoint.z - hitFar.object.position.z - 0.5) < this.Tolerance) {
-                    const dis = shortest.z - hitFar.object.position.z - 0.5;
+                if (Math.abs(hitPoint.z - hitFar.object.position.z - 1) < this.Tolerance) {
+                    const dis = shortest.z - hitFar.object.position.z - 1;
                     this.MinZ = Math.round(obj.position.z - dis);
                 }
             }

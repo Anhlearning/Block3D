@@ -15,7 +15,7 @@ export class BlockScript {
   constructor() {
     this.lockState = LockState.None;
     this.moveType = MoveType.Free;
-    this.color = new Color(0xffffff); // mặc định trắng
+    this.colorId = 1; 
   }
   onAttach(owner) {
     this.owner = owner;
@@ -44,7 +44,7 @@ export class BlockScript {
 
   // ====== Color ======
   getColor() {
-    return this.color;
+    return this.colorId;
   }
 
   setColor(value) {

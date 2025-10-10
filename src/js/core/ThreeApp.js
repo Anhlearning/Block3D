@@ -61,12 +61,22 @@ export default class ThreeApp {
     TOUCHMANAGER.Init(this.scene, this.camera, this.renderer);
     this.setupEnvironment();
     const block = new BlockGroup({
+      BlockName: "BLOCK_L",
       scene: this.scene,
       camera: this.camera,
       renderer: this.renderer,
       physicsWorld: this.physicsWorld,
     });
+    const block1 = new BlockGroup({
+      BlockName: "BLOCK_L",
+      scene: this.scene,
+      camera: this.camera,
+      renderer: this.renderer,
+      physicsWorld: this.physicsWorld,
+    });
+    block1.group.position.set(2, 0, 6);
     TOUCHMANAGER.addObject(block);
+    TOUCHMANAGER.addObject(block1);
   }
   setupEnvironment() {
     this.renderer.setPixelRatio(window.devicePixelRatio);

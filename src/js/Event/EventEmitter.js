@@ -3,8 +3,12 @@
 export const EventKeys = Object.freeze({
   ADD_EXP: "AddExp",
   LEVEL_UP: "LevelUp",
-  GAME_OVER: "GameOver"
+  GAME_OVER: "GameOver",
   // … thêm các event khác ở đây
+  CHECK_GATE: "CHECK_GATE",
+  BLOCK_MOVE: "BLOCK_MOVE",
+  BLOCK_COLLECTED: "BLOCK_COLLECTED",
+  BLOCK_RELEASED: "BLOCK_RELEASED"
 });
 
 export class EventEmitter {

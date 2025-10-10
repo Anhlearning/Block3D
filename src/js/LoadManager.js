@@ -13,6 +13,7 @@ import { Texture, Sprite, Rectangle } from "./PixiAlias";
 import block_1 from '../assets/Models/block_1.glb';
 import block_2 from '../assets/Models/block_2.glb';
 import block_L from '../assets/Models/L2X2D90.glb';
+import exit3 from '../assets/Models/exit3.glb';
 //#endregion
 
 //#region ImagesAssets
@@ -22,6 +23,7 @@ export const modelMap = {
   'block_1': block_1,
   'block_2': block_2,
   'block_L': block_L,
+  'exit3': exit3,
 };
 
 const loader = new GLTFLoader();
