@@ -71,7 +71,7 @@
       "imports": []
     },
     "src/assets/Models/exit3.glb": {
-      "bytes": 6676,
+      "bytes": 6704,
       "imports": []
     },
     "src/js/LoadManager.js": {
@@ -230,8 +230,14 @@
       "format": "esm"
     },
     "src/js/Manager/GameManager.js": {
-      "bytes": 131,
-      "imports": [],
+      "bytes": 238,
+      "imports": [
+        {
+          "path": "node_modules/three/build/three.module.js",
+          "kind": "import-statement",
+          "original": "three"
+        }
+      ],
       "format": "esm"
     },
     "src/js/Manager/TouchManager.js": {
@@ -283,7 +289,7 @@
       "format": "esm"
     },
     "src/js/Object/Block/BlockScript.js": {
-      "bytes": 1065,
+      "bytes": 1077,
       "imports": [
         {
           "path": "node_modules/three/build/three.module.js",
@@ -294,7 +300,7 @@
       "format": "esm"
     },
     "src/js/Object/Block/BlockMoveScript.js": {
-      "bytes": 16586,
+      "bytes": 16872,
       "imports": [
         {
           "path": "node_modules/three/build/three.module.js",
@@ -325,6 +331,11 @@
           "path": "src/js/Manager/TouchManager.js",
           "kind": "import-statement",
           "original": "../../Manager/TouchManager.js"
+        },
+        {
+          "path": "src/js/Event/EventEmitter.js",
+          "kind": "import-statement",
+          "original": "../../Event/EventEmitter.js"
         }
       ],
       "format": "esm"
@@ -382,12 +393,12 @@
       "format": "esm"
     },
     "src/js/Const/GameConstant.js": {
-      "bytes": 1575,
+      "bytes": 1675,
       "imports": [],
       "format": "esm"
     },
     "src/js/Object/Block/BlockGroup.js": {
-      "bytes": 3881,
+      "bytes": 4714,
       "imports": [
         {
           "path": "node_modules/three/build/three.module.js",
@@ -427,8 +438,49 @@
       ],
       "format": "esm"
     },
+    "src/js/Object/Gate/Gate.js": {
+      "bytes": 9309,
+      "imports": [
+        {
+          "path": "node_modules/three/build/three.module.js",
+          "kind": "import-statement",
+          "original": "three"
+        },
+        {
+          "path": "src/js/Pooling/BlockPoolManager.js",
+          "kind": "import-statement",
+          "original": "../../Pooling/BlockPoolManager"
+        },
+        {
+          "path": "src/js/Event/EventEmitter.js",
+          "kind": "import-statement",
+          "original": "../../Event/EventEmitter"
+        },
+        {
+          "path": "src/js/Manager/GameManager.js",
+          "kind": "import-statement",
+          "original": "../../Manager/GameManager"
+        },
+        {
+          "path": "src/js/Utils/RaycastUtils.js",
+          "kind": "import-statement",
+          "original": "../../Utils/RaycastUtils"
+        },
+        {
+          "path": "src/js/Manager/TouchManager.js",
+          "kind": "import-statement",
+          "original": "../../Manager/TouchManager"
+        },
+        {
+          "path": "src/js/Object/Block/BlockScript.js",
+          "kind": "import-statement",
+          "original": "../Block/BlockScript"
+        }
+      ],
+      "format": "esm"
+    },
     "src/js/core/ThreeApp.js": {
-      "bytes": 5782,
+      "bytes": 6073,
       "imports": [
         {
           "path": "node_modules/three/build/three.module.js",
@@ -459,6 +511,11 @@
           "path": "src/js/Object/Block/BlockGroup.js",
           "kind": "import-statement",
           "original": "../Object/Block/BlockGroup"
+        },
+        {
+          "path": "src/js/Object/Gate/Gate.js",
+          "kind": "import-statement",
+          "original": "../Object/Gate/Gate"
         }
       ],
       "format": "esm"
@@ -632,7 +689,7 @@
           "bytesInOutput": 444
         },
         "node_modules/three/build/three.core.js": {
-          "bytesInOutput": 201932
+          "bytesInOutput": 203111
         },
         "node_modules/three/build/three.module.js": {
           "bytesInOutput": 319737
@@ -656,7 +713,7 @@
           "bytesInOutput": 16983
         },
         "src/assets/Models/exit3.glb": {
-          "bytesInOutput": 8951
+          "bytesInOutput": 8987
         },
         "src/js/LoadManager.js": {
           "bytesInOutput": 1382
@@ -671,7 +728,7 @@
           "bytesInOutput": 1084
         },
         "src/js/Manager/GameManager.js": {
-          "bytesInOutput": 52
+          "bytesInOutput": 104
         },
         "src/js/Manager/TouchManager.js": {
           "bytesInOutput": 1377
@@ -689,10 +746,10 @@
           "bytesInOutput": 680
         },
         "src/js/Object/Block/BlockScript.js": {
-          "bytesInOutput": 525
+          "bytesInOutput": 526
         },
         "src/js/Object/Block/BlockMoveScript.js": {
-          "bytesInOutput": 7686
+          "bytesInOutput": 5488
         },
         "src/js/Pooling/ObjectPool.js": {
           "bytesInOutput": 660
@@ -704,13 +761,16 @@
           "bytesInOutput": 236
         },
         "src/js/Const/GameConstant.js": {
-          "bytesInOutput": 567
+          "bytesInOutput": 624
         },
         "src/js/Object/Block/BlockGroup.js": {
-          "bytesInOutput": 1695
+          "bytesInOutput": 2087
+        },
+        "src/js/Object/Gate/Gate.js": {
+          "bytesInOutput": 3755
         },
         "src/js/core/ThreeApp.js": {
-          "bytesInOutput": 2573
+          "bytesInOutput": 2717
         },
         "src/js/Sound/SoundManager.js": {
           "bytesInOutput": 1180
@@ -746,7 +806,7 @@
           "bytesInOutput": 439
         }
       },
-      "bytes": 1145465
+      "bytes": 1148883
     }
   }
 }

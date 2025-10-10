@@ -12,10 +12,10 @@ export const MoveType = Object.freeze({
 });
 
 export class BlockScript {
-  constructor() {
+  constructor(colorId) {
     this.lockState = LockState.None;
     this.moveType = MoveType.Free;
-    this.colorId = 1; 
+    this.colorId = colorId;
   }
   onAttach(owner) {
     this.owner = owner;

@@ -3,12 +3,15 @@ export default class GameConstant {
     static BLOCK_L = [
         // có thể chứa ID hoặc các tham chiếu khác
     ];
-
+    static COLOR_DETAIL = {
+        1: { color: 0xFF0003 },
+        2: { color: 0x0061FF },
+    }
     // Chi tiết từng loại block
     static BLOCK_DETAIL = {
         BLOCK_L: {
             name: "block_L",
-            size: { x: 2, y: 2 },
+            size: { x: 1, y: 2 },
             position: { x: -1.5, y: 0, z: -2.5 },
             rotation: { x: 0, y: 90, z: 0 },
             colliders: [

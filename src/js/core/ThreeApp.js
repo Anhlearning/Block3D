@@ -27,6 +27,7 @@ import { TOUCHMANAGER } from "../Manager/TouchManager";
 import { GAMEMANAGER } from "../Manager/GameManager";
 import Stats from "three/examples/jsm/libs/stats.module.js";
 import BlockGroup from "../Object/Block/BlockGroup";
+import { Gate } from "../Object/Gate/Gate";
 
 // import CONFIG from '../Config';
 export default class ThreeApp {
@@ -62,6 +63,7 @@ export default class ThreeApp {
     this.setupEnvironment();
     const block = new BlockGroup({
       BlockName: "BLOCK_L",
+      colorId: 1,
       scene: this.scene,
       camera: this.camera,
       renderer: this.renderer,
@@ -69,11 +71,20 @@ export default class ThreeApp {
     });
     const block1 = new BlockGroup({
       BlockName: "BLOCK_L",
+      colorId: 1,
       scene: this.scene,
       camera: this.camera,
       renderer: this.renderer,
       physicsWorld: this.physicsWorld,
     });
+    const Gate1 = new Gate({
+      colorId: 1,
+      mesh: 'exit3',
+      lengthCheck: 3,
+      directionCheck: '-z',
+    })
+    Gate1.group.position.set(-1, 0, 4);
+    this.scene.add(Gate1.group);
     block1.group.position.set(2, 0, 6);
     TOUCHMANAGER.addObject(block);
     TOUCHMANAGER.addObject(block1);
@@ -87,7 +98,7 @@ export default class ThreeApp {
     this.container.appendChild(this.renderer.domElement);
 
 
-    const sun = new DirectionalLight(0xffffff, 5);
+    const sun = new DirectionalLight(0xffffff, 2.5);
     sun.position.set(0, 5, 3);
     sun.castShadow = true;
     sun.target.position.set(0, 0, 5);

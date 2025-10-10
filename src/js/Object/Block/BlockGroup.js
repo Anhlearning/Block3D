@@ -19,7 +19,7 @@ import { BlockScript } from "./BlockScript";
 import GameConstant from "../../Const/GameConstant";
 
 export class BlockGroup extends ObjectBase {
-  constructor({ BlockName, scene, camera, renderer, physicsWorld }) {
+  constructor({ BlockName, colorId, scene, camera, renderer, physicsWorld }) {
     super({
       scene,
       camera,
@@ -27,20 +27,35 @@ export class BlockGroup extends ObjectBase {
       physicsWorld,
       position: new Vector3(0, 0, 0),
     });
+
     this.isDragging = false;
     this.dragOffset = new Vector3(0, 0, 0);
-    this.addComponent(new BlockScript());
+    this.colorId = colorId;
+    this.BlockName = BlockName;
+
+    // 🧠 Gán userData cho group gốc (rất quan trọng!)
+    this.group.userData.blockGroup = this;
+    this.group.userData.blockName = BlockName;
+    this.group.userData.colorId = colorId;
+
+    // Gắn các component logic
+    this.addComponent(new BlockScript(colorId));
     this.addComponent(new BlockMoveScript());
+
+    // Tạo block thật
     this.InitBlock(BlockName);
   }
+
   InitBlock(key) {
     const detail = GameConstant.BLOCK_DETAIL[key];
-    this.sizeX = detail.size.x;
-    this.sizeY = detail.size.y;
     if (!detail) {
       console.warn(`⚠️ Không tìm thấy config cho key: ${key}`);
       return;
     }
+
+    this.sizeX = detail.size.x;
+    this.sizeY = detail.size.y;
+
     const block = BlockManagerPool.acquire(detail.name || key.toLowerCase());
     block.name = detail.name || key;
 
@@ -53,7 +68,13 @@ export class BlockGroup extends ObjectBase {
     if (detail.position)
       block.position.set(detail.position.x, detail.position.y, detail.position.z);
 
-    // 🔸 3. Tạo collider theo thông số trong config
+    // 🧩 Gán userData cho block chính
+    block.userData.blockGroup = this;
+    block.userData.blockName = key;
+    block.userData.colorId = this.colorId;
+    block.userData.isMainBlock = true;
+
+    // 🔸 Tạo collider
     if (Array.isArray(detail.colliders)) {
       const baseColors = [0xff6600, 0x00ffaa, 0x3366ff];
       detail.colliders.forEach((col, i) => {
@@ -66,19 +87,27 @@ export class BlockGroup extends ObjectBase {
         });
         const mesh = new Mesh(geo, mat);
         mesh.name = col.name || `Collider_${i + 1}`;
-        block.add(mesh);
 
+        // ✅ Gán userData cho từng collider
+        mesh.userData.blockGroup = this;
+        mesh.userData.isCollider = true;
+        mesh.userData.colorId = this.colorId;
+        mesh.userData.blockName = key;
+
+        // Thiết lập vị trí / scale
         const pos = new Vector3(col.position.x, col.position.y, col.position.z);
         const center = new Vector3(col.center.x, col.center.y, col.center.z);
         mesh.position.copy(pos.add(center));
-
         mesh.scale.set(col.scale.x, col.scale.y, col.scale.z);
+
+        block.add(mesh);
       });
     }
 
-    // 🔸 4. Gắn block vào đối tượng hiện tại
+    // 🔸 Gắn block vào group
     this.addComponent(new Children({ child: block }));
-    //Pivot
+
+    // Pivot gizmo để debug
     const circleGeo = new CircleGeometry(0.1, 32);
     const circleMat = new MeshBasicMaterial({
       color: 0xff0000,
@@ -92,23 +121,24 @@ export class BlockGroup extends ObjectBase {
 
     this.group.add(circleMesh);
   }
+
+  // Dùng trong Gate
   GetSize(dir) {
     const up = new Vector3(0, 1, 0);
     const down = new Vector3(0, -1, 0);
 
-    // Tính góc giữa vector dir và up/down
     const angleToUp = dir.angleTo(up) * MathUtils.RAD2DEG;
     const angleToDown = dir.angleTo(down) * MathUtils.RAD2DEG;
 
+
     if (angleToUp < 15 || angleToDown < 15) {
-      return this._size.y;
+      return this.sizeY;
     }
 
-    return this._size.x;
+    return this.sizeX;
   }
-  onClick(e, pos) {
 
-  }
+  onClick(e, pos) { }
 
   onDragStart(obj, e, hit) {
     const move = this.getComponent("BlockMoveScript");

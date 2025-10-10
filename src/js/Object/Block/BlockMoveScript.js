@@ -7,6 +7,7 @@ import BaseMoveScript from "./BaseMoveScript.js";
 import { LockState, MoveType } from "./BlockScript.js";
 import { RaycastUtils } from "../../Utils/RaycastUtils.js";
 import { TOUCHMANAGER } from "../../Manager/TouchManager.js";
+import { EventBus, EventKeys } from "../../Event/EventEmitter.js";
 if (!MathUtils.moveTowards) {
     MathUtils.moveTowards = function (current, target, maxDelta) {
         if (Math.abs(target - current) <= maxDelta) return target;
@@ -61,16 +62,15 @@ export class BlockMoveScript extends BaseMoveScript {
         const newLocalPos = new Vector3().addVectors(localPos, this.dragOffset);
         const TempVector3 = parent.localToWorld(newLocalPos);
         TempVector3.y = 0;
-
         // 🔍 Log frame đầu tiên
         if (!this._loggedFirstFrame) {
             this._loggedFirstFrame = true;
-            console.log("=== First drag frame ===");
-            console.log("World pos (raycast):", pos);
-            console.log("Group world position:", group.getWorldPosition(new Vector3()));
-            console.log("Group local position:", group.position);
-            console.log("Offset:", this.dragOffset);
-            console.log("TempVector3 (final target world pos):", TempVector3);
+            // console.log("=== First drag frame ===");
+            // console.log("World pos (raycast):", pos);
+            // console.log("Group world position:", group.getWorldPosition(new Vector3()));
+            // console.log("Group local position:", group.position);
+            // console.log("Offset:", this.dragOffset);
+            // console.log("TempVector3 (final target world pos):", TempVector3);
         }
 
         // Nếu bị khóa
@@ -103,7 +103,7 @@ export class BlockMoveScript extends BaseMoveScript {
             this._rayCastStraightVertical(TempVector3);
             objPos.copy(this._applyAxisMovementZ(objPos, TempVector3, step));
         }
-
+        EventBus.emit(EventKeys.BLOCK_MOVE, (this.owner));
         this.owner.group.position.lerp(objPos, step);
     }
     onDragEnd(obj, e) {
@@ -120,7 +120,7 @@ export class BlockMoveScript extends BaseMoveScript {
         p.z = Math.round(p.z / 2) * 2;
 
         this.owner.group.position.copy(p);
-        console.log("Snapped to grid (step=2):", p);
+        // console.log("Snapped to grid (step=2):", p);
     }
     // =============== chuyển động giới hạn (MoveTowards + Lerp) ===============
     _moveLimited(position, target, step) {
@@ -171,12 +171,12 @@ export class BlockMoveScript extends BaseMoveScript {
         let farH = 20;
         let hitFar = null;
 
-        console.groupCollapsed('%c[Raycast ▶ StraightHorizontal]', 'color:#00ffff');
+        // console.groupCollapsed('%c[Raycast ▶ StraightHorizontal]', 'color:#00ffff');
 
         for (let i = 1; i < t.children.length; i++) {
             const child = t.children[i];
             const basePos = child.getWorldPosition(new Vector3());
-            console.log(`Collider_${i} basePos:`, basePos);
+            // console.log(`Collider_${i} basePos:`, basePos);
 
             for (let k = 0; k < 2; k++) {
                 const v = basePos.clone();
@@ -193,12 +193,12 @@ export class BlockMoveScript extends BaseMoveScript {
                     if (hit.distance < farH) {
                         farH = hit.distance;
                         hitFar = hit;
-                        console.log(`%c▶ Hit: ${hit.object.name}`, 'color:#ff8800', {
-                            origin: v, dir, distance: hit.distance, hitPoint: hit.point
-                        });
+                        // console.log(`%c▶ Hit: ${hit.object.name}`, 'color:#ff8800', {
+                        //     origin: v, dir, distance: hit.distance, hitPoint: hit.point
+                        // });
                     }
                 } else {
-                    console.log(`No hit from ${child.name} (dir=${dir.x > 0 ? 'right' : 'left'})`, { origin: v });
+                    // console.log(`No hit from ${child.name} (dir=${dir.x > 0 ? 'right' : 'left'})`, { origin: v });
                 }
             }
         }
@@ -210,15 +210,15 @@ export class BlockMoveScript extends BaseMoveScript {
             else
                 this.MinX = Math.max(v.x - hitFar.distance + 1, this.MinX) - this.OffsetForEffect;
 
-            console.log('%cUpdated Limits (Horizontal):', 'color:#00ff00', {
-                MaxX: this.MaxX,
-                MinX: this.MinX,
-                hitObject: hitFar.object.name,
-                hitDistance: hitFar.distance
-            });
+            // console.log('%cUpdated Limits (Horizontal):', 'color:#00ff00', {
+            //     MaxX: this.MaxX,
+            //     MinX: this.MinX,
+            //     hitObject: hitFar.object.name,
+            //     hitDistance: hitFar.distance
+            // });
         }
 
-        console.groupEnd();
+        //console.groupEnd();
     }
 
 
@@ -229,12 +229,12 @@ export class BlockMoveScript extends BaseMoveScript {
         let farV = 20;
         let hitFar = null;
 
-        console.groupCollapsed('%c[Raycast ▶ StraightVertical]', 'color:#00ffff');
+        //console.groupCollapsed('%c[Raycast ▶ StraightVertical]', 'color:#00ffff');
 
         for (let i = 1; i < t.children.length; i++) {
             const child = t.children[i];
             const basePos = child.getWorldPosition(new Vector3());
-            console.log(`Collider_${i} basePos:`, basePos);
+            //console.log(`Collider_${i} basePos:`, basePos);
 
             for (let k = 0; k < 2; k++) {
                 const v = basePos.clone();
@@ -248,12 +248,12 @@ export class BlockMoveScript extends BaseMoveScript {
                     if (hit.distance < farV) {
                         farV = hit.distance;
                         hitFar = hit;
-                        console.log(`%c▶ Hit: ${hit.object.name}`, 'color:#ff8800', {
-                            origin: v, dir, distance: hit.distance, hitPoint: hit.point
-                        });
+                        // console.log(`%c▶ Hit: ${hit.object.name}`, 'color:#ff8800', {
+                        //     origin: v, dir, distance: hit.distance, hitPoint: hit.point
+                        // });
                     }
                 } else {
-                    console.log(`No hit from ${child.name} (dir=${dir.z > 0 ? 'forward' : 'backward'})`, { origin: v });
+                    // console.log(`No hit from ${child.name} (dir=${dir.z > 0 ? 'forward' : 'backward'})`, { origin: v });
                 }
             }
         }
@@ -265,12 +265,12 @@ export class BlockMoveScript extends BaseMoveScript {
             else
                 this.MinZ = Math.max(v.z - hitFar.distance + 1, this.MinZ) - this.OffsetForEffect;
 
-            console.log('%cUpdated Limits (Vertical):', 'color:#00ff00', {
-                MaxZ: this.MaxZ,
-                MinZ: this.MinZ,
-                hitObject: hitFar.object.name,
-                hitDistance: hitFar.distance
-            });
+            // console.log('%cUpdated Limits (Vertical):', 'color:#00ff00', {
+            //     MaxZ: this.MaxZ,
+            //     MinZ: this.MinZ,
+            //     hitObject: hitFar.object.name,
+            //     hitDistance: hitFar.distance
+            // });
         }
 
         console.groupEnd();
@@ -284,7 +284,7 @@ export class BlockMoveScript extends BaseMoveScript {
         let hitFar = null;
         let shortest = new Vector3();
 
-        console.groupCollapsed('%c[Raycast ▶ CrossHorizontal]', 'color:#ff00ff');
+        // console.groupCollapsed('%c[Raycast ▶ CrossHorizontal]', 'color:#ff00ff');
 
         for (let i = 1; i < t.children.length; i++) {
             const child = t.children[i];
@@ -303,19 +303,19 @@ export class BlockMoveScript extends BaseMoveScript {
                         far = hit.distance;
                         hitFar = hit;
                         shortest.copy(v);
-                        console.log(`%cDiagonal hit (${ox},${oz}) -> ${hit.object.name}`, 'color:#ff8800', {
-                            origin: v, dir, distance: hit.distance, hitPoint: hit.point
-                        });
+                        // console.log(`%cDiagonal hit (${ox},${oz}) -> ${hit.object.name}`, 'color:#ff8800', {
+                        //     origin: v, dir, distance: hit.distance, hitPoint: hit.point
+                        // });
                     }
                 } else {
-                    console.log(`No diagonal hit (${ox},${oz}) from ${child.name}`, { origin: v });
+                    // console.log(`No diagonal hit (${ox},${oz}) from ${child.name}`, { origin: v });
                 }
             }
         }
 
         if (far < 20 && hitFar) {
             const hitPoint = hitFar.point;
-            console.log('%cClosest diagonal hit:', 'color:#ffcc00', { hitObject: hitFar.object.name, hitPoint, far });
+            // console.log('%cClosest diagonal hit:', 'color:#ffcc00', { hitObject: hitFar.object.name, hitPoint, far });
 
             if (TempVector3.x > obj.position.x) {
                 if (Math.abs(hitPoint.x - hitFar.object.position.x + 1) < this.Tolerance) {
@@ -329,9 +329,9 @@ export class BlockMoveScript extends BaseMoveScript {
                 }
             }
 
-            console.log('%cUpdated Limits (CrossHorizontal):', 'color:#00ff00', {
-                MaxX: this.MaxX, MinX: this.MinX
-            });
+            // console.log('%cUpdated Limits (CrossHorizontal):', 'color:#00ff00', {
+            //     MaxX: this.MaxX, MinX: this.MinX
+            // });
         }
 
         console.groupEnd();
@@ -346,7 +346,7 @@ export class BlockMoveScript extends BaseMoveScript {
         let hitFar = null;
         let shortest = new Vector3();
 
-        console.groupCollapsed('%c[Raycast ▶ CrossVertical]', 'color:#ff00ff');
+        // console.groupCollapsed('%c[Raycast ▶ CrossVertical]', 'color:#ff00ff');
 
         for (let i = 1; i < t.children.length; i++) {
             const child = t.children[i];
@@ -365,20 +365,20 @@ export class BlockMoveScript extends BaseMoveScript {
                         far = hit.distance;
                         hitFar = hit;
                         shortest.copy(v);
-                        console.log(`%cDiagonal hit (${ox},${oz}) -> ${hit.object.name}`, 'color:#ff8800', {
-                            origin: v, dir, distance: hit.distance, hitPoint: hit.point
-                        });
+                        // console.log(`%cDiagonal hit (${ox},${oz}) -> ${hit.object.name}`, 'color:#ff8800', {
+                        //     origin: v, dir, distance: hit.distance, hitPoint: hit.point
+                        // });
                     }
                 } else {
-                    console.log(`No diagonal hit (${ox},${oz}) from ${child.name}`, { origin: v });
+                    // console.log(`No diagonal hit (${ox},${oz}) from ${child.name}`, { origin: v });
                 }
             }
         }
 
         if (far < 20 && hitFar) {
             const hitPoint = hitFar.point;
-            console.log('%cClosest diagonal hit:', 'color:#ffcc00', { hitObject: hitFar.object.name, hitPoint, far });
-
+            // console.log('%cClosest diagonal hit:', 'color:#ffcc00', { hitObject: hitFar.object.name, hitPoint, far });
+// 
             if (TempVector3.z > obj.position.z) {
                 if (Math.abs(hitPoint.z + 1 - hitFar.object.position.z) < this.Tolerance) {
                     const dis = hitFar.object.position.z - shortest.z - 1;
@@ -391,9 +391,9 @@ export class BlockMoveScript extends BaseMoveScript {
                 }
             }
 
-            console.log('%cUpdated Limits (CrossVertical):', 'color:#00ff00', {
-                MaxZ: this.MaxZ, MinZ: this.MinZ
-            });
+            // console.log('%cUpdated Limits (CrossVertical):', 'color:#00ff00', {
+            //     MaxZ: this.MaxZ, MinZ: this.MinZ
+            // });
         }
 
         console.groupEnd();
