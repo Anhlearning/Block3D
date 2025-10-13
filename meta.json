@@ -58,24 +58,76 @@
       "imports": [],
       "format": "esm"
     },
-    "src/assets/Models/block_1.glb": {
-      "bytes": 65104,
+    "src/assets/Models/Cube+.glb": {
+      "bytes": 25840,
       "imports": []
     },
-    "src/assets/Models/block_2.glb": {
-      "bytes": 65104,
+    "src/assets/Models/Cube1x1.glb": {
+      "bytes": 9572,
       "imports": []
     },
-    "src/assets/Models/L2X2D90.glb": {
-      "bytes": 12700,
+    "src/assets/Models/Cube1x2.glb": {
+      "bytes": 9576,
+      "imports": []
+    },
+    "src/assets/Models/Cube1x3.glb": {
+      "bytes": 9576,
+      "imports": []
+    },
+    "src/assets/Models/Cube1x4.glb": {
+      "bytes": 9576,
+      "imports": []
+    },
+    "src/assets/Models/Cube2X2.glb": {
+      "bytes": 9576,
+      "imports": []
+    },
+    "src/assets/Models/Cube2X3.glb": {
+      "bytes": 9576,
+      "imports": []
+    },
+    "src/assets/Models/CubeL.glb": {
+      "bytes": 13732,
+      "imports": []
+    },
+    "src/assets/Models/CubeT.glb": {
+      "bytes": 17704,
+      "imports": []
+    },
+    "src/assets/Models/CubeV.glb": {
+      "bytes": 13800,
+      "imports": []
+    },
+    "src/assets/Models/CubeZ.glb": {
+      "bytes": 18184,
+      "imports": []
+    },
+    "src/assets/Models/Cube_v.glb": {
+      "bytes": 13800,
+      "imports": []
+    },
+    "src/assets/Models/Cube_t.glb": {
+      "bytes": 17684,
       "imports": []
     },
     "src/assets/Models/exit3.glb": {
       "bytes": 6704,
       "imports": []
     },
+    "src/assets/Image/Texture/XBlockUV.png": {
+      "bytes": 183269,
+      "imports": []
+    },
+    "src/assets/Image/Texture/XBlockUV_Rn.png": {
+      "bytes": 702849,
+      "imports": []
+    },
+    "src/assets/Image/Texture/XBlockUV_Rn_specular.png": {
+      "bytes": 101001,
+      "imports": []
+    },
     "src/js/LoadManager.js": {
-      "bytes": 4974,
+      "bytes": 6080,
       "imports": [
         {
           "path": "node_modules/three/examples/jsm/loaders/GLTFLoader.js",
@@ -88,24 +140,89 @@
           "original": "./PixiAlias"
         },
         {
-          "path": "src/assets/Models/block_1.glb",
+          "path": "src/assets/Models/Cube+.glb",
           "kind": "import-statement",
-          "original": "../assets/Models/block_1.glb"
+          "original": "../assets/Models/Cube+.glb"
         },
         {
-          "path": "src/assets/Models/block_2.glb",
+          "path": "src/assets/Models/Cube1x1.glb",
           "kind": "import-statement",
-          "original": "../assets/Models/block_2.glb"
+          "original": "../assets/Models/Cube1x1.glb"
         },
         {
-          "path": "src/assets/Models/L2X2D90.glb",
+          "path": "src/assets/Models/Cube1x2.glb",
           "kind": "import-statement",
-          "original": "../assets/Models/L2X2D90.glb"
+          "original": "../assets/Models/Cube1x2.glb"
+        },
+        {
+          "path": "src/assets/Models/Cube1x3.glb",
+          "kind": "import-statement",
+          "original": "../assets/Models/Cube1x3.glb"
+        },
+        {
+          "path": "src/assets/Models/Cube1x4.glb",
+          "kind": "import-statement",
+          "original": "../assets/Models/Cube1x4.glb"
+        },
+        {
+          "path": "src/assets/Models/Cube2X2.glb",
+          "kind": "import-statement",
+          "original": "../assets/Models/Cube2X2.glb"
+        },
+        {
+          "path": "src/assets/Models/Cube2X3.glb",
+          "kind": "import-statement",
+          "original": "../assets/Models/Cube2X3.glb"
+        },
+        {
+          "path": "src/assets/Models/CubeL.glb",
+          "kind": "import-statement",
+          "original": "../assets/Models/CubeL.glb"
+        },
+        {
+          "path": "src/assets/Models/CubeT.glb",
+          "kind": "import-statement",
+          "original": "../assets/Models/CubeT.glb"
+        },
+        {
+          "path": "src/assets/Models/CubeV.glb",
+          "kind": "import-statement",
+          "original": "../assets/Models/CubeV.glb"
+        },
+        {
+          "path": "src/assets/Models/CubeZ.glb",
+          "kind": "import-statement",
+          "original": "../assets/Models/CubeZ.glb"
+        },
+        {
+          "path": "src/assets/Models/Cube_v.glb",
+          "kind": "import-statement",
+          "original": "../assets/Models/Cube_v.glb"
+        },
+        {
+          "path": "src/assets/Models/Cube_t.glb",
+          "kind": "import-statement",
+          "original": "../assets/Models/Cube_t.glb"
         },
         {
           "path": "src/assets/Models/exit3.glb",
           "kind": "import-statement",
           "original": "../assets/Models/exit3.glb"
+        },
+        {
+          "path": "src/assets/Image/Texture/XBlockUV.png",
+          "kind": "import-statement",
+          "original": "../assets/Image/Texture/XBlockUV.png"
+        },
+        {
+          "path": "src/assets/Image/Texture/XBlockUV_Rn.png",
+          "kind": "import-statement",
+          "original": "../assets/Image/Texture/XBlockUV_Rn.png"
+        },
+        {
+          "path": "src/assets/Image/Texture/XBlockUV_Rn_specular.png",
+          "kind": "import-statement",
+          "original": "../assets/Image/Texture/XBlockUV_Rn_specular.png"
         }
       ],
       "format": "esm"
@@ -230,7 +347,7 @@
       "format": "esm"
     },
     "src/js/Manager/GameManager.js": {
-      "bytes": 238,
+      "bytes": 373,
       "imports": [
         {
           "path": "node_modules/three/build/three.module.js",
@@ -241,7 +358,7 @@
       "format": "esm"
     },
     "src/js/Manager/TouchManager.js": {
-      "bytes": 2609,
+      "bytes": 2544,
       "imports": [
         {
           "path": "src/js/Utils/RaycastUtils.js",
@@ -300,7 +417,7 @@
       "format": "esm"
     },
     "src/js/Object/Block/BlockMoveScript.js": {
-      "bytes": 16872,
+      "bytes": 16720,
       "imports": [
         {
           "path": "node_modules/three/build/three.module.js",
@@ -326,11 +443,6 @@
           "path": "src/js/Utils/RaycastUtils.js",
           "kind": "import-statement",
           "original": "../../Utils/RaycastUtils.js"
-        },
-        {
-          "path": "src/js/Manager/TouchManager.js",
-          "kind": "import-statement",
-          "original": "../../Manager/TouchManager.js"
         },
         {
           "path": "src/js/Event/EventEmitter.js",
@@ -393,12 +505,28 @@
       "format": "esm"
     },
     "src/js/Const/GameConstant.js": {
-      "bytes": 1675,
+      "bytes": 53912,
       "imports": [],
       "format": "esm"
     },
+    "src/js/Factory/MaterialFactory.js": {
+      "bytes": 5377,
+      "imports": [
+        {
+          "path": "node_modules/three/build/three.module.js",
+          "kind": "import-statement",
+          "original": "three"
+        },
+        {
+          "path": "src/js/LoadManager.js",
+          "kind": "import-statement",
+          "original": "../LoadManager"
+        }
+      ],
+      "format": "esm"
+    },
     "src/js/Object/Block/BlockGroup.js": {
-      "bytes": 4714,
+      "bytes": 5374,
       "imports": [
         {
           "path": "node_modules/three/build/three.module.js",
@@ -434,12 +562,17 @@
           "path": "src/js/Const/GameConstant.js",
           "kind": "import-statement",
           "original": "../../Const/GameConstant"
+        },
+        {
+          "path": "src/js/Factory/MaterialFactory.js",
+          "kind": "import-statement",
+          "original": "../../Factory/MaterialFactory"
         }
       ],
       "format": "esm"
     },
     "src/js/Object/Gate/Gate.js": {
-      "bytes": 9309,
+      "bytes": 10439,
       "imports": [
         {
           "path": "node_modules/three/build/three.module.js",
@@ -467,11 +600,6 @@
           "original": "../../Utils/RaycastUtils"
         },
         {
-          "path": "src/js/Manager/TouchManager.js",
-          "kind": "import-statement",
-          "original": "../../Manager/TouchManager"
-        },
-        {
           "path": "src/js/Object/Block/BlockScript.js",
           "kind": "import-statement",
           "original": "../Block/BlockScript"
@@ -480,7 +608,7 @@
       "format": "esm"
     },
     "src/js/core/ThreeApp.js": {
-      "bytes": 6073,
+      "bytes": 7004,
       "imports": [
         {
           "path": "node_modules/three/build/three.module.js",
@@ -689,7 +817,7 @@
           "bytesInOutput": 444
         },
         "node_modules/three/build/three.core.js": {
-          "bytesInOutput": 203111
+          "bytesInOutput": 203209
         },
         "node_modules/three/build/three.module.js": {
           "bytesInOutput": 319737
@@ -703,20 +831,59 @@
         "src/js/PixiAlias.js": {
           "bytesInOutput": 151
         },
-        "src/assets/Models/block_1.glb": {
-          "bytesInOutput": 86855
+        "src/assets/Models/Cube+.glb": {
+          "bytesInOutput": 34503
         },
-        "src/assets/Models/block_2.glb": {
-          "bytesInOutput": 86855
+        "src/assets/Models/Cube1x1.glb": {
+          "bytesInOutput": 12811
         },
-        "src/assets/Models/L2X2D90.glb": {
-          "bytesInOutput": 16983
+        "src/assets/Models/Cube1x2.glb": {
+          "bytesInOutput": 12815
+        },
+        "src/assets/Models/Cube1x3.glb": {
+          "bytesInOutput": 12815
+        },
+        "src/assets/Models/Cube1x4.glb": {
+          "bytesInOutput": 12815
+        },
+        "src/assets/Models/Cube2X2.glb": {
+          "bytesInOutput": 12815
+        },
+        "src/assets/Models/Cube2X3.glb": {
+          "bytesInOutput": 12815
+        },
+        "src/assets/Models/CubeL.glb": {
+          "bytesInOutput": 18359
+        },
+        "src/assets/Models/CubeT.glb": {
+          "bytesInOutput": 23655
+        },
+        "src/assets/Models/CubeV.glb": {
+          "bytesInOutput": 18447
+        },
+        "src/assets/Models/CubeZ.glb": {
+          "bytesInOutput": 24295
+        },
+        "src/assets/Models/Cube_v.glb": {
+          "bytesInOutput": 18447
+        },
+        "src/assets/Models/Cube_t.glb": {
+          "bytesInOutput": 23627
         },
         "src/assets/Models/exit3.glb": {
           "bytesInOutput": 8987
         },
+        "src/assets/Image/Texture/XBlockUV.png": {
+          "bytesInOutput": 244392
+        },
+        "src/assets/Image/Texture/XBlockUV_Rn.png": {
+          "bytesInOutput": 937164
+        },
+        "src/assets/Image/Texture/XBlockUV_Rn_specular.png": {
+          "bytesInOutput": 134700
+        },
         "src/js/LoadManager.js": {
-          "bytesInOutput": 1382
+          "bytesInOutput": 1560
         },
         "src/js/Config.js": {
           "bytesInOutput": 2912
@@ -728,10 +895,10 @@
           "bytesInOutput": 1084
         },
         "src/js/Manager/GameManager.js": {
-          "bytesInOutput": 104
+          "bytesInOutput": 179
         },
         "src/js/Manager/TouchManager.js": {
-          "bytesInOutput": 1377
+          "bytesInOutput": 1326
         },
         "node_modules/three/examples/jsm/libs/stats.module.js": {
           "bytesInOutput": 1747
@@ -749,7 +916,7 @@
           "bytesInOutput": 526
         },
         "src/js/Object/Block/BlockMoveScript.js": {
-          "bytesInOutput": 5488
+          "bytesInOutput": 5439
         },
         "src/js/Pooling/ObjectPool.js": {
           "bytesInOutput": 660
@@ -761,16 +928,19 @@
           "bytesInOutput": 236
         },
         "src/js/Const/GameConstant.js": {
-          "bytesInOutput": 624
+          "bytesInOutput": 21147
+        },
+        "src/js/Factory/MaterialFactory.js": {
+          "bytesInOutput": 1946
         },
         "src/js/Object/Block/BlockGroup.js": {
-          "bytesInOutput": 2087
+          "bytesInOutput": 2315
         },
         "src/js/Object/Gate/Gate.js": {
-          "bytesInOutput": 3755
+          "bytesInOutput": 3815
         },
         "src/js/core/ThreeApp.js": {
-          "bytesInOutput": 2717
+          "bytesInOutput": 3285
         },
         "src/js/Sound/SoundManager.js": {
           "bytesInOutput": 1180
@@ -806,7 +976,7 @@
           "bytesInOutput": 439
         }
       },
-      "bytes": 1148883
+      "bytes": 2536241
     }
   }
 }

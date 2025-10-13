@@ -10,19 +10,41 @@ import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 // import { Texture, Sprite } from 'pixi.js';
 import { Texture, Sprite, Rectangle } from "./PixiAlias";
 //#region  Model Assets
-import block_1 from '../assets/Models/block_1.glb';
-import block_2 from '../assets/Models/block_2.glb';
-import block_L from '../assets/Models/L2X2D90.glb';
+import block_plus from '../assets/Models/Cube+.glb';
+import block_1x1 from '../assets/Models/Cube1x1.glb';
+import block_1x2 from '../assets/Models/Cube1x2.glb';
+import block_1x3 from '../assets/Models/Cube1x3.glb';
+import block_1x4 from '../assets/Models/Cube1x4.glb';
+import block_2x2 from '../assets/Models/Cube2X2.glb';
+import block_2x3 from '../assets/Models/Cube2X3.glb';
+import block_L from '../assets/Models/CubeL.glb';
+import block_T from '../assets/Models/CubeT.glb';
+import block_V from '../assets/Models/CubeV.glb';
+import block_Z from '../assets/Models/CubeZ.glb';
+import block_v from '../assets/Models/Cube_v.glb';
+import block_t from '../assets/Models/Cube_t.glb';
 import exit3 from '../assets/Models/exit3.glb';
 //#endregion
 
 //#region ImagesAssets
-
+import baseMap from '../assets/Image/Texture/XBlockUV.png';
+import specularMap from '../assets/Image/Texture/XBlockUV_Rn.png';
+import normapMap from '../assets/Image/Texture/XBlockUV_Rn_specular.png';
 //#endregion loadImage
 export const modelMap = {
-  'block_1': block_1,
-  'block_2': block_2,
+  'block_plus': block_plus,
+  'block_1x1': block_1x1,
+  'block_1x2': block_1x2,
+  'block_1x3': block_1x3,
+  'block_1x4': block_1x4,
+  'block_2x2': block_2x2,
+  'block_2x3': block_2x3,
+  'block_T': block_T,
   'block_L': block_L,
+  'block_V': block_V,
+  'block_Z': block_Z,
+  'block_v': block_v,
+  'block_t': block_t,
   'exit3': exit3,
 };
 
@@ -165,6 +187,9 @@ class SingletonMap {
 
     await Promise.all([
       //load("key","src");
+      load('baseMap', baseMap),
+      load('specularMap', specularMap),
+      load('normalMap', normapMap),
     ]);
 
     this.map = map;

@@ -15,7 +15,6 @@ import { BlockManagerPool } from "../../Pooling/BlockPoolManager";
 import { EventBus, EventKeys } from "../../Event/EventEmitter";
 import { GAMEMANAGER } from "../../Manager/GameManager";
 import { RaycastUtils } from "../../Utils/RaycastUtils";
-import { TOUCHMANAGER } from "../../Manager/TouchManager";
 import { LockState } from "../Block/BlockScript";
 export class Gate {
     constructor({ colorId, mesh, lengthCheck = 3, directionCheck = "+z" }) {
@@ -23,6 +22,7 @@ export class Gate {
         this.colorId = colorId;
         this.mesh = BlockManagerPool.acquire(mesh);
         this.mesh.rotation.y = MathUtils.degToRad(-90)
+        this.mesh.visible = false;
         this.door = this.mesh;
         this.checks = [];
         this.parentParticles = new Group();
@@ -32,21 +32,28 @@ export class Gate {
         this.collectDistance = 1.5;
         this.collected = false;
 
-        const spacing = 2; // khoảng cách giữa các check
-        const half = (lengthCheck - 1) / 2;
-
-        // 🔹 Tạo check points + debug mesh
         const debugMat = new MeshBasicMaterial({ color: 0x00ffff, wireframe: false });
         const sphereGeo = new SphereGeometry(0.1, 8, 8);
+
+        const spacing = 2;
+        const half = (lengthCheck - 1) / 2;
 
         for (let i = 0; i < lengthCheck; i++) {
             const check = new Group();
             check.rotation.x = MathUtils.degToRad(-90);
+
             const offset = (i - half) * spacing;
             check.position.set(offset, 0, 0);
+
+            // ✅ Thêm sphere visual
+            const visual = new Mesh(sphereGeo, debugMat);
+            visual.position.set(0, 0, 0); // tâm check
+            check.add(visual);
+
             this.checks.push(check);
             this.group.add(check);
         }
+
 
         // 🔹 Xoay group theo directionCheck
         this.applyDirectionRotation(directionCheck);
@@ -124,19 +131,35 @@ export class Gate {
         let canCollect = false;
 
         for (const check of this.checks) {
+            const pos = check.getWorldPosition(new Vector3());
+            const quat = check.getWorldQuaternion(new Quaternion());
+
+            // Hướng raycast
             const vec = new Vector3(0, 1, 0);
-            vec.applyQuaternion(check.getWorldQuaternion(new Quaternion()));
-            vec.normalize();
+            vec.applyQuaternion(quat).normalize();
             vec.multiplyScalar(this.gateParent?.scale?.x ?? 1);
 
-            const right = new Vector3();
-            check.getWorldDirection(right);
-            right.cross(new Vector3(0, 1, 0)).normalize();
+            // Trục tham chiếu
+            const right = new Vector3(1, 0, 0).applyQuaternion(quat).normalize();
+            const up = new Vector3(0, 1, 0).applyQuaternion(quat).normalize();
+            const forward = new Vector3(0, 0, 1).applyQuaternion(quat).normalize();
 
-            const o1 = check.getWorldPosition(new Vector3()).addScaledVector(right, 0.25);
-            const o2 = check.getWorldPosition(new Vector3()).addScaledVector(right, -0.25);
+            // Offset 2 điểm
+            const o1 = pos.clone().addScaledVector(right, 0.25);
+            const o2 = pos.clone().addScaledVector(right, -0.25);
+            // 🧠 Log tổng hợp
+            // console.log(
+            //     `%c[Gate ${this.colorId}] ${check.name}`,
+            //     "color:#00ffff;font-weight:bold;",
+            //     "\nPos:", pos.x.toFixed(2), pos.y.toFixed(2), pos.z.toFixed(2),
+            //     "\nVec:", vec.x.toFixed(2), vec.y.toFixed(2), vec.z.toFixed(2),
+            //     "\nRight:", right.x.toFixed(2), right.y.toFixed(2), right.z.toFixed(2),
+            //     "\nUp:", up.x.toFixed(2), up.y.toFixed(2), up.z.toFixed(2),
+            //     "\nForward:", forward.x.toFixed(2), forward.y.toFixed(2), forward.z.toFixed(2),
+            //     "\no1:", o1.x.toFixed(2), o1.y.toFixed(2), o1.z.toFixed(2),
+            //     "\no2:", o2.x.toFixed(2), o2.y.toFixed(2), o2.z.toFixed(2)
+            // );
 
-            // 🟡 Debug hướng ray
             if (this.debug) {
                 console.log(
                     `%c[Gate ${this.colorId}] ${check.name}\n→ Dir: (${vec.x.toFixed(
@@ -144,6 +167,7 @@ export class Gate {
                     )}, ${vec.y.toFixed(2)}, ${vec.z.toFixed(2)})`,
                     "color:#00ffff"
                 );
+                // 🟡 Debug hướng ray
             }
 
             // 🟢 Vẽ ray trực tiếp trong scene
@@ -157,7 +181,7 @@ export class Gate {
                 const hits = RaycastUtils.raycastFromPoint(
                     origin,
                     vec,
-                    TOUCHMANAGER.ObjectsMesh,
+                    GAMEMANAGER.objects,
                     100,
                     this.group
                 );
@@ -165,7 +189,6 @@ export class Gate {
                 if (hits.length === 0) continue;
 
                 const hit = hits[0];
-                console.log(hit);
 
                 if (hit.object.userData.blockGroup === blockGroup) {
                     const distance = hit.point.clone().sub(origin).length();
@@ -176,7 +199,7 @@ export class Gate {
                     if (this.debug) this.drawRay(origin, vec, distance, 0x00ff00, 1000);
 
                     if (sizeCorrect >= sizeBlock * 2 && canCollect) {
-                        blockGroup.getComponent("BlockScript").setLockState(LockState.Locked);
+                        // blockGroup.getComponent("BlockScript").setLockState(LockState.Locked);
                         console.log(
                             `%c✅ Block ${blockGroup.name} hợp lệ — distance=${distance.toFixed(
                                 3
@@ -191,21 +214,20 @@ export class Gate {
             }
         }
     }
-
-    /**
-     * 🧩 Vẽ ray trực tiếp trong scene (như Debug.DrawRay của Unity)
-     */
     drawRay(origin, direction, length = 1, color = 0xff0000, duration = 1000) {
+        // ✅ Tính toạ độ end theo world
         const end = origin.clone().addScaledVector(direction.clone().normalize(), length);
+
         const geometry = new BufferGeometry().setFromPoints([origin.clone(), end]);
         const material = new LineBasicMaterial({ color: new Color(color) });
         const line = new Line(geometry, material);
 
-        this.group.add(line);
+        // ❌ Không nên add vào group có rotation
+        // ✅ Add trực tiếp vào scene hoặc layer debug
+        GAMEMANAGER.scene.add(line);
 
-        // Tự hủy sau duration (ms)
         setTimeout(() => {
-            this.group.remove(line);
+            GAMEMANAGER.scene.remove(line);
             geometry.dispose();
             material.dispose();
         }, duration);

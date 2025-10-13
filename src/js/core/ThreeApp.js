@@ -19,6 +19,7 @@ import {
   PointLight,
   SphereGeometry,
   BoxGeometry,
+  AmbientLight,
   // SphereGeometry,
   // AmbientLight,HemisphereLight,PCFSoftShadowMap,
 } from "three";
@@ -41,17 +42,19 @@ export default class ThreeApp {
     this.scene = new Scene();
     this.clock = new Clock();
     this.camera = new PerspectiveCamera(
-      65,
+      55,
       window.innerWidth / window.innerHeight,
       0.3,
       100
     );
-    this.currentFov = 60;
-    this.camera.position.set(0, 20, 7.5);
-    this.camera.rotation.x = MathUtils.degToRad(-80);
+
+    this.currentFov = 55;
+    this.camera.position.set(0, 15, 5);
+    this.camera.rotation.x = MathUtils.degToRad(-85);
     this.stats = new Stats();
     this.stats.showPanel(0);
     document.body.appendChild(this.stats.dom);
+    GAMEMANAGER.SetScene(this.scene);
     // if (CONFIG.onGameReady()) {
     // }
   }
@@ -62,7 +65,7 @@ export default class ThreeApp {
     TOUCHMANAGER.Init(this.scene, this.camera, this.renderer);
     this.setupEnvironment();
     const block = new BlockGroup({
-      BlockName: "BLOCK_L",
+      BlockName: "BLOCK_Z3x2D0",
       colorId: 1,
       scene: this.scene,
       camera: this.camera,
@@ -70,8 +73,24 @@ export default class ThreeApp {
       physicsWorld: this.physicsWorld,
     });
     const block1 = new BlockGroup({
-      BlockName: "BLOCK_L",
-      colorId: 1,
+      BlockName: "BLOCK_Z3x2D0Reverse",
+      colorId: 2,
+      scene: this.scene,
+      camera: this.camera,
+      renderer: this.renderer,
+      physicsWorld: this.physicsWorld,
+    });
+    const block2 = new BlockGroup({
+      BlockName: "BLOCK_T3x2D180",
+      colorId: 3,
+      scene: this.scene,
+      camera: this.camera,
+      renderer: this.renderer,
+      physicsWorld: this.physicsWorld,
+    });
+    const block3 = new BlockGroup({
+      BlockName: "BLOCK_T3x2D270",
+      colorId: 4,
       scene: this.scene,
       camera: this.camera,
       renderer: this.renderer,
@@ -83,11 +102,21 @@ export default class ThreeApp {
       lengthCheck: 3,
       directionCheck: '-z',
     })
-    Gate1.group.position.set(-1, 0, 4);
-    this.scene.add(Gate1.group);
-    block1.group.position.set(2, 0, 6);
+    Gate1.group.position.set(-1, 0.2, 4);
+    // this.scene.add(Gate1.group);
+    block.group.position.set(0, 0, -2);
+    block1.group.position.set(1, 0, 1);
+    block2.group.position.set(1, 0, 4);
+    block3.group.position.set(1, 0, 8);
     TOUCHMANAGER.addObject(block);
     TOUCHMANAGER.addObject(block1);
+    TOUCHMANAGER.addObject(block2);
+    TOUCHMANAGER.addObject(block3);
+    GAMEMANAGER.addObject(block.group);
+    GAMEMANAGER.addObject(block1.group);
+    GAMEMANAGER.addObject(block2.group);
+    GAMEMANAGER.addObject(block3.group);
+    GAMEMANAGER.addObject(Gate1.group);
   }
   setupEnvironment() {
     this.renderer.setPixelRatio(window.devicePixelRatio);
@@ -96,12 +125,10 @@ export default class ThreeApp {
     // this.renderer.shadowMap.type = PCFSoftShadowMap;
     // this.renderer.shadowMap.enabled = true;
     this.container.appendChild(this.renderer.domElement);
-
-
     const sun = new DirectionalLight(0xffffff, 2.5);
-    sun.position.set(0, 5, 3);
+    sun.position.set(3, 15, 0);
     sun.castShadow = true;
-    sun.target.position.set(0, 0, 5);
+    sun.target.position.set(-5, 0, 0);
     sun.shadow.mapSize.width = 2048;
     sun.shadow.mapSize.height = 2048;
     sun.shadow.camera.left = -10;
@@ -112,8 +139,8 @@ export default class ThreeApp {
     this.scene.add(sun);
     // const hemi = new HemisphereLight(0xffffff, 0x888888, 2.0);
     // this.scene.add(hemi);
-    // const light = new AmbientLight(0x404040, 1);
-    // this.scene.add(light);
+    const light = new AmbientLight(0xC6C6C6, 2.5);
+    this.scene.add(light);
   }
   update() {
     this.renderer.resetState();

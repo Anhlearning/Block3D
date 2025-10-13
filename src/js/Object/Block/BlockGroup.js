@@ -17,6 +17,7 @@ import BlockMoveScript from "./BlockMoveScript";
 import { BlockManagerPool } from "../../Pooling/BlockPoolManager";
 import { BlockScript } from "./BlockScript";
 import GameConstant from "../../Const/GameConstant";
+import { MaterialFactory } from "../../Factory/MaterialFactory";
 
 export class BlockGroup extends ObjectBase {
   constructor({ BlockName, colorId, scene, camera, renderer, physicsWorld }) {
@@ -43,10 +44,10 @@ export class BlockGroup extends ObjectBase {
     this.addComponent(new BlockMoveScript());
 
     // Tạo block thật
-    this.InitBlock(BlockName);
+    this.InitBlock(BlockName, colorId);
   }
 
-  InitBlock(key) {
+  InitBlock(key, colorId) {
     const detail = GameConstant.BLOCK_DETAIL[key];
     if (!detail) {
       console.warn(`⚠️ Không tìm thấy config cho key: ${key}`);
@@ -57,7 +58,26 @@ export class BlockGroup extends ObjectBase {
     this.sizeY = detail.size.y;
 
     const block = BlockManagerPool.acquire(detail.name || key.toLowerCase());
+    block.scale.set(detail.scale.x, detail.scale.y, detail.scale.z);
     block.name = detail.name || key;
+    const colorData = GameConstant.COLOR_DETAIL[colorId];
+    const colorHex = colorData ? colorData.color : 0xffffff;
+
+    // 🔸 Tạo material có texture và màu
+    const mat = MaterialFactory.getLitMat({
+      baseMap: "baseMap",
+      normalMap: "normalMap",
+      metallicMap: "specularMap",
+      color: colorHex,
+      roughness: 0.1,
+    });
+    // const mat =MaterialFactory.getUnlitMat("baseMap");
+    block.traverse((child) => {
+      if (child.isMesh) {
+        child.material = mat;
+        child.material.needsUpdate = true;
+      }
+    });
 
     block.rotation.set(
       MathUtils.degToRad(detail.rotation.x || 0),

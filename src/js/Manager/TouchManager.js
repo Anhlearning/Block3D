@@ -12,7 +12,6 @@ export class TouchManager {
     this.renderer = renderer;
 
     this.objects = []; // danh sách ObjectBase
-    this.ObjectsMesh=[];
     this.utils = new RaycastUtils(camera, renderer);
     this.dragging = null;
     window.addEventListener("pointerdown", this._onPointerDown.bind(this));
@@ -22,7 +21,6 @@ export class TouchManager {
 
   addObject(obj) {
     this.objects.push(obj);
-    this.ObjectsMesh.push(obj.group);
   }
 
   removeObject(obj) {

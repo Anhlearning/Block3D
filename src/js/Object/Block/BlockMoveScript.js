@@ -6,7 +6,6 @@ import { GAMEMANAGER } from "../../Manager/GameManager.js";
 import BaseMoveScript from "./BaseMoveScript.js";
 import { LockState, MoveType } from "./BlockScript.js";
 import { RaycastUtils } from "../../Utils/RaycastUtils.js";
-import { TOUCHMANAGER } from "../../Manager/TouchManager.js";
 import { EventBus, EventKeys } from "../../Event/EventEmitter.js";
 if (!MathUtils.moveTowards) {
     MathUtils.moveTowards = function (current, target, maxDelta) {
@@ -19,9 +18,6 @@ export class BlockMoveScript extends BaseMoveScript {
         super();
         this.scene = scene;
         this.OffsetForEffect = 0.1;
-        this.ScaleFactor = 4.0;
-        this.Tolerance = 0.01;
-        this.PosRay = 0.5;
     }
 
     getType() {
@@ -116,8 +112,8 @@ export class BlockMoveScript extends BaseMoveScript {
         const p = this.owner.group.position;
 
         // Làm tròn về bội số của 2
-        p.x = Math.round(p.x / 2) * 2;
-        p.z = Math.round(p.z / 2) * 2;
+        p.x = Math.round(p.x);
+        p.z = Math.round(p.z);
 
         this.owner.group.position.copy(p);
         // console.log("Snapped to grid (step=2):", p);
@@ -128,16 +124,16 @@ export class BlockMoveScript extends BaseMoveScript {
 
         // X
         if (target.x > this.MaxX)
-            temp.x = MathUtils.moveTowards(position.x, this.MaxX, step * this.ScaleFactor);
+            temp.x = MathUtils.moveTowards(position.x, this.MaxX, step * this.SCALE_FACTOR);
         else if (target.x < this.MinX)
-            temp.x = MathUtils.moveTowards(position.x, this.MinX, step * this.ScaleFactor);
+            temp.x = MathUtils.moveTowards(position.x, this.MinX, step * this.SCALE_FACTOR);
         else temp.x = MathUtils.lerp(position.x, target.x, step);
 
         // Z
         if (target.z > this.MaxZ)
-            temp.z = MathUtils.moveTowards(position.z, this.MaxZ, step * this.ScaleFactor);
+            temp.z = MathUtils.moveTowards(position.z, this.MaxZ, step * this.SCALE_FACTOR);
         else if (target.z < this.MinZ)
-            temp.z = MathUtils.moveTowards(position.z, this.MinZ, step * this.ScaleFactor);
+            temp.z = MathUtils.moveTowards(position.z, this.MinZ, step * this.SCALE_FACTOR);
         else temp.z = MathUtils.lerp(position.z, target.z, step);
 
         this.owner.group.position.copy(temp);
@@ -146,9 +142,9 @@ export class BlockMoveScript extends BaseMoveScript {
     _applyAxisMovementX(position, target, step) {
         const temp = position.clone();
         if (target.x > this.MaxX)
-            temp.x = MathUtils.moveTowards(position.x, this.MaxX, step * this.ScaleFactor);
+            temp.x = MathUtils.moveTowards(position.x, this.MaxX, step * this.SCALE_FACTOR);
         else if (target.x < this.MinX)
-            temp.x = MathUtils.moveTowards(position.x, this.MinX, step * this.ScaleFactor);
+            temp.x = MathUtils.moveTowards(position.x, this.MinX, step * this.SCALE_FACTOR);
         else temp.x = MathUtils.lerp(position.x, target.x, step);
         return temp;
     }
@@ -156,9 +152,9 @@ export class BlockMoveScript extends BaseMoveScript {
     _applyAxisMovementZ(position, target, step) {
         const temp = position.clone();
         if (target.z > this.MaxZ)
-            temp.z = MathUtils.moveTowards(position.z, this.MaxZ, step * this.ScaleFactor);
+            temp.z = MathUtils.moveTowards(position.z, this.MaxZ, step * this.SCALE_FACTOR);
         else if (target.z < this.MinZ)
-            temp.z = MathUtils.moveTowards(position.z, this.MinZ, step * this.ScaleFactor);
+            temp.z = MathUtils.moveTowards(position.z, this.MinZ, step * this.SCALE_FACTOR);
         else temp.z = MathUtils.lerp(position.z, target.z, step);
         return temp;
     }
@@ -180,10 +176,10 @@ export class BlockMoveScript extends BaseMoveScript {
 
             for (let k = 0; k < 2; k++) {
                 const v = basePos.clone();
-                v.z += this.PosRay * 2 * k - this.PosRay;
+                v.z += this.POS_RAY * 2 * k - this.POS_RAY;
 
                 const dir = new Vector3(TempVector3.x > obj.position.x ? 1 : -1, 0, 0);
-                const hits = RaycastUtils.raycastFromPoint(v, dir, TOUCHMANAGER.ObjectsMesh, 20, obj);
+                const hits = RaycastUtils.raycastFromPoint(v, dir, GAMEMANAGER.objects, 20, obj);
                 let distance = 20;
 
                 if (hits.length > 0) {
@@ -206,9 +202,9 @@ export class BlockMoveScript extends BaseMoveScript {
         if (farH < 20 && hitFar) {
             const v = obj.position.clone();
             if (TempVector3.x > obj.position.x)
-                this.MaxX = Math.min(v.x + hitFar.distance - 1, this.MaxX) + this.OffsetForEffect;
+                this.MaxX = Math.min(v.x + hitFar.distance - 0.5, this.MaxX) + this.OffsetForEffect;
             else
-                this.MinX = Math.max(v.x - hitFar.distance + 1, this.MinX) - this.OffsetForEffect;
+                this.MinX = Math.max(v.x - hitFar.distance + 0.5, this.MinX) - this.OffsetForEffect;
 
             // console.log('%cUpdated Limits (Horizontal):', 'color:#00ff00', {
             //     MaxX: this.MaxX,
@@ -238,9 +234,9 @@ export class BlockMoveScript extends BaseMoveScript {
 
             for (let k = 0; k < 2; k++) {
                 const v = basePos.clone();
-                v.x += this.PosRay * 2 * k - this.PosRay;
+                v.x += this.POS_RAY * 2 * k - this.POS_RAY;
                 const dir = new Vector3(0, 0, TempVector3.z > obj.position.z ? 1 : -1);
-                const hits = RaycastUtils.raycastFromPoint(v, dir, TOUCHMANAGER.ObjectsMesh, 20, obj);
+                const hits = RaycastUtils.raycastFromPoint(v, dir, GAMEMANAGER.objects, 20, obj);
 
                 if (hits.length > 0) {
                     const hit = hits[0];
@@ -261,9 +257,9 @@ export class BlockMoveScript extends BaseMoveScript {
         if (farV < 20 && hitFar) {
             const v = obj.position.clone();
             if (TempVector3.z > obj.position.z)
-                this.MaxZ = Math.min(v.z + hitFar.distance - 1, this.MaxZ) + this.OffsetForEffect;
+                this.MaxZ = Math.min(v.z + hitFar.distance - 0.5, this.MaxZ) + this.OffsetForEffect;
             else
-                this.MinZ = Math.max(v.z - hitFar.distance + 1, this.MinZ) - this.OffsetForEffect;
+                this.MinZ = Math.max(v.z - hitFar.distance + 0.5, this.MinZ) - this.OffsetForEffect;
 
             // console.log('%cUpdated Limits (Vertical):', 'color:#00ff00', {
             //     MaxZ: this.MaxZ,
@@ -291,10 +287,10 @@ export class BlockMoveScript extends BaseMoveScript {
             const base = child.getWorldPosition(new Vector3());
             for (const [ox, oz] of [[-1, -1], [1, -1], [-1, 1], [1, 1]]) {
                 const v = base.clone();
-                v.x += ox * this.PosRay;
-                v.z += oz * this.PosRay;
+                v.x += ox * this.POS_RAY;
+                v.z += oz * this.POS_RAY;
                 const dir = TempVector3.clone().sub(obj.position).normalize();
-                const hits = RaycastUtils.raycastFromPoint(v, dir, TOUCHMANAGER.ObjectsMesh, 20, obj);
+                const hits = RaycastUtils.raycastFromPoint(v, dir, GAMEMANAGER.objects, 20, obj);
 
                 if (hits.length > 0) {
                     const hit = hits[0];
@@ -318,13 +314,13 @@ export class BlockMoveScript extends BaseMoveScript {
             // console.log('%cClosest diagonal hit:', 'color:#ffcc00', { hitObject: hitFar.object.name, hitPoint, far });
 
             if (TempVector3.x > obj.position.x) {
-                if (Math.abs(hitPoint.x - hitFar.object.position.x + 1) < this.Tolerance) {
-                    const dis = hitFar.object.position.x - shortest.x - 1;
+                if (Math.abs(hitPoint.x - hitFar.object.position.x + 0.5) < this.TOLERANCE) {
+                    const dis = hitFar.object.position.x - shortest.x - 0.5;
                     this.MaxX = Math.round(obj.position.x + dis);
                 }
             } else {
-                if (Math.abs(hitPoint.x - hitFar.object.position.x - 1) < this.Tolerance) {
-                    const dis = shortest.x - hitFar.object.position.x - 1;
+                if (Math.abs(hitPoint.x - hitFar.object.position.x - 0.5) < this.TOLERANCE) {
+                    const dis = shortest.x - hitFar.object.position.x - 0.5;
                     this.MinX = Math.round(obj.position.x - dis);
                 }
             }
@@ -353,10 +349,10 @@ export class BlockMoveScript extends BaseMoveScript {
             const base = child.getWorldPosition(new Vector3());
             for (const [ox, oz] of [[-1, -1], [1, -1], [-1, 1], [1, 1]]) {
                 const v = base.clone();
-                v.x += ox * this.PosRay;
-                v.z += oz * this.PosRay;
+                v.x += ox * this.POS_RAY;
+                v.z += oz * this.POS_RAY;
                 const dir = TempVector3.clone().sub(obj.position).normalize();
-                const hits = RaycastUtils.raycastFromPoint(v, dir, TOUCHMANAGER.ObjectsMesh, 20, obj);
+                const hits = RaycastUtils.raycastFromPoint(v, dir, GAMEMANAGER.objects, 20, obj);
 
                 if (hits.length > 0) {
                     const hit = hits[0];
@@ -378,15 +374,15 @@ export class BlockMoveScript extends BaseMoveScript {
         if (far < 20 && hitFar) {
             const hitPoint = hitFar.point;
             // console.log('%cClosest diagonal hit:', 'color:#ffcc00', { hitObject: hitFar.object.name, hitPoint, far });
-// 
+            // 
             if (TempVector3.z > obj.position.z) {
-                if (Math.abs(hitPoint.z + 1 - hitFar.object.position.z) < this.Tolerance) {
-                    const dis = hitFar.object.position.z - shortest.z - 1;
+                if (Math.abs(hitPoint.z + 0.5 - hitFar.object.position.z) < this.TOLERANCE) {
+                    const dis = hitFar.object.position.z - shortest.z - 0.5;
                     this.MaxZ = Math.round(obj.position.z + dis);
                 }
             } else {
-                if (Math.abs(hitPoint.z - hitFar.object.position.z - 1) < this.Tolerance) {
-                    const dis = shortest.z - hitFar.object.position.z - 1;
+                if (Math.abs(hitPoint.z - hitFar.object.position.z - 0.5) < this.TOLERANCE) {
+                    const dis = shortest.z - hitFar.object.position.z - 0.5;
                     this.MinZ = Math.round(obj.position.z - dis);
                 }
             }
