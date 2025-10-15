@@ -64,18 +64,23 @@ export class BlockGroup extends ObjectBase {
     const colorHex = colorData ? colorData.color : 0xffffff;
 
     // 🔸 Tạo material có texture và màu
-    const mat = MaterialFactory.getLitMat({
-      baseMap: "baseMap",
-      normalMap: "normalMap",
-      metallicMap: "specularMap",
+    const mat = MaterialFactory.getLitMatBlock({
+      baseKey: "baseMap",
+      normalKey: "normalMap",
+      metallicKey: "specularMap",
       color: colorHex,
-      roughness: 0.1,
+      roughness: 1,
     });
-    // const mat =MaterialFactory.getUnlitMat("baseMap");
+    // const mat = MaterialFactory.getUnlitMat("specularMap");
+    // let index = 0;
     block.traverse((child) => {
       if (child.isMesh) {
+        child.userData.blockGroup = this;
         child.material = mat;
         child.material.needsUpdate = true;
+        child.material.depthWrite = true;
+        child.material.depthTest = true;
+        child.renderOrder = 2075; // sau mask
       }
     });
 
@@ -99,13 +104,9 @@ export class BlockGroup extends ObjectBase {
       const baseColors = [0xff6600, 0x00ffaa, 0x3366ff];
       detail.colliders.forEach((col, i) => {
         const geo = new BoxGeometry(col.size.x, col.size.y, col.size.z);
-        const mat = new MeshBasicMaterial({
-          color: baseColors[i % baseColors.length],
-          wireframe: true,
-          transparent: true,
-          opacity: 0.6,
-        });
+        const mat = MaterialFactory.getUnlitMat("base");
         const mesh = new Mesh(geo, mat);
+        mesh.material.visible = false;
         mesh.name = col.name || `Collider_${i + 1}`;
 
         // ✅ Gán userData cho từng collider
@@ -144,18 +145,18 @@ export class BlockGroup extends ObjectBase {
 
   // Dùng trong Gate
   GetSize(dir) {
-    const up = new Vector3(0, 1, 0);
-    const down = new Vector3(0, -1, 0);
+    console.log(dir);
+
+    const up = new Vector3(0, 0, 1);
+    const down = new Vector3(0, 0, -1);
 
     const angleToUp = dir.angleTo(up) * MathUtils.RAD2DEG;
     const angleToDown = dir.angleTo(down) * MathUtils.RAD2DEG;
 
-
     if (angleToUp < 15 || angleToDown < 15) {
-      return this.sizeY;
+      return this.sizeX;
     }
-
-    return this.sizeX;
+    return this.sizeY;
   }
 
   onClick(e, pos) { }

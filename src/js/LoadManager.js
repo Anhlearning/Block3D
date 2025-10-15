@@ -24,12 +24,21 @@ import block_Z from '../assets/Models/CubeZ.glb';
 import block_v from '../assets/Models/Cube_v.glb';
 import block_t from '../assets/Models/Cube_t.glb';
 import exit3 from '../assets/Models/exit3.glb';
+import gate1 from '../assets/Models/Gate1.glb';
+import gate2 from '../assets/Models/Gate2.glb';
+import gate3 from '../assets/Models/Gate3.glb';
+import gate4 from '../assets/Models/Gate4.glb';
+import wall1 from '../assets/Models/wall1.glb';
+import corner from '../assets/Models/Corner.glb';
+import arrow from '../assets/Models/arrow.glb'
 //#endregion
 
 //#region ImagesAssets
 import baseMap from '../assets/Image/Texture/XBlockUV.png';
 import specularMap from '../assets/Image/Texture/XBlockUV_Rn.png';
 import normapMap from '../assets/Image/Texture/XBlockUV_Rn_specular.png';
+import floor from '../assets/Image/Env/Floor.png';
+import Bg from '../assets/Image/Env/Bg.png';
 //#endregion loadImage
 export const modelMap = {
   'block_plus': block_plus,
@@ -46,6 +55,13 @@ export const modelMap = {
   'block_v': block_v,
   'block_t': block_t,
   'exit3': exit3,
+  'gate1': gate1,
+  'gate2': gate2,
+  'gate3': gate3,
+  'gate4': gate4,
+  'wall1': wall1,
+  'corner': corner,
+  'arrow': arrow,
 };
 
 const loader = new GLTFLoader();
@@ -190,6 +206,8 @@ class SingletonMap {
       load('baseMap', baseMap),
       load('specularMap', specularMap),
       load('normalMap', normapMap),
+      load('floor', floor),
+      load('bg', Bg),
     ]);
 
     this.map = map;

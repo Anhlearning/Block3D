@@ -72,20 +72,22 @@ export class RaycastUtils {
         let filteredTargets  = targets;
         if (ignoreParent) {
             const ignoreList = new Set();
-
-            // Duyệt đệ quy toàn bộ con cháu của ignoreParent
+           
             const collectChildren = (obj) => {
+                // console.log(obj);
                 ignoreList.add(obj);
                 for (const c of obj.children) collectChildren(c);
             };
+            // console.log("LOG TỪ ĐÂY ");
+            
             collectChildren(ignoreParent);
 
+            // console.log("HẾT CHILD");
+            
             filteredTargets = targets.filter(t => !ignoreList.has(t));
         }
-
         // ✅ intersectObjects(true) → quét cả các mesh con của các group
         return raycaster.intersectObjects(filteredTargets, true);
-
     }
 
 }

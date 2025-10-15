@@ -99,23 +99,23 @@ export class BlockMoveScript extends BaseMoveScript {
             this._rayCastStraightVertical(TempVector3);
             objPos.copy(this._applyAxisMovementZ(objPos, TempVector3, step));
         }
-        EventBus.emit(EventKeys.BLOCK_MOVE, (this.owner));
         this.owner.group.position.lerp(objPos, step);
+        EventBus.emit(EventKeys.BLOCK_MOVE, (this.owner));
     }
     onDragEnd(obj, e) {
         this.dragging = false;
         this.snapGrid();
+        EventBus.emit(EventKeys.BLOCK_MOVE, (this.owner));
     }
 
     // Snap vị trí block về lưới gần nhất (giống Mathf.Round)
     snapGrid() {
         const p = this.owner.group.position;
-
         // Làm tròn về bội số của 2
         p.x = Math.round(p.x);
         p.z = Math.round(p.z);
-
         this.owner.group.position.copy(p);
+        if (this.blockScript.getLockState() !== LockState.None) EventBus.emit(EventKeys.BLOCK_MOVE, (this.owner));
         // console.log("Snapped to grid (step=2):", p);
     }
     // =============== chuyển động giới hạn (MoveTowards + Lerp) ===============
@@ -136,6 +136,7 @@ export class BlockMoveScript extends BaseMoveScript {
             temp.z = MathUtils.moveTowards(position.z, this.MinZ, step * this.SCALE_FACTOR);
         else temp.z = MathUtils.lerp(position.z, target.z, step);
 
+        EventBus.emit(EventKeys.BLOCK_MOVE, (this.owner));
         this.owner.group.position.copy(temp);
     }
 

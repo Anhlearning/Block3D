@@ -29,6 +29,8 @@ import { GAMEMANAGER } from "../Manager/GameManager";
 import Stats from "three/examples/jsm/libs/stats.module.js";
 import BlockGroup from "../Object/Block/BlockGroup";
 import { Gate } from "../Object/Gate/Gate";
+import GameConstant from "../Const/GameConstant";
+import { createMaskMaterial } from "../Shader/MaskShader";
 
 // import CONFIG from '../Config';
 export default class ThreeApp {
@@ -49,12 +51,12 @@ export default class ThreeApp {
     );
 
     this.currentFov = 55;
-    this.camera.position.set(0, 15, 5);
+    this.camera.position.set(-0.5, 15, 5);
     this.camera.rotation.x = MathUtils.degToRad(-85);
     this.stats = new Stats();
     this.stats.showPanel(0);
     document.body.appendChild(this.stats.dom);
-    GAMEMANAGER.SetScene(this.scene);
+    GAMEMANAGER.SetScene(this.scene, this.camera, this.renderer, this.physicsWorld);
     // if (CONFIG.onGameReady()) {
     // }
   }
@@ -64,59 +66,125 @@ export default class ThreeApp {
     this.InitVariables();
     TOUCHMANAGER.Init(this.scene, this.camera, this.renderer);
     this.setupEnvironment();
-    const block = new BlockGroup({
-      BlockName: "BLOCK_Z3x2D0",
-      colorId: 1,
-      scene: this.scene,
-      camera: this.camera,
-      renderer: this.renderer,
-      physicsWorld: this.physicsWorld,
-    });
-    const block1 = new BlockGroup({
-      BlockName: "BLOCK_Z3x2D0Reverse",
-      colorId: 2,
-      scene: this.scene,
-      camera: this.camera,
-      renderer: this.renderer,
-      physicsWorld: this.physicsWorld,
-    });
-    const block2 = new BlockGroup({
-      BlockName: "BLOCK_T3x2D180",
-      colorId: 3,
-      scene: this.scene,
-      camera: this.camera,
-      renderer: this.renderer,
-      physicsWorld: this.physicsWorld,
-    });
-    const block3 = new BlockGroup({
-      BlockName: "BLOCK_T3x2D270",
-      colorId: 4,
-      scene: this.scene,
-      camera: this.camera,
-      renderer: this.renderer,
-      physicsWorld: this.physicsWorld,
-    });
-    const Gate1 = new Gate({
-      colorId: 1,
-      mesh: 'exit3',
-      lengthCheck: 3,
-      directionCheck: '-z',
-    })
-    Gate1.group.position.set(-1, 0.2, 4);
+    this.setupMap();
+    // const block = new BlockGroup({
+    //   BlockName: "BLOCK_Z3x2D0",
+    //   colorId: 1,
+    //   scene: this.scene,
+    //   camera: this.camera,
+    //   renderer: this.renderer,
+    //   physicsWorld: this.physicsWorld,
+    // });
+    // const block1 = new BlockGroup({
+    //   BlockName: "BLOCK_Z3x2D0Reverse",
+    //   colorId: 2,
+    //   scene: this.scene,
+    //   camera: this.camera,
+    //   renderer: this.renderer,
+    //   physicsWorld: this.physicsWorld,
+    // });
+    // const block2 = new BlockGroup({
+    //   BlockName: "BLOCK_T3x2D180",
+    //   colorId: 3,
+    //   scene: this.scene,
+    //   camera: this.camera,
+    //   renderer: this.renderer,
+    //   physicsWorld: this.physicsWorld,
+    // });
+    // const block3 = new BlockGroup({
+    //   BlockName: "BLOCK_T3x2D270",
+    //   colorId: 4,
+    //   scene: this.scene,
+    //   camera: this.camera,
+    //   renderer: this.renderer,
+    //   physicsWorld: this.physicsWorld,
+    // });
+    // const Gate1 = new Gate({
+    //   colorId: 1,
+    //   name: "GATE3",
+    //   directionCheck: '-z',
+    // })
+    // const Gate2 = new Gate({
+    //   colorId: 2,
+    //   name: "GATE2",
+    //   directionCheck: '-x',
+    // })
+    // const Gate3 = new Gate({
+    //   colorId: 3,
+    //   name: "GATE1",
+    //   directionCheck: '+x',
+    // })
+    // Gate1.group.position.set(-2, 0.0, 4);
+    // Gate2.group.position.set(-2, 0.0, 7);
+    // Gate3.group.position.set(-2, 0.0, 0);
     // this.scene.add(Gate1.group);
-    block.group.position.set(0, 0, -2);
-    block1.group.position.set(1, 0, 1);
-    block2.group.position.set(1, 0, 4);
-    block3.group.position.set(1, 0, 8);
-    TOUCHMANAGER.addObject(block);
-    TOUCHMANAGER.addObject(block1);
-    TOUCHMANAGER.addObject(block2);
-    TOUCHMANAGER.addObject(block3);
-    GAMEMANAGER.addObject(block.group);
-    GAMEMANAGER.addObject(block1.group);
-    GAMEMANAGER.addObject(block2.group);
-    GAMEMANAGER.addObject(block3.group);
-    GAMEMANAGER.addObject(Gate1.group);
+    // this.scene.add(Gate2.group);
+    // this.scene.add(Gate3.group);
+
+    // block.group.position.set(0, 0, -2);
+    // block1.group.position.set(1, 0, 1);
+    // block2.group.position.set(1, 0, 4);
+    // block3.group.position.set(1, 0, 8);
+    // TOUCHMANAGER.addObject(block);
+    // TOUCHMANAGER.addObject(block1);
+    // TOUCHMANAGER.addObject(block2);
+    // TOUCHMANAGER.addObject(block3);
+
+    // GAMEMANAGER.addBlockObject(block.group);
+    // GAMEMANAGER.addBlockObject(block1.group);
+    // GAMEMANAGER.addBlockObject(block2.group);
+    // GAMEMANAGER.addBlockObject(block3.group);
+    // GAMEMANAGER.addObject(Gate1.group);
+    // GAMEMANAGER.addObject(Gate2.group);
+    // GAMEMANAGER.addObject(Gate3.group);
+
+    // const cornerTopLeft = GameConstant.createPrefab("wall4");
+    // const cornerTopRight = GameConstant.createPrefab("cornerTopRight");
+    // cornerTopRight.position.set(2, 0, 0);
+    // const cornerBotRight = GameConstant.createPrefab("cornerBotRight");
+    // cornerBotRight.position.set(2, 0, 2);
+    // const cornerBotLeft = GameConstant.createPrefab("cornerBotLeft");
+    // cornerBotLeft.position.set(0, 0, 2);
+    // this.scene.add(cornerTopLeft);
+    // this.scene.add(cornerTopRight);
+    // this.scene.add(cornerBotRight);
+    // this.scene.add(cornerBotLeft);
+  }
+  setupMap() {
+    GameConstant.CreateMap();
+    GameConstant.createFloor();
+    GameConstant.createBlock();
+    this.spawnBG('bg', { x: 0, y: -0.04, z: 2 }, 40, 20);
+
+    const maskGeo = new BoxGeometry(7, 3, 8);
+    const maskMat = createMaskMaterial();
+    const maskMesh = new Mesh(maskGeo, maskMat);
+    maskMesh.position.set(-0.5, 0, -5.75);
+    maskMesh.renderOrder = 2001;
+
+
+    const maskGeo1 = new BoxGeometry(5.5, 3, 10);
+    const maskMat1 = createMaskMaterial();
+    const maskMesh1 = new Mesh(maskGeo1, maskMat1);
+    maskMesh1.position.set(-6.5, 0, 3);
+    maskMesh1.renderOrder = 2001;
+
+    const maskGeo2 = new BoxGeometry(7, 3, 8);
+    const maskMat2 = createMaskMaterial();
+    const maskMesh2 = new Mesh(maskGeo2, maskMat2);
+    maskMesh2.position.set(-0.5, 0, 11.75);
+    maskMesh2.renderOrder = 2001;
+
+    const maskGeo3 = new BoxGeometry(6, 3, 10);
+    const maskMat3 = createMaskMaterial();
+    const maskMesh3 = new Mesh(maskGeo3, maskMat3);
+    maskMesh3.position.set(5.75, 0, 3);
+    maskMesh3.renderOrder = 2001;
+
+    this.scene.add(maskMesh);
+    this.scene.add(maskMesh1);
+    this.scene.add(maskMesh2);
+    this.scene.add(maskMesh3);
   }
   setupEnvironment() {
     this.renderer.setPixelRatio(window.devicePixelRatio);
@@ -125,10 +193,10 @@ export default class ThreeApp {
     // this.renderer.shadowMap.type = PCFSoftShadowMap;
     // this.renderer.shadowMap.enabled = true;
     this.container.appendChild(this.renderer.domElement);
-    const sun = new DirectionalLight(0xffffff, 2.5);
-    sun.position.set(3, 15, 0);
+    const sun = new DirectionalLight(0xffffff, 5);
+    sun.position.set(10, 15, 0);
     sun.castShadow = true;
-    sun.target.position.set(-5, 0, 0);
+    sun.target.position.set(-10, 0, 0);
     sun.shadow.mapSize.width = 2048;
     sun.shadow.mapSize.height = 2048;
     sun.shadow.camera.left = -10;
@@ -139,7 +207,7 @@ export default class ThreeApp {
     this.scene.add(sun);
     // const hemi = new HemisphereLight(0xffffff, 0x888888, 2.0);
     // this.scene.add(hemi);
-    const light = new AmbientLight(0xC6C6C6, 2.5);
+    const light = new AmbientLight(0xC6C6C6, 2);
     this.scene.add(light);
   }
   update() {
@@ -151,7 +219,7 @@ export default class ThreeApp {
     this.renderer.render(this.scene, this.camera);
   }
   spawnBG(imageBgname, position, xGeo, yGeo, countRepeat = 1) {
-    const image = singletonMap.get(imageBgname).texture.source?.resource;
+    const image = singletonMap.get(imageBgname).source?.resource;
     const planeTexture = new Texture(image);
     planeTexture.minFilter = LinearFilter;
     planeTexture.magFilter = LinearFilter;
@@ -162,17 +230,17 @@ export default class ThreeApp {
 
     const geometry = new PlaneGeometry(xGeo, yGeo);
 
-    // Dùng MeshStandardMaterial thay cho MeshBasicMaterial
     const material = new MeshBasicMaterial({
       map: planeTexture,
       side: DoubleSide,
-      transparent: true,
-      alphaTest: 0.01,
-      depthWrite: true, // cho nền cũng ghi vào depth buffer
+      transparent: false,
+      alphaTest: 0.5,
+      depthWrite: true,
+      depthTest: true,
     });
 
     const plane = new Mesh(geometry, material);
-    plane.renderOrder = -1;
+    plane.renderOrder = 1;
     plane.rotation.x = -Math.PI / 2;
     plane.position.set(position.x, position.y, position.z);
 

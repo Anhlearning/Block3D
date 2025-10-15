@@ -9,13 +9,25 @@ import {
   DoubleSide,
   MeshStandardMaterial,
   Color,
+  NoColorSpace,
+  LinearSRGBColorSpace,
 } from "three";
 import singletonMap from "../LoadManager";
 
 export class MaterialFactory {
   static materialCache = {};
 
-  static getUnlitMat(textureKey) {
+  static getUnlitMat(textureKey = "base", color = null) {
+    if (textureKey == "base") {
+      const mat = new MeshBasicMaterial({
+        color: color,
+        wireframe: true,
+        transparent: true,
+        opacity: 1,
+      });
+      this.materialCache[textureKey] = mat;
+      return mat;
+    }
     if (this.materialCache[textureKey]) {
       return this.materialCache[textureKey];
     }
@@ -36,6 +48,7 @@ export class MaterialFactory {
     // Tạo material và cache
     const mat = new MeshBasicMaterial({
       map: tex,
+      color: color,
       side: FrontSide,
       transparent: false,
       depthWrite: true,
@@ -116,7 +129,8 @@ export class MaterialFactory {
     this.materialCache[cacheKey] = mat;
     return mat;
   }
-  static getLitMat({
+  static getLitMatBlock({
+    GroupName = "Block",
     baseKey,
     normalKey,
     metallicKey,
@@ -128,45 +142,52 @@ export class MaterialFactory {
       typeof color === "number"
         ? color.toString(16).padStart(6, "0")
         : new Color(color).getHexString();
-    const cacheKey = `Lit_${colorHex}`;
+    const cacheKey = [
+      GroupName,
+      baseKey || "none",
+      normalKey || "none",
+      metallicKey || "none",
+      colorHex,
+      roughness.toFixed(3),
+    ].join("_");
 
     if (this.materialCache[cacheKey]) {
       return this.materialCache[cacheKey];
     }
 
     // ===== Helper load texture =====
-    const loadTex = (key, isNormal = true) => {
-      if (!key) return null;
+    const loadTex = (key) => {
       let tex = singletonMap.get(key);
       if (!(tex instanceof Texture)) {
-        const img = tex?.source?.resource;
+        const img = tex.source?.resource;
         tex = new Texture(img);
+        tex.wrapS = tex.wrapT = RepeatWrapping;
+        tex.minFilter = LinearFilter;
+        tex.magFilter = LinearFilter;
+        tex.needsUpdate = true;
       }
 
-      // ⚙️ Normal map phải là linear (NoColorSpace)
-      tex.colorSpace = isNormal ? NoColorSpace : SRGBColorSpace;
-      tex.wrapS = tex.wrapT = RepeatWrapping;
-      tex.minFilter = LinearFilter;
-      tex.magFilter = LinearFilter;
-      tex.flipY = false;
-      tex.needsUpdate = true;
+      // auto set đúng colorSpace
+      if (key.includes("base")) tex.colorSpace = SRGBColorSpace;
+      else tex.colorSpace = LinearSRGBColorSpace;
 
+      tex.flipY = false;
+      tex.repeat.set(1, 1);
       return tex;
     };
 
     // ===== Load các texture =====
     const baseMap = loadTex(baseKey);
-    const normalMap = loadTex(normalKey, true);   // ✅ dùng linear space
+    const normalMap = loadTex(normalKey);   // ✅ dùng linear space
     const metallicMap = loadTex(metallicKey);
 
     // ===== Material chính =====
     const mat = new MeshStandardMaterial({
-      map: baseMap ,
-      normalMap: normalMap ,
-      metalnessMap: metallicMap,  // unity metallic RGB
-      // roughnessMap: metallicMap || null,  // unity smoothness (A)
+      map: baseMap,
+      normalMap: normalMap || null,
+      roughnessMap: metallicMap || null,  // unity smoothness (A)
       color: new Color(color),
-      // roughness: roughness,               // unity smoothness -> roughness
+      roughness: roughness,               // unity smoothness -> roughness
       // side: FrontSide,
       // transparent: false,
       // depthWrite: true,

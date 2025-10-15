@@ -10,102 +10,138 @@ import {
     Vector3,
     Color,
     Quaternion,
+    BoxGeometry,
+    MeshStandardMaterial,
 } from "three";
 import { BlockManagerPool } from "../../Pooling/BlockPoolManager";
 import { EventBus, EventKeys } from "../../Event/EventEmitter";
 import { GAMEMANAGER } from "../../Manager/GameManager";
 import { RaycastUtils } from "../../Utils/RaycastUtils";
 import { LockState } from "../Block/BlockScript";
+import GameConstant from "../../Const/GameConstant";
+import { MaterialFactory } from "../../Factory/MaterialFactory";
+import gsap from "gsap";
 export class Gate {
-    constructor({ colorId, mesh, lengthCheck = 3, directionCheck = "+z" }) {
+    constructor({ colorId, name, directionCheck = "+z" }) {
+        const detailGate = GameConstant.GATE_DETAIL[name];
         this.group = new Group();
         this.colorId = colorId;
-        this.mesh = BlockManagerPool.acquire(mesh);
-        this.mesh.rotation.y = MathUtils.degToRad(-90)
-        this.mesh.visible = false;
+        this.mesh = BlockManagerPool.acquire(detailGate.mesh);
+        this.arrow = BlockManagerPool.acquire('arrow');
+        const arrowMat = new MeshBasicMaterial({
+            color: 0xFFFFFF,
+        });
+        this.arrow.traverse((child) => {
+            if (child.isMesh) {
+                child.material = arrowMat;
+                child.material.needsUpdate = true;
+            }
+        });
+        this.arrow.position.set(0, 1, -0.25);
+        this.arrow.rotation.y = MathUtils.degToRad(-90);
+        this.group.add(this.arrow);
+        this.mesh.rotation.y = MathUtils.degToRad(-90);
         this.door = this.mesh;
+        this.mesh.position.set(-0.5 * detailGate.size, 0, 0);
         this.checks = [];
         this.parentParticles = new Group();
         this.group.add(this.mesh);
         this.group.add(this.parentParticles);
         this.debug = true;
-        this.collectDistance = 1.5;
+        this.collectDistance = 1.0;
         this.collected = false;
-
-        const debugMat = new MeshBasicMaterial({ color: 0x00ffff, wireframe: false });
-        const sphereGeo = new SphereGeometry(0.1, 8, 8);
-
-        const spacing = 2;
+        const lengthCheck = detailGate.size;
+        const spacing = 1.0;
         const half = (lengthCheck - 1) / 2;
+
+        const boxGeo = new BoxGeometry(1 * lengthCheck, 1.5, 1);
+        const boxMat = MaterialFactory.getUnlitMat("base");
+        const boxMesh = new Mesh(boxGeo, boxMat);
+        boxMesh.material.visible = false;
+        boxMesh.position.set(0, 0.75, -0.2);
+        boxMesh.name = colorId;
+        this.group.add(boxMesh);
 
         for (let i = 0; i < lengthCheck; i++) {
             const check = new Group();
             check.rotation.x = MathUtils.degToRad(-90);
 
             const offset = (i - half) * spacing;
-            check.position.set(offset, 0, 0);
+            check.position.set(offset, 0.5, 0);
 
             // ✅ Thêm sphere visual
-            const visual = new Mesh(sphereGeo, debugMat);
-            visual.position.set(0, 0, 0); // tâm check
-            check.add(visual);
-
+            // const visual = new Mesh(sphereGeo, debugMat);
+            // visual.position.set(0, 0, 0); // tâm check
+            // check.add(visual);
             this.checks.push(check);
             this.group.add(check);
         }
-
-
-        // 🔹 Xoay group theo directionCheck
+        const colorData = GameConstant.COLOR_DETAIL[colorId];
+        const colorHex = colorData ? colorData.color : 0xffffff;
+        const mat = MaterialFactory.getLitMatBlock({
+            baseKey: "baseMap",
+            normalKey: "normalMap",
+            metallicKey: "specularMap",
+            color: colorHex,
+            roughness: 0.2,
+        });
+        this.mesh.traverse((child) => {
+            if (child.isMesh) {
+                child.material = mat;
+                child.material.needsUpdate = true;
+            }
+        });
         this.applyDirectionRotation(directionCheck);
-
         // 🔹 Lắng nghe sự kiện kiểm tra
+        this.scaleY = this.group.scale.y
         EventBus.on(EventKeys.BLOCK_MOVE, this.onBlockMove.bind(this));
 
-        console.log(
-            `%c[Gate ${this.colorId}] tạo ${lengthCheck} check points — hướng: ${directionCheck}`,
-            "color: cyan; font-weight: bold;"
-        );
+        // console.log(
+        //     `%c[Gate ${this.colorId}] tạo ${lengthCheck} check points — hướng: ${directionCheck}`,
+        //     "color: cyan; font-weight: bold;"
+        // );
     }
 
     applyDirectionRotation(direction) {
         switch (direction.toLowerCase()) {
-            case "-z":
-                this.group.rotation.x = MathUtils.degToRad(0);
-                break;
             case "+z":
-                this.group.rotation.x = MathUtils.degToRad(90);
+                this.group.rotation.x = MathUtils.degToRad(0);
+                this.direction = new Vector3(0, 0, 1);
+                break;
+            case "-z":
+                this.group.rotation.y = MathUtils.degToRad(-180);
+                this.direction = new Vector3(0, 0, -1);
                 break;
             case "+x":
                 this.group.rotation.set(
                     MathUtils.degToRad(0),
-                    MathUtils.degToRad(-90),
-                    MathUtils.degToRad(90)
+                    MathUtils.degToRad(90),
+                    MathUtils.degToRad(0)
                 );
+                this.direction = new Vector3(1, 0, 0);
                 break;
             case "-x":
+                this.direction = new Vector3(-1, 0, 0);
                 this.group.rotation.set(
                     MathUtils.degToRad(0),
-                    MathUtils.degToRad(90),
-                    MathUtils.degToRad(-90)
+                    MathUtils.degToRad(-90),
+                    MathUtils.degToRad(0)
                 );
                 break;
             default:
                 console.warn(`⚠️ Hướng directionCheck không hợp lệ: ${direction}`);
                 break;
         }
-
-        console.log(
-            `%c[Gate ${this.colorId}] => group.rotation = (${this.group.rotation.x.toFixed(
-                2
-            )}, ${this.group.rotation.y.toFixed(2)}, ${this.group.rotation.z.toFixed(2)})`,
-            "color: orange"
-        );
+        // console.log(
+        //     `%c[Gate ${this.colorId}] => group.rotation = (${this.group.rotation.x.toFixed(
+        //         2
+        //     )}, ${this.group.rotation.y.toFixed(2)}, ${this.group.rotation.z.toFixed(2)})`,
+        //     "color: orange"
+        // );
     }
-
 
     onBlockMove(blockGroup) {
         if (!blockGroup) return;
-
         const data = blockGroup.getComponent?.("BlockMoveScript");
         if (!data) return;
 
@@ -114,7 +150,6 @@ export class Gate {
 
         const dirRef = new Vector3();
         if (this.checks.length > 0) {
-            // ✅ Lấy hướng UP thật trong world-space
             dirRef.set(0, 1, 0);
             dirRef.applyQuaternion(this.checks[0].getWorldQuaternion(new Quaternion()));
         } else {
@@ -126,11 +161,12 @@ export class Gate {
             typeof blockGroup.GetSize === "function"
                 ? blockGroup.GetSize(dirRef)
                 : 1;
-
+        console.log(sizeBlock);
+        
         let sizeCorrect = 0;
         let canCollect = false;
 
-        for (const check of this.checks) {
+        this.checks.forEach((check, checkIndex) => {
             const pos = check.getWorldPosition(new Vector3());
             const quat = check.getWorldQuaternion(new Quaternion());
 
@@ -147,63 +183,46 @@ export class Gate {
             // Offset 2 điểm
             const o1 = pos.clone().addScaledVector(right, 0.25);
             const o2 = pos.clone().addScaledVector(right, -0.25);
-            // 🧠 Log tổng hợp
-            // console.log(
-            //     `%c[Gate ${this.colorId}] ${check.name}`,
-            //     "color:#00ffff;font-weight:bold;",
-            //     "\nPos:", pos.x.toFixed(2), pos.y.toFixed(2), pos.z.toFixed(2),
-            //     "\nVec:", vec.x.toFixed(2), vec.y.toFixed(2), vec.z.toFixed(2),
-            //     "\nRight:", right.x.toFixed(2), right.y.toFixed(2), right.z.toFixed(2),
-            //     "\nUp:", up.x.toFixed(2), up.y.toFixed(2), up.z.toFixed(2),
-            //     "\nForward:", forward.x.toFixed(2), forward.y.toFixed(2), forward.z.toFixed(2),
-            //     "\no1:", o1.x.toFixed(2), o1.y.toFixed(2), o1.z.toFixed(2),
-            //     "\no2:", o2.x.toFixed(2), o2.y.toFixed(2), o2.z.toFixed(2)
-            // );
 
-            if (this.debug) {
-                console.log(
-                    `%c[Gate ${this.colorId}] ${check.name}\n→ Dir: (${vec.x.toFixed(
-                        2
-                    )}, ${vec.y.toFixed(2)}, ${vec.z.toFixed(2)})`,
-                    "color:#00ffff"
-                );
-                // 🟡 Debug hướng ray
-            }
-
-            // 🟢 Vẽ ray trực tiếp trong scene
+            // Debug rays
             if (this.debug) {
                 this.drawRay(o1, vec, 2, 0x00ffff, 800);
                 this.drawRay(o2, vec, 2, 0xff00ff, 800);
             }
 
             // Bắn 2 tia ray
-            for (const origin of [o1, o2]) {
+            [o1, o2].forEach((origin, i) => {
+                const originName = i === 0 ? "o1" : "o2";
                 const hits = RaycastUtils.raycastFromPoint(
                     origin,
                     vec,
-                    GAMEMANAGER.objects,
+                    GAMEMANAGER.BlockObjects,
                     100,
                     this.group
                 );
 
-                if (hits.length === 0) continue;
+                if (hits.length === 0) return;
 
                 const hit = hits[0];
 
+                
                 if (hit.object.userData.blockGroup === blockGroup) {
+                    // console.log(
+                    //     `%cCheck[${checkIndex}] → ${originName} hit: ${hit.object.name} distance: ${hit.distance}`,
+                    //     "color: yellow"
+                    // );
                     const distance = hit.point.clone().sub(origin).length();
                     if (distance <= this.collectDistance) canCollect = true;
                     sizeCorrect++;
-
-                    // 🟢 Khi ray trúng block hợp lệ → vẽ ray xanh lá
+                    // Vẽ ray xanh lá khi hợp lệ
                     if (this.debug) this.drawRay(origin, vec, distance, 0x00ff00, 1000);
 
                     if (sizeCorrect >= sizeBlock * 2 && canCollect) {
-                        // blockGroup.getComponent("BlockScript").setLockState(LockState.Locked);
+                        blockGroup.getComponent("BlockMoveScript").snapGrid();
+                        blockGroup.getComponent("BlockScript").setLockState(LockState.Locked);
+                        this.collectBlock(blockGroup.group, vec);
                         console.log(
-                            `%c✅ Block ${blockGroup.name} hợp lệ — distance=${distance.toFixed(
-                                3
-                            )}, size=${sizeCorrect}/${sizeBlock * 2}`,
+                            `%c✅ Block ${blockGroup.name} hợp lệ — check=${checkIndex}, origin=${originName}, distance=${distance.toFixed(3)}, size=${sizeCorrect}/${sizeBlock * 2}`,
                             "color: #00ff99; font-weight: bold;"
                         );
                         return;
@@ -211,8 +230,8 @@ export class Gate {
                 } else {
                     sizeCorrect = 0;
                 }
-            }
-        }
+            });
+        });
     }
     drawRay(origin, direction, length = 1, color = 0xff0000, duration = 1000) {
         // ✅ Tính toạ độ end theo world
@@ -233,44 +252,59 @@ export class Gate {
         }, duration);
     }
     collectBlock(blockGroup, dir) {
-        const data = blockGroup.userData.block;
-        data.collected = true;
         this.collected = true;
 
         console.log(`[Gate ${this.colorId}] Collect block:`, blockGroup.name);
+        console.log(dir);
 
         const startPos = blockGroup.position.clone();
         const targetPos = startPos.clone().addScaledVector(dir.clone().normalize().negate(), 10);
-        const duration = 3;
-        const startTime = performance.now();
+        console.log(startPos);
+        console.log(targetPos);
 
-        const animate = (time) => {
-            const t = Math.min((time - startTime) / (duration * 1000), 1);
-            blockGroup.position.lerpVectors(startPos, targetPos, t);
+        // 🕒 Delay 0.1 giây trước khi bắt đầu
+        gsap.delayedCall(0.1, () => {
+            // 🎞 Di chuyển block trong 3 giây
+            gsap.to(blockGroup.position, {
+                x: targetPos.x,
+                y: targetPos.y,
+                z: targetPos.z,
+                duration: 3,
+                ease: "power2.inOut",
 
-            if (t < 1) {
-                requestAnimationFrame(animate);
-            } else {
-                blockGroup.visible = false;
-                console.log("Block disappeared");
-                this.openDoor();
-            }
-        };
-        requestAnimationFrame(animate);
+                // 🎯 Khi hoàn thành
+                onComplete: () => {
+                    blockGroup.visible = false;
+                    console.log("Disappear");
+                },
+            });
+        });
+        this.animateScaleY(0.6, 0.15, 1.15, 0.5);
     }
+    animateScaleY(targetScaleY = 0.5, durationDown = 0.3, delayHold = 2, durationUp = 0.7) {
+        const group = this.group;
+        const originY = group.scale.y;
 
-    openDoor() {
-        const startY = this.door.position.y;
-        const targetY = startY - 0.75;
-        const duration = 0.1;
-        const startTime = performance.now();
+        // Dừng animation cũ để tránh chồng hiệu ứng
+        gsap.killTweensOf(group.scale);
 
-        const animate = (time) => {
-            const t = Math.min((time - startTime) / (duration * 1000), 1);
-            this.door.position.y = MathUtils.lerp(startY, targetY, t);
-            if (t < 1) requestAnimationFrame(animate);
-        };
-        requestAnimationFrame(animate);
+        // 🔽 Giai đoạn 1: scale xuống nhanh
+        gsap.to(group.scale, {
+            y: targetScaleY,
+            duration: durationDown,
+            ease: "power2.in",
+            onComplete: () => {
+                // ⏸ Giữ nguyên trong delayHold giây
+                gsap.delayedCall(delayHold, () => {
+                    // 🔼 Giai đoạn 2: scale lên chậm hơn
+                    gsap.to(group.scale, {
+                        y: originY,
+                        duration: durationUp,
+                        ease: "power2.out",
+                    });
+                });
+            },
+        });
     }
 
     destroy() {

@@ -114,20 +114,56 @@
       "bytes": 6704,
       "imports": []
     },
+    "src/assets/Models/Gate1.glb": {
+      "bytes": 8480,
+      "imports": []
+    },
+    "src/assets/Models/Gate2.glb": {
+      "bytes": 8480,
+      "imports": []
+    },
+    "src/assets/Models/Gate3.glb": {
+      "bytes": 8484,
+      "imports": []
+    },
+    "src/assets/Models/Gate4.glb": {
+      "bytes": 8484,
+      "imports": []
+    },
+    "src/assets/Models/wall1.glb": {
+      "bytes": 2340,
+      "imports": []
+    },
+    "src/assets/Models/Corner.glb": {
+      "bytes": 3548,
+      "imports": []
+    },
+    "src/assets/Models/arrow.glb": {
+      "bytes": 2388,
+      "imports": []
+    },
     "src/assets/Image/Texture/XBlockUV.png": {
-      "bytes": 183269,
+      "bytes": 31788,
       "imports": []
     },
     "src/assets/Image/Texture/XBlockUV_Rn.png": {
-      "bytes": 702849,
+      "bytes": 80015,
       "imports": []
     },
     "src/assets/Image/Texture/XBlockUV_Rn_specular.png": {
-      "bytes": 101001,
+      "bytes": 11905,
+      "imports": []
+    },
+    "src/assets/Image/Env/Floor.png": {
+      "bytes": 9953,
+      "imports": []
+    },
+    "src/assets/Image/Env/Bg.png": {
+      "bytes": 122606,
       "imports": []
     },
     "src/js/LoadManager.js": {
-      "bytes": 6080,
+      "bytes": 6709,
       "imports": [
         {
           "path": "node_modules/three/examples/jsm/loaders/GLTFLoader.js",
@@ -210,6 +246,41 @@
           "original": "../assets/Models/exit3.glb"
         },
         {
+          "path": "src/assets/Models/Gate1.glb",
+          "kind": "import-statement",
+          "original": "../assets/Models/Gate1.glb"
+        },
+        {
+          "path": "src/assets/Models/Gate2.glb",
+          "kind": "import-statement",
+          "original": "../assets/Models/Gate2.glb"
+        },
+        {
+          "path": "src/assets/Models/Gate3.glb",
+          "kind": "import-statement",
+          "original": "../assets/Models/Gate3.glb"
+        },
+        {
+          "path": "src/assets/Models/Gate4.glb",
+          "kind": "import-statement",
+          "original": "../assets/Models/Gate4.glb"
+        },
+        {
+          "path": "src/assets/Models/wall1.glb",
+          "kind": "import-statement",
+          "original": "../assets/Models/wall1.glb"
+        },
+        {
+          "path": "src/assets/Models/Corner.glb",
+          "kind": "import-statement",
+          "original": "../assets/Models/Corner.glb"
+        },
+        {
+          "path": "src/assets/Models/arrow.glb",
+          "kind": "import-statement",
+          "original": "../assets/Models/arrow.glb"
+        },
+        {
           "path": "src/assets/Image/Texture/XBlockUV.png",
           "kind": "import-statement",
           "original": "../assets/Image/Texture/XBlockUV.png"
@@ -223,6 +294,16 @@
           "path": "src/assets/Image/Texture/XBlockUV_Rn_specular.png",
           "kind": "import-statement",
           "original": "../assets/Image/Texture/XBlockUV_Rn_specular.png"
+        },
+        {
+          "path": "src/assets/Image/Env/Floor.png",
+          "kind": "import-statement",
+          "original": "../assets/Image/Env/Floor.png"
+        },
+        {
+          "path": "src/assets/Image/Env/Bg.png",
+          "kind": "import-statement",
+          "original": "../assets/Image/Env/Bg.png"
         }
       ],
       "format": "esm"
@@ -336,7 +417,7 @@
       "format": "esm"
     },
     "src/js/Utils/RaycastUtils.js": {
-      "bytes": 3214,
+      "bytes": 3305,
       "imports": [
         {
           "path": "node_modules/three/build/three.module.js",
@@ -347,7 +428,7 @@
       "format": "esm"
     },
     "src/js/Manager/GameManager.js": {
-      "bytes": 373,
+      "bytes": 714,
       "imports": [
         {
           "path": "node_modules/three/build/three.module.js",
@@ -417,7 +498,7 @@
       "format": "esm"
     },
     "src/js/Object/Block/BlockMoveScript.js": {
-      "bytes": 16720,
+      "bytes": 16952,
       "imports": [
         {
           "path": "node_modules/three/build/three.module.js",
@@ -504,13 +585,8 @@
       ],
       "format": "esm"
     },
-    "src/js/Const/GameConstant.js": {
-      "bytes": 53912,
-      "imports": [],
-      "format": "esm"
-    },
     "src/js/Factory/MaterialFactory.js": {
-      "bytes": 5377,
+      "bytes": 5852,
       "imports": [
         {
           "path": "node_modules/three/build/three.module.js",
@@ -525,8 +601,100 @@
       ],
       "format": "esm"
     },
+    "src/js/Object/Gate/Gate.js": {
+      "bytes": 11990,
+      "imports": [
+        {
+          "path": "node_modules/three/build/three.module.js",
+          "kind": "import-statement",
+          "original": "three"
+        },
+        {
+          "path": "src/js/Pooling/BlockPoolManager.js",
+          "kind": "import-statement",
+          "original": "../../Pooling/BlockPoolManager"
+        },
+        {
+          "path": "src/js/Event/EventEmitter.js",
+          "kind": "import-statement",
+          "original": "../../Event/EventEmitter"
+        },
+        {
+          "path": "src/js/Manager/GameManager.js",
+          "kind": "import-statement",
+          "original": "../../Manager/GameManager"
+        },
+        {
+          "path": "src/js/Utils/RaycastUtils.js",
+          "kind": "import-statement",
+          "original": "../../Utils/RaycastUtils"
+        },
+        {
+          "path": "src/js/Object/Block/BlockScript.js",
+          "kind": "import-statement",
+          "original": "../Block/BlockScript"
+        },
+        {
+          "path": "src/js/Const/GameConstant.js",
+          "kind": "import-statement",
+          "original": "../../Const/GameConstant"
+        },
+        {
+          "path": "src/js/Factory/MaterialFactory.js",
+          "kind": "import-statement",
+          "original": "../../Factory/MaterialFactory"
+        },
+        {
+          "path": "node_modules/gsap/index.js",
+          "kind": "import-statement",
+          "original": "gsap"
+        }
+      ],
+      "format": "esm"
+    },
+    "src/js/Const/GameConstant.js": {
+      "bytes": 67521,
+      "imports": [
+        {
+          "path": "node_modules/three/build/three.module.js",
+          "kind": "import-statement",
+          "original": "three"
+        },
+        {
+          "path": "src/js/Pooling/BlockPoolManager.js",
+          "kind": "import-statement",
+          "original": "../Pooling/BlockPoolManager"
+        },
+        {
+          "path": "src/js/Factory/MaterialFactory.js",
+          "kind": "import-statement",
+          "original": "../Factory/MaterialFactory"
+        },
+        {
+          "path": "src/js/Manager/GameManager.js",
+          "kind": "import-statement",
+          "original": "../Manager/GameManager"
+        },
+        {
+          "path": "src/js/Object/Block/BlockGroup.js",
+          "kind": "import-statement",
+          "original": "../Object/Block/BlockGroup"
+        },
+        {
+          "path": "src/js/Object/Gate/Gate.js",
+          "kind": "import-statement",
+          "original": "../Object/Gate/Gate"
+        },
+        {
+          "path": "src/js/Manager/TouchManager.js",
+          "kind": "import-statement",
+          "original": "../Manager/TouchManager"
+        }
+      ],
+      "format": "esm"
+    },
     "src/js/Object/Block/BlockGroup.js": {
-      "bytes": 5374,
+      "bytes": 5505,
       "imports": [
         {
           "path": "node_modules/three/build/three.module.js",
@@ -571,44 +739,19 @@
       ],
       "format": "esm"
     },
-    "src/js/Object/Gate/Gate.js": {
-      "bytes": 10439,
+    "src/js/Shader/MaskShader.js": {
+      "bytes": 881,
       "imports": [
         {
           "path": "node_modules/three/build/three.module.js",
           "kind": "import-statement",
           "original": "three"
-        },
-        {
-          "path": "src/js/Pooling/BlockPoolManager.js",
-          "kind": "import-statement",
-          "original": "../../Pooling/BlockPoolManager"
-        },
-        {
-          "path": "src/js/Event/EventEmitter.js",
-          "kind": "import-statement",
-          "original": "../../Event/EventEmitter"
-        },
-        {
-          "path": "src/js/Manager/GameManager.js",
-          "kind": "import-statement",
-          "original": "../../Manager/GameManager"
-        },
-        {
-          "path": "src/js/Utils/RaycastUtils.js",
-          "kind": "import-statement",
-          "original": "../../Utils/RaycastUtils"
-        },
-        {
-          "path": "src/js/Object/Block/BlockScript.js",
-          "kind": "import-statement",
-          "original": "../Block/BlockScript"
         }
       ],
       "format": "esm"
     },
     "src/js/core/ThreeApp.js": {
-      "bytes": 7004,
+      "bytes": 9545,
       "imports": [
         {
           "path": "node_modules/three/build/three.module.js",
@@ -644,6 +787,16 @@
           "path": "src/js/Object/Gate/Gate.js",
           "kind": "import-statement",
           "original": "../Object/Gate/Gate"
+        },
+        {
+          "path": "src/js/Const/GameConstant.js",
+          "kind": "import-statement",
+          "original": "../Const/GameConstant"
+        },
+        {
+          "path": "src/js/Shader/MaskShader.js",
+          "kind": "import-statement",
+          "original": "../Shader/MaskShader"
         }
       ],
       "format": "esm"
@@ -817,10 +970,10 @@
           "bytesInOutput": 444
         },
         "node_modules/three/build/three.core.js": {
-          "bytesInOutput": 203209
+          "bytesInOutput": 202022
         },
         "node_modules/three/build/three.module.js": {
-          "bytesInOutput": 319737
+          "bytesInOutput": 319752
         },
         "node_modules/three/examples/jsm/utils/BufferGeometryUtils.js": {
           "bytesInOutput": 991
@@ -873,20 +1026,56 @@
         "src/assets/Models/exit3.glb": {
           "bytesInOutput": 8987
         },
+        "src/assets/Models/Gate1.glb": {
+          "bytesInOutput": 11355
+        },
+        "src/assets/Models/Gate2.glb": {
+          "bytesInOutput": 11355
+        },
+        "src/assets/Models/Gate3.glb": {
+          "bytesInOutput": 11359
+        },
+        "src/assets/Models/Gate4.glb": {
+          "bytesInOutput": 11359
+        },
+        "src/assets/Models/wall1.glb": {
+          "bytesInOutput": 3167
+        },
+        "src/assets/Models/Corner.glb": {
+          "bytesInOutput": 4779
+        },
+        "src/assets/Models/arrow.glb": {
+          "bytesInOutput": 3231
+        },
         "src/assets/Image/Texture/XBlockUV.png": {
-          "bytesInOutput": 244392
+          "bytesInOutput": 42416
         },
         "src/assets/Image/Texture/XBlockUV_Rn.png": {
-          "bytesInOutput": 937164
+          "bytesInOutput": 106720
         },
         "src/assets/Image/Texture/XBlockUV_Rn_specular.png": {
-          "bytesInOutput": 134700
+          "bytesInOutput": 15908
+        },
+        "src/assets/Image/Env/Floor.png": {
+          "bytesInOutput": 13304
+        },
+        "src/assets/Image/Env/Bg.png": {
+          "bytesInOutput": 163508
         },
         "src/js/LoadManager.js": {
-          "bytesInOutput": 1560
+          "bytesInOutput": 1649
         },
         "src/js/Config.js": {
           "bytesInOutput": 2912
+        },
+        "node_modules/gsap/gsap-core.js": {
+          "bytesInOutput": 51461
+        },
+        "node_modules/gsap/CSSPlugin.js": {
+          "bytesInOutput": 18536
+        },
+        "node_modules/gsap/index.js": {
+          "bytesInOutput": 50
         },
         "src/js/core/PixiApp.js": {
           "bytesInOutput": 854
@@ -895,7 +1084,7 @@
           "bytesInOutput": 1084
         },
         "src/js/Manager/GameManager.js": {
-          "bytesInOutput": 179
+          "bytesInOutput": 365
         },
         "src/js/Manager/TouchManager.js": {
           "bytesInOutput": 1326
@@ -916,7 +1105,7 @@
           "bytesInOutput": 526
         },
         "src/js/Object/Block/BlockMoveScript.js": {
-          "bytesInOutput": 5439
+          "bytesInOutput": 5584
         },
         "src/js/Pooling/ObjectPool.js": {
           "bytesInOutput": 660
@@ -927,20 +1116,23 @@
         "src/js/Pooling/BlockPoolManager.js": {
           "bytesInOutput": 236
         },
-        "src/js/Const/GameConstant.js": {
-          "bytesInOutput": 21147
-        },
         "src/js/Factory/MaterialFactory.js": {
-          "bytesInOutput": 1946
-        },
-        "src/js/Object/Block/BlockGroup.js": {
-          "bytesInOutput": 2315
+          "bytesInOutput": 2187
         },
         "src/js/Object/Gate/Gate.js": {
-          "bytesInOutput": 3815
+          "bytesInOutput": 4242
+        },
+        "src/js/Const/GameConstant.js": {
+          "bytesInOutput": 26721
+        },
+        "src/js/Object/Block/BlockGroup.js": {
+          "bytesInOutput": 2405
+        },
+        "src/js/Shader/MaskShader.js": {
+          "bytesInOutput": 506
         },
         "src/js/core/ThreeApp.js": {
-          "bytesInOutput": 3285
+          "bytesInOutput": 2923
         },
         "src/js/Sound/SoundManager.js": {
           "bytesInOutput": 1180
@@ -976,7 +1168,7 @@
           "bytesInOutput": 439
         }
       },
-      "bytes": 2536241
+      "bytes": 1694217
     }
   }
 }
