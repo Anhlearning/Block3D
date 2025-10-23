@@ -1,89 +1,139 @@
 // UIFactory.js
 // import { Container, Sprite, Text, TextStyle, Graphics } from 'pixi.js';
 import CONFIG from "../Config";
-import { Container, Sprite, Text, Graphics } from "../PixiAlias";
+import { Container, Sprite, Text, Graphics, TextStyle } from "../PixiAlias";
 import gsap from "gsap";
 import { PixiPlugin } from "gsap/PixiPlugin";
 gsap.registerPlugin(PixiPlugin);
 export class UIFactory {
-  static formatTime(seconds) {
-    const min = String(Math.floor(seconds / 60)).padStart(2, "0");
-    const sec = String(seconds % 60).padStart(2, "0");
-    return `${min} : ${sec}`;
-  }
-  static createProgressUI(map, currentPoint = 0, targetPoint = 100) {
+  static createClockUI(map, seconds = 0) {
     const container = new Container();
+    const bg = new Sprite(map.get('clock'));
+    bg.anchor.set(0.5);
+    bg.scale.set(0.4);
+    container.addChild(bg);
 
-    // ----- Sprites gốc -----
-    const BgProgress = new Sprite(map.get("BgProgress").texture);
-    const CakeUI = new Sprite(map.get("CakeIconUI").texture);
-    const ProgressBar = new Sprite(map.get("BgProgress").texture);
-
-    // ----- Scale -----
-    BgProgress.scale.set(0.35);
-    ProgressBar.scale.set(0.35);
-    CakeUI.scale.set(0.35);
-
-    // ----- Màu nền & progress -----
-    BgProgress.tint = 0x595959; // nền xám
-    ProgressBar.tint = 0xffcd00; // fill trắng
-
-    // ----- Anchor -----
-    BgProgress.anchor.set(0.5);
-    CakeUI.anchor.set(0.5);
-    ProgressBar.anchor.set(0.5); // tạm thời center
-
-    // ----- Vị trí -----
-    const padding = 8;
-    BgProgress.position.set(0, 0);
-    CakeUI.position.set(BgProgress.width * 0.5 - padding, 0);
-    ProgressBar.position.set(0, 0);
-
-    // ===== Mask giữ nguyên hình dạng progress =====
-    const barMask = new Graphics();
-    barMask.beginFill(0xffcd00);
-    barMask.drawRect(
-      -BgProgress.width * 0.5,
-      -BgProgress.height * 0.5,
-      BgProgress.width * 0,
-      BgProgress.height
-    );
-    barMask.endFill();
-
-    // Gán mask cho ProgressBar
-    ProgressBar.mask = barMask;
-
-    // ----- Text hiển thị điểm -----
-    const scoreText = new Text(`${currentPoint} / ${targetPoint}`, {
-      fontFamily: "Luckiest Guy",
+    const style = new TextStyle({
+      fontFamily: 'Luckiest Guy',
       fontSize: 20,
-      fontWeight: "bold",
-      fill: 0xffffff, // chữ trắng
-      stroke: 0x000000, // viền đen
-      strokeThickness: 3.5, // viền dày rõ nét
-      letterSpacing: 0,
-      align: "center",
+      fill: 0xffffff,
+      stroke: {
+        color: '#000000',
+        width: 2
+      },
+      letterSpacing: 0.5
     });
-    scoreText.resolution = 2; // tăng độ nét trên màn hình high-DPI
-    scoreText.anchor.set(0.5);
-    scoreText.position.set(0, 0);
 
-    // ----- Add vào container -----
-    container.addChild(BgProgress);
-    container.addChild(ProgressBar);
-    container.addChild(barMask); // mask phải cùng container
-    container.addChild(CakeUI);
-    container.addChild(scoreText);
+    const label = new Text({
+      text: UIFactory.formatTime(seconds),
+      style: style
+    });
+    label.resolution = 4;
+    label.anchor.set(0.5);
+    label.x = 10;
+    label.y = 0;
+    container.addChild(label);
 
-    // ----- Expose ra ngoài -----
-    container.bg = BgProgress;
-    container.bar = ProgressBar;
-    container.barMask = barMask;
-    container.icon = CakeUI;
-    container.scoreText = scoreText;
-    this.ProgressUI = container;
+    container.label = label;
+
+    container.setTime = (secs) => {
+      container.label.text = UIFactory.formatTime(secs);
+    };
+
+    container.scale.set(1);
     return container;
   }
+  static formatTime(seconds) {
+    const min = String(Math.floor(seconds / 60)).padStart(2, '0');
+    const sec = String(Math.floor(seconds % 60)).padStart(2, '0');
+    return `${min} : ${sec}`;
+  }
+  static createTextTut() {
+    const container = new Container();
+    const style = new TextStyle({
+      fontFamily: 'Luckiest Guy',
+      fontSize: 30,
+      fill: 0xffffff,
+      stroke: {
+        color: '#000000',
+        width: 3
+      },
+      letterSpacing: 0.55
+    });
+
+    const label = new Text({
+      text: "Swipe to move",
+      style: style
+    });
+    label.resolution = 4;
+    label.anchor.set(0.5);
+    label.x = 0;
+    label.y = 0;
+    container.addChild(label);
+
+    return container;
+  }
+  static createProgressUI(map) {
+    const container = new Container();
+    const baby = new Sprite(map.get('baby'));
+    const normal = new Sprite(map.get('normal'));
+    const genius = new Sprite(map.get('genius'));
+    const brain = new Sprite(map.get('brain'));
+    const bgProgress = new Sprite(map.get('bgProgress'));
+    const progressBar = new Sprite(map.get('progressBar'));
+
+    bgProgress.anchor.set(0.5);
+    bgProgress.scale.set(0.6, 0.6);
+    bgProgress.position.set(0, 0);
+    container.addChild(bgProgress);
+
+    progressBar.anchor.set(0, 0.5);
+    progressBar.position.set(-214.2705, 0);
+    progressBar.scale.set(0, 1);
+    bgProgress.addChild(progressBar);
+
+
+    baby.anchor.set(0.5);
+    baby.scale.set(0.3, 0.3);
+    normal.anchor.set(0.5);
+    normal.scale.set(0.3, 0.3);
+    genius.anchor.set(0.5);
+    genius.scale.set(0.3, 0.3);
+
+    const segmentWidth = bgProgress.width / 3;
+
+    baby.position.set(-bgProgress.width / 2 + segmentWidth * 0.35, -34);
+    normal.position.set(-bgProgress.width / 2 + segmentWidth * 1.5, -37);
+    genius.position.set(-bgProgress.width / 2 + segmentWidth * 2.75, -38);
+
+    container.addChild(baby, normal, genius);
+
+    brain.anchor.set(0.5, 0.5);
+    brain.scale.set(0.8, 0.8);
+    brain.position.set(-bgProgress.width / 2, 0);
+    container.addChild(brain);
+    this.progressBar = progressBar;
+
+    container.setProgress = (value) => {
+      const clamped = Math.max(0, Math.min(1, value));
+      progressBar.scale.x = clamped;
+    };
+    return container;
+  }
+  static setProgress(value, animate = true) {
+    const clamped = Math.max(0, Math.min(1, value));
+    if (animate) {
+      gsap.to(this.progressBar.scale, {
+        x: clamped,
+        duration: 0.8,
+        ease: 'sine.out'
+      });
+    } else {
+      progressBar.scale.x = clamped;
+    }
+  }
+
+
   static createLevelUpUI(map) {
     const container = new Container();
     // Overlay nền đen mờ
@@ -183,11 +233,10 @@ export class UIFactory {
   }
   static createEndGameUI(map) {
     const container = new Container();
-    const cakeLogo = new Sprite(map.get("cakeLogoEffect").texture);
-    // const iconCake = new Sprite(map.get('iconEndCard').texture);
-    const downLoadBtn = new Sprite(map.get("downloadbtn").texture);
-    const handTut = new Sprite(map.get("handUI").texture);
-    const glow = new Sprite(map.get("glow").texture);
+    const cakeLogo = new Sprite(map.get("blockLogo"));
+    const downLoadBtn = new Sprite(map.get("downloadbtn"));
+    const handTut = new Sprite(map.get("handUI"));
+    const glow = new Sprite(map.get("glow"));
     const overlay = new Graphics();
     cakeLogo.anchor.set(0.5);
     cakeLogo.scale.set(0.7);
@@ -202,8 +251,8 @@ export class UIFactory {
     downLoadBtn.position.set(0, 210);
 
     handTut.anchor.set(0.5);
-    handTut.scale.set(0.6);
-    handTut.position.set(10, 230);
+    handTut.scale.set(0.4);
+    handTut.position.set(10, 235);
 
     glow.anchor.set(0.5);
     glow.position.set(0, 0);
@@ -326,54 +375,6 @@ export class UIFactory {
           });
       });
     }
-  }
-  static updateProgressUI(current, target) {
-    if (!this.ProgressUI) return; // bảo vệ nếu chưa tạo
-
-    const ui = this.ProgressUI;
-
-    // Tính % tiến trình
-    const percent = target > 0 ? current / target : 0;
-    const clamped = Math.max(0, Math.min(1, percent));
-
-    // Cập nhật text
-    ui.scoreText.text = `${current} / ${target}`;
-
-    // Vẽ lại mask theo phần trăm
-    const bgWidth = ui.bg.width;
-    const bgHeight = ui.bg.height;
-
-    ui.barMask.clear();
-    ui.barMask.beginFill(0xffffff);
-    ui.barMask.drawRect(
-      -bgWidth * 0.5,
-      -bgHeight * 0.5,
-      bgWidth * clamped,
-      bgHeight
-    );
-    ui.barMask.endFill();
-    const baseIconScale = { x: ui.icon.scale.x, y: ui.icon.scale.y };
-    gsap.killTweensOf(ui.icon.scale);
-    gsap.to(ui.icon.scale, {
-      x: baseIconScale.x * 1.2,
-      y: baseIconScale.y * 1.2,
-      duration: 0.15,
-      yoyo: true,
-      repeat: 1,
-      ease: "power2.out",
-    });
-
-    // --- Bounce cho bg ---
-    const baseBgScale = { x: ui.scoreText.scale.x, y: ui.scoreText.scale.y };
-    gsap.killTweensOf(ui.scoreText.scale);
-    gsap.to(ui.scoreText.scale, {
-      x: baseBgScale.x * 1.15,
-      y: baseBgScale.y * 1.15,
-      duration: 0.2,
-      yoyo: true,
-      repeat: 1,
-      ease: "power1.out",
-    });
   }
   static ShowEndGameUI() {
     const ui = this.EndGameUI;
@@ -554,12 +555,6 @@ export class UIFactory {
           ease: "none",
           repeat: -1,
         });
-
-        // const gentleLoop = gsap.timeline({ repeat: -1, repeatDelay: 1 });
-        // gentleLoop
-        //   .to(ui.icon.scale, { x: 1.05, y: 1.05, duration: 0.4, ease: "power1.inOut" }, 0)
-        //   .to(ui.icon, { x: "+=2", duration: 0.1, yoyo: true, repeat: 1, ease: "sine.inOut" }, 0.1)
-        //   .to(ui.icon.scale, { x: 1, y: 1, duration: 0.4, ease: "power1.inOut" });
       });
     }
   }

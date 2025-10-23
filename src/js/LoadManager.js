@@ -39,7 +39,23 @@ import specularMap from '../assets/Image/Texture/XBlockUV_Rn.png';
 import normapMap from '../assets/Image/Texture/XBlockUV_Rn_specular.png';
 import floor from '../assets/Image/Env/Floor.png';
 import Bg from '../assets/Image/Env/Bg.png';
+import arrow1 from '../assets/Image/Texture/AllStar (2).png';
+import arrow2 from '../assets/Image/Texture/AllStar.png';
+import arrow3 from '../assets/Image/Texture/AllStar (1).png';
+import arrow4 from '../assets/Image/Texture/AllStar (3).png';
+import baby from '../assets/Image/UI/Baby.png';
+import normal from '../assets/Image/UI/Normal.png';
+import genius from '../assets/Image/UI/Genius.png';
+import VectorSmartObject from '../assets/Image/UI/VectorSmartObject.png';
+import VectorSmartObject1 from '../assets/Image/UI/VectorSmartObject1.png';
+import VectorSmartObject2 from '../assets/Image/UI/VectorSmartObject2.png';
+import blockLogo from '../assets/Image/UI/Group 33.png';
+import downloadbtn from '../assets/Image/UI/downloadBtn.png';
+import handUI from '../assets/Image/UI/hand.png';
+import glow from '../assets/Image/UI/halo.png';
+import clock from '../assets/Image/UI/Clock.png';
 //#endregion loadImage
+
 export const modelMap = {
   'block_plus': block_plus,
   'block_1x1': block_1x1,
@@ -208,6 +224,21 @@ class SingletonMap {
       load('normalMap', normapMap),
       load('floor', floor),
       load('bg', Bg),
+      load('arrow1',arrow1),
+      load('arrow2',arrow2),
+      load('arrow3',arrow3),
+      load('arrow4',arrow4),
+      load('baby',baby),
+      load('normal',normal),
+      load('genius',genius),
+      load('brain',VectorSmartObject),
+      load('bgProgress',VectorSmartObject2),
+      load('progressBar',VectorSmartObject1),
+      load('clock',clock),
+      load('blockLogo',blockLogo),
+      load('downloadbtn',downloadbtn),
+      load('handUI',handUI),
+      load('glow',glow),
     ]);
 
     this.map = map;

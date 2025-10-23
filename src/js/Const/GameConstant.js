@@ -5,15 +5,19 @@ import { GAMEMANAGER } from "../Manager/GameManager";
 import BlockGroup from "../Object/Block/BlockGroup";
 import { Gate } from "../Object/Gate/Gate";
 import { TOUCHMANAGER } from "../Manager/TouchManager";
-
+import { createMaskMaterial } from "../Shader/MaskShader";
+import { LockState, MoveType } from "../Object/Block/BlockScript";
+import MapData from './MapData_Level1.json'
+import DataMap from "three/src/renderers/common/DataMap.js";
 
 export default class GameConstant {
-    // Danh sách block (nếu cần)
+    static mapX = MapData.MapSize.mapX;        // 6 cột
+    static mapY = MapData.MapSize.mapY;        // 7 hàng
     static BLOCK_L = [
         // có thể chứa ID hoặc các tham chiếu khác
     ];
     static COLOR_DETAIL = {
-        1: { color: 0xffffff, name: "white" },
+        1: { color: 0xA2A1A1, name: "white" },
         2: { color: 0x3D40DB, name: "blue" },
         3: { color: 0x28BE9C, name: "xanhngoc" },
         4: { color: 0x007D15, name: "green" },
@@ -22,9 +26,17 @@ export default class GameConstant {
         7: { color: 0xFFAF8F, name: "camnhat" },
         8: { color: 0x7543AB, name: "timdam" },
         9: { color: 0xC83921, name: "red" },
-        10: { color: 0x6F4327, name: "naudat" },
         11: { color: 0xB0E5CE, name: "xanhngocnhat" },
         12: { color: 0xC38617, name: "vangdat" },
+        13: { color: 0xF18CDE, name: "pink" },
+        // nâu 
+        10: { color: 0x8B7355, name: "naudat" },
+        14: { color: 0x363636, name: "nauden" },
+        16: { color: 0x7B1200, name: "naudo" },
+        17: { color: 0x7B392C, name: "nauhatde" },
+        18: { color: 0xFFE7BA, name: "Naube" },
+        19: { color: 0x9D4201, name: "camdat" }, 
+        20: { color: 0x8B5C31, name: "nau" }, 
     }
     // Chi tiết từng loại block
     static BLOCK_DETAIL = {
@@ -35,6 +47,8 @@ export default class GameConstant {
             position: { x: -0.5, y: 0, z: 0.5 },
             rotation: { x: 0, y: -90, z: 0 },
             scale: { x: 1, y: 1, z: 1 },
+            arrowZ: { x: 0.5000002, y: 0, z: -1.5 },
+            arrowX: { x: -0.5, y: 0, z: -0.5 },
             colliders: [
                 {
                     name: "Collider_1",
@@ -65,6 +79,8 @@ export default class GameConstant {
             position: { x: -0.5, y: 0, z: -1.5 },
             rotation: { x: 0, y: 180, z: 0 },
             scale: { x: 1, y: 1, z: 1 },
+            arrowZ: { x: 0.5000002, y: 0, z: -1.5 },
+            arrowX: { x: -0.5, y: 0, z: -1.5 },
             colliders: [
                 {
                     name: "Collider_1",
@@ -95,6 +111,8 @@ export default class GameConstant {
             position: { x: 1.5, y: 0, z: -1.5 },
             rotation: { x: 0, y: 90, z: 0 },
             scale: { x: 1, y: 1, z: 1 },
+            arrowZ: { x: 1.5, y: 0, z: -1.5 },
+            arrowX: { x: -0.5, y: 0, z: -1.5 },
             colliders: [
                 {
                     name: "Collider_1",
@@ -125,6 +143,8 @@ export default class GameConstant {
             position: { x: 1.5, y: 0, z: 0.5 },
             rotation: { x: 0, y: 0, z: 0 },
             scale: { x: 1, y: 1, z: 1 },
+            arrowZ: { x: 1.5, y: 0, z: -1.5 },
+            arrowX: { x: -0.5, y: 0, z: -0.5 },
             colliders: [
                 {
                     name: "Collider_1",
@@ -157,6 +177,8 @@ export default class GameConstant {
             position: { x: 1.5, y: 0, z: -2.5 },
             rotation: { x: 0, y: 90, z: 0 },
             scale: { x: 1, y: 1, z: 1 },
+            arrowZ: { x: 0.5000001, y: 0, z: -2.5 },
+            arrowX: { x: -0.5, y: 0, z: -0.5 },
             colliders: [
                 {
                     name: "Collider_1",
@@ -194,6 +216,8 @@ export default class GameConstant {
             position: { x: 2.5, y: 0, z: 0.5 },
             rotation: { x: 0, y: 0, z: 0 },
             scale: { x: 1, y: 1, z: 1 },
+            arrowZ: { x: 0.5000002, y: 0, z: 1.5 },
+            arrowX: { x: -0.5, y: 0, z: 1.5 },
             colliders: [
                 {
                     name: "Collider_1",
@@ -231,6 +255,8 @@ export default class GameConstant {
             position: { x: -0.5, y: 0, z: 0.5 },
             rotation: { x: 0, y: -90, z: 0 },
             scale: { x: 1, y: 1, z: 1 },
+            arrowZ: { x: 1.5, y: 0, z: -2.5 },
+            arrowX: { x: -0.5, y: 0, z: -2.5 },
             colliders: [
                 {
                     name: "Collider_1",
@@ -268,6 +294,8 @@ export default class GameConstant {
             position: { x: -0.5, y: 0, z: -1.5 },
             rotation: { x: 0, y: 180, z: 0 },
             scale: { x: 1, y: 1, z: 1 },
+            arrowZ: { x: 2.5, y: 0, z: -1.5 },
+            arrowX: { x: -0.5, y: 0, z: -0.5 },
             colliders: [
                 {
                     name: "Collider_1",
@@ -307,6 +335,8 @@ export default class GameConstant {
             position: { x: 2.5, y: 0, z: -1.5 },
             rotation: { x: 0, y: 180, z: 0 },
             scale: { x: -1, y: 1, z: 1 },
+            arrowZ: { x: 0.5, y: 0, z: -1.5 },
+            arrowX: { x: -0.5, y: 0, z: -0.5 },
             colliders: [
                 {
                     name: "Collider_1",
@@ -344,6 +374,8 @@ export default class GameConstant {
             position: { x: 1.5, y: 0, z: 0.5 },
             rotation: { x: 0, y: 90, z: 0 },
             scale: { x: -1, y: 1, z: 1 },
+            arrowZ: { x: 0.5, y: 0, z: -2.5 },
+            arrowX: { x: -0.5, y: 0, z: -2.5 },
             colliders: [
                 {
                     name: "Collider_1",
@@ -381,6 +413,8 @@ export default class GameConstant {
             position: { x: -0.5, y: 0, z: -0.5 },
             rotation: { x: 0, y: -90, z: 0 },
             scale: { x: -1, y: 1, z: 1 },
+            arrowZ: { x: 2.5, y: 0, z: -1.5 },
+            arrowX: { x: -0.5, y: 0, z: -1.5 },
             colliders: [
                 {
                     name: "Collider_1",
@@ -418,6 +452,8 @@ export default class GameConstant {
             position: { x: -0.5, y: 0, z: 1.5 },
             rotation: { x: 0, y: 0, z: 0 },
             scale: { x: -1, y: 1, z: 1 },
+            arrowZ: { x: 1.5, y: 0, z: -2.5 },
+            arrowX: { x: -0.5, y: 0, z: -0.5 },
             colliders: [
                 {
                     name: "Collider_1",
@@ -457,6 +493,8 @@ export default class GameConstant {
             position: { x: -0.5, y: 0, z: 0.5 },
             rotation: { x: 0, y: -90, z: 0 },
             scale: { x: 1, y: 1, z: 1 },
+            arrowZ: { x: 0.5, y: 0, z: -2.5 },
+            arrowX: { x: -0.5, y: 0, z: -0.5 },
             colliders: [
                 {
                     name: "Collider_1",
@@ -501,6 +539,8 @@ export default class GameConstant {
             position: { x: -0.5, y: 0, z: -2.5 },
             rotation: { x: 0, y: 180, z: 0 },
             scale: { x: 1, y: 1, z: 1 },
+            arrowZ: { x: 0.5, y: 0, z: -2.5 },
+            arrowX: { x: -0.5, y: 0, z: 2.5 },
             colliders: [
                 {
                     name: "Collider_1",
@@ -545,6 +585,8 @@ export default class GameConstant {
             position: { x: 2.5, y: 0, z: -2.5 },
             rotation: { x: 0, y: 90, z: 0 },
             scale: { x: 1, y: 1, z: 1 },
+            arrowZ: { x: 2.5, y: 0, z: -2.5 },
+            arrowX: { x: -0.5, y: 0, z: -2.5 },
             colliders: [
                 {
                     name: "Collider_1",
@@ -589,6 +631,8 @@ export default class GameConstant {
             position: { x: 2.5, y: 0, z: 0.5 },
             rotation: { x: 0, y: 0, z: 0 },
             scale: { x: 1, y: 1, z: 1 },
+            arrowZ: { x: 2.5, y: 0, z: -2.5 },
+            arrowX: { x: -0.5, y: 0, z: -0.5 },
             colliders: [
                 {
                     name: "Collider_1",
@@ -635,6 +679,8 @@ export default class GameConstant {
             position: { x: 2.5, y: 0, z: 0.5 },
             rotation: { x: 0, y: 0, z: 0 },
             scale: { x: 1, y: 1, z: 1 },
+            arrowZ: { x: 1.5, y: 0, z: -2.5 },
+            arrowX: { x: -0.5, y: 0, z: -1.5 },
             colliders: [
                 {
                     name: "Collider_1",
@@ -681,6 +727,8 @@ export default class GameConstant {
             position: { x: 0.5, y: 0, z: 0.5 },
             rotation: { x: 0, y: 0, z: 0 },
             scale: { x: 1, y: 1, z: 1 },
+            arrowZ: { x: 0, y: 0, z: -0.375 },
+            arrowX: { x: -0.375, y: 0, z: 0 },
             colliders: [
                 {
                     name: "Collider_1",
@@ -697,6 +745,8 @@ export default class GameConstant {
             position: { x: 0.5, y: 0, z: -1.5 },
             rotation: { x: 0, y: 90, z: 0 },
             scale: { x: 1, y: 1, z: 1 },
+            arrowZ: { x: 0.5, y: 0, z: -1.5 },
+            arrowX: { x: -0.375, y: 0, z: -0.5 },
             colliders: [
                 {
                     name: "Collider_1",
@@ -721,6 +771,8 @@ export default class GameConstant {
             position: { x: 1.5, y: 0, z: 0.5 },
             rotation: { x: 0, y: 0, z: 0 },
             scale: { x: 1, y: 1, z: 1 },
+            arrowZ: { x: 0.5, y: 0, z: -0.375 },
+            arrowX: { x: -0.5, y: 0, z: -0.5 },
             colliders: [
                 {
                     name: "Collider_1",
@@ -745,6 +797,8 @@ export default class GameConstant {
             position: { x: 0.5, y: 0, z: -2.5 },
             rotation: { x: 0, y: 90, z: 0 },
             scale: { x: 1, y: 1, z: 1 },
+            arrowZ: { x: 0.5, y: 0, z: -2.5 },
+            arrowX: { x: -0.375, y: 0, z: -1 },
             colliders: [
                 {
                     name: "Collider_1",
@@ -775,6 +829,8 @@ export default class GameConstant {
             position: { x: 2.5, y: 0, z: 0.5 },
             rotation: { x: 0, y: 0, z: 0 },
             scale: { x: 1, y: 1, z: 1 },
+            arrowZ: { x: 1, y: 0, z: -0.375 },
+            arrowX: { x: -0.5, y: 0, z: -0.5 },
             colliders: [
                 {
                     name: "Collider_1",
@@ -805,6 +861,8 @@ export default class GameConstant {
             position: { x: 0.5, y: 0, z: -3.5 },
             rotation: { x: 0, y: 90, z: 0 },
             scale: { x: 1, y: 1, z: 1 },
+            arrowZ: { x: 0.5, y: 0, z: -3.5 },
+            arrowX: { x: -0.375, y: 0, z: -1.5 },
             colliders: [
                 {
                     name: "Collider_1",
@@ -842,6 +900,8 @@ export default class GameConstant {
             position: { x: 3.5, y: 0, z: 0.5 },
             rotation: { x: 0, y: 0, z: 0 },
             scale: { x: 1, y: 1, z: 1 },
+            arrowZ: { x: 1.5, y: 0, z: -0.375 },
+            arrowX: { x: -0.5, y: 0, z: -0.5 },
             colliders: [
                 {
                     name: "Collider_1",
@@ -879,6 +939,8 @@ export default class GameConstant {
             position: { x: 1.5, y: 0, z: 0.5 },
             rotation: { x: 0, y: 0, z: 0 },
             scale: { x: 1, y: 1, z: 1 },
+            arrowZ: { x: 1, y: 0, z: -1.5 },
+            arrowX: { x: -0.5, y: 0, z: -1 },
             colliders: [
                 {
                     name: "Collider_1",
@@ -918,6 +980,8 @@ export default class GameConstant {
             position: { x: 2.5, y: 0, z: 0.5 },
             rotation: { x: 0, y: 0, z: 0 },
             scale: { x: 1, y: 1, z: 1 },
+            arrowZ: { x: 1.5, y: 0, z: -1.5 },
+            arrowX: { x: -0.5, y: 0, z: 1.5 },
             colliders: [
                 {
                     name: "Collider_1",
@@ -955,6 +1019,8 @@ export default class GameConstant {
             position: { x: -0.5, y: 0, z: 0.5 },
             rotation: { x: 0, y: -90, z: 0 },
             scale: { x: 1, y: 1, z: 1 },
+            arrowZ: { x: 1.5, y: 0, z: -2.5 },
+            arrowX: { x: -0.5, y: 0, z: -1.5 },
             colliders: [
                 {
                     name: "Collider_1",
@@ -992,6 +1058,8 @@ export default class GameConstant {
             position: { x: -0.5, y: 0, z: -1.5 },
             rotation: { x: 0, y: 180, z: 0 },
             scale: { x: 1, y: 1, z: 1 },
+            arrowZ: { x: 1.5, y: 0, z: -1.5 },
+            arrowX: { x: -0.5, y: 0, z: -0.5 },
             colliders: [
                 {
                     name: "Collider_1",
@@ -1029,6 +1097,8 @@ export default class GameConstant {
             position: { x: 1.5, y: 0, z: -2.5 },
             rotation: { x: 0, y: 90, z: 0 },
             scale: { x: 1, y: 1, z: 1 },
+            arrowZ: { x: 0.5, y: 0, z: -2.5 },
+            arrowX: { x: -0.5, y: 0, z: 1.5 },
             colliders: [
                 {
                     name: "Collider_1",
@@ -1066,6 +1136,8 @@ export default class GameConstant {
             position: { x: -0.5, y: 0, z: -0.5 },
             rotation: { x: 0, y: 180, z: 0 },
             scale: { x: 1, y: 1, z: 1 },
+            arrowZ: { x: 1.5, y: 0, z: -2.5 },
+            arrowX: { x: -0.5, y: 0, z: -2.5 },
             colliders: [
                 {
                     name: "Collider_1",
@@ -1110,6 +1182,8 @@ export default class GameConstant {
             position: { x: 2.5, y: 0, z: -2.5 },
             rotation: { x: 0, y: 90, z: 0 },
             scale: { x: 1, y: 1, z: 1 },
+            arrowZ: { x: 2.5, y: 0, z: -2.5 },
+            arrowX: { x: -0.5, y: 0, z: -1.5 },
             colliders: [
                 {
                     name: "Collider_1",
@@ -1154,6 +1228,8 @@ export default class GameConstant {
             position: { x: 2.5, y: 0, z: 0.5 },
             rotation: { x: 0, y: 0, z: 0 },
             scale: { x: 1, y: 1, z: 1 },
+            arrowZ: { x: 1.5, y: 0, z: -2.5 },
+            arrowX: { x: -0.5, y: 0, z: 0.5 },
             colliders: [
                 {
                     name: "Collider_1",
@@ -1198,6 +1274,8 @@ export default class GameConstant {
             position: { x: -0.5, y: 0, z: 0.5 },
             rotation: { x: 0, y: -90, z: 0 },
             scale: { x: 1, y: 1, z: 1 },
+            arrowZ: { x: 0.5, y: 0, z: -2.5 },
+            arrowX: { x: -0.5, y: 0, z: 1.5 },
             colliders: [
                 {
                     name: "Collider_1",
@@ -1244,6 +1322,8 @@ export default class GameConstant {
             position: { x: 1.5, y: 0, z: 0.5 },
             rotation: { x: 0, y: 0, z: 0 },
             scale: { x: 1, y: 1, z: 1 },
+            arrowZ: { x: 0.5, y: 0, z: -1.375 },
+            arrowX: { x: -0.5, y: 0, z: -1.5 },
             colliders: [
                 {
                     name: "Collider_1",
@@ -1281,6 +1361,8 @@ export default class GameConstant {
             position: { x: -0.5, y: 0, z: 0.5 },
             rotation: { x: 0, y: 0, z: 0 },
             scale: { x: -1, y: 1, z: 1 },
+            arrowZ: { x: 0.5, y: 0, z: -2.5 },
+            arrowX: { x: -0.5, y: 0, z: 1.5 },
             colliders: [
                 {
                     name: "Collider_1",
@@ -1318,6 +1400,8 @@ export default class GameConstant {
             position: { x: 2.5, y: 0, z: -1.5 },
             rotation: { x: 0, y: 90, z: 0 },
             scale: { x: 1, y: 1, z: 1 },
+            arrowZ: { x: 1.5, y: 0, z: -1.5 },
+            arrowX: { x: 0.675, y: 0, z: -0.5 },
             colliders: [
                 {
                     name: "Collider_1",
@@ -1355,6 +1439,8 @@ export default class GameConstant {
             position: { x: 2.5, y: 0, z: 0.5 },
             rotation: { x: 0, y: 90, z: 0 },
             scale: { x: -1, y: 1, z: 1 },
+            arrowZ: { x: 1.5, y: 0, z: -1.5 },
+            arrowX: { x: 0.52, y: 0, z: 1.5 },
             colliders: [
                 {
                     name: "Collider_1",
@@ -1495,6 +1581,7 @@ export default class GameConstant {
                         if (child.isMesh) {
                             child.material = mat;
                             child.material.needsUpdate = true;
+                            child.userData.isCollider = true;
                         }
                     });
                     if (namePrefabs.includes("corner")) {
@@ -1517,7 +1604,7 @@ export default class GameConstant {
                         const boxMesh = new Mesh(boxGeo, boxMat);
                         boxMesh.name = "BOXMESH";
                         boxMesh.material.visible = false;
-                        boxMesh.position.set(-0.45, 0.5, -0.5);
+                        boxMesh.position.set(-0.25, 0.5, -0.5);
                         MeshChild.add(boxMesh);
                         MeshChild.rotation.set(
                             MathUtils.degToRad(detailPrefab.rotation.x || 0),
@@ -1554,6 +1641,8 @@ export default class GameConstant {
                 const block = new BlockGroup({
                     BlockName: namePrefabs,
                     colorId: options.colorId,
+                    MoveType: options.MoveType,
+                    LockState: options.LockState,
                     scene: GAMEMANAGER.scene,
                     camera: GAMEMANAGER.camera,
                     renderer: GAMEMANAGER.renderer,
@@ -1574,37 +1663,10 @@ export default class GameConstant {
     }
 
     static CreateMap() {
-        const MatrixMap = [
-            { name: "cornerTopLeft", type: "Map", pos: new Vector3(-4, 0, -2), options: {} },
-            { name: "wall1", type: "Map", pos: new Vector3(-4, 0, -1.5), options: {} },
-            { name: "GATE1", type: "Gate", pos: new Vector3(-4, 0, 0), options: { colorId: 9, directionCheck: "-x" } },
-            { name: "GATE1", type: "Gate", pos: new Vector3(-4, 0, 1), options: { colorId: 3, directionCheck: "-x" } },
-            { name: "GATE1", type: "Gate", pos: new Vector3(-4, 0, 2), options: { colorId: 12, directionCheck: "-x" } },
-            { name: "GATE3", type: "Gate", pos: new Vector3(-4, 0, 4), options: { colorId: 4, directionCheck: "-x" } },
-            { name: "wall2", type: "Map", pos: new Vector3(-4, 0, 5.5), options: {} },
-
-            { name: "cornerBotLeft", type: "Map", pos: new Vector3(-4, 0, 8), options: {} },
-            { name: "GATE2", type: "Gate", pos: new Vector3(-2.5, 0, 8), options: { colorId: 3, directionCheck: "+z" } },
-            { name: "GATE2", type: "Gate", pos: new Vector3(-0.5, 0, 8), options: { colorId: 6, directionCheck: "+z" } },
-            { name: "GATE1", type: "Gate", pos: new Vector3(1.0, 0, 8), options: { colorId: 8, directionCheck: "+z" } },
-            { name: "GATE1", type: "Gate", pos: new Vector3(2.0, 0, 8), options: { colorId: 12, directionCheck: "+z" } },
-            { name: "cornerBotRight", type: "Map", pos: new Vector3(3.0, 0, 8), options: {} },
-
-            { name: "wall2", type: "Map", pos: new Vector3(3.0, 0, 7.5), options: { rotation: { x: 0, y: 180, z: 0 } } },
-            { name: "GATE3", type: "Gate", pos: new Vector3(3.0, 0, 4.0), options: { colorId: 4, directionCheck: "+x" } },
-            { name: "wall3", type: "Map", pos: new Vector3(3.0, 0, 2.5), options: { rotation: { x: 0, y: 180, z: 0 } } },
-            { name: "GATE1", type: "Gate", pos: new Vector3(3.0, 0, -1), options: { colorId: 3, directionCheck: "+x" } },
-
-            { name: "cornerTopRight", type: "Map", pos: new Vector3(3.0, 0, -2), options: {} },
-            { name: "GATE2", type: "Gate", pos: new Vector3(-2.5, 0, -2), options: { colorId: 9, directionCheck: "-z" } },
-            { name: "GATE2", type: "Gate", pos: new Vector3(-0.5, 0, -2), options: { colorId: 2, directionCheck: "-z" } },
-            { name: "GATE2", type: "Gate", pos: new Vector3(1.5, 0, -2), options: { colorId: 8, directionCheck: "-z" } },
-            // { name: "wall2", type: "Map", pos: new Vector3(3, 0, 5.5), options: {} },
-            // { name: "GATE1", type: "Gate", pos: new Vector3(3, 0, 8), options: { colorId: 3, directionCheck: "+z" } },
-        ]
+        const MatrixMap = MapData.MatrixMap;
         for (const item of MatrixMap) {
             const object = this.createPrefab(item.name, item.type, item.options);
-            object.position.copy(item.pos);
+            object.position.set(...item.pos);
             if (item.options.rotation) {
                 object.rotation.set(
                     MathUtils.degToRad(item.options.rotation.x || 0),
@@ -1612,23 +1674,19 @@ export default class GameConstant {
                     MathUtils.degToRad(item.options.rotation.z || 0)
                 )
             }
-            GAMEMANAGER.addScene(object);
+            if (item.name.includes("GATE")) {
+                GAMEMANAGER.addObject(object, "Gate");
+            }
+            else {
+                GAMEMANAGER.addObject(object, "Map");
+            }
         }
     }
     static createBlock() {
-        const MatrixBlock = [
-            { name: "BLOCK_L2x2D0", type: "Block", pos: new Vector3(0, 0, 2), options: { colorId: 3 } },
-            { name: "BLOCK_Rectangle2x1", type: "Block", pos: new Vector3(-3, 0, -1), options: { colorId: 3 } },
-            { name: "BLOCK_Rectangle2x1", type: "Block", pos: new Vector3(0, 0, -1), options: { colorId: 3 } },
-            { name: "BLOCK_Rectangle1x2", type: "Block", pos: new Vector3(2, 0, 0), options: { colorId: 12 } },
-            { name: "BLOCK_Rectangle1x1", type: "Block", pos: new Vector3(-2, 0, 0), options: { colorId: 8 } },
-            { name: "BLOCK_Rectangle1x1", type: "Block", pos: new Vector3(1, 0, 0), options: { colorId: 9 } },
-            { name: "BLOCK_Rectangle1x2", type: "Block", pos: new Vector3(-2, 0, 2), options: { colorId: 3 } },
-
-        ]
+        const MatrixBlock = MapData.MatrixBlock
         for (const item of MatrixBlock) {
             const object = this.createPrefab(item.name, item.type, item.options);
-            object.group.position.copy(item.pos);
+            object.group.position.set(...item.pos);
             if (item.options.rotation) {
                 object.group.rotation.set(
                     MathUtils.degToRad(item.options.rotation.x || 0),
@@ -1636,42 +1694,46 @@ export default class GameConstant {
                     MathUtils.degToRad(item.options.rotation.z || 0)
                 )
             }
-            GAMEMANAGER.addBlockObject(object.group);
-            TOUCHMANAGER.addObject(object);
+            GAMEMANAGER.addObject(object, "Block");
         }
     }
     static createFloor() {
-        const MatrixFloor = [];
-        const startX = -3;   // X đầu tiên
-        const startZ = -1;     // Z đầu tiên
-        const cols = 6;        // 6 cột
-        const rows = 9;        // 7 hàng
-        const spacing = 1;     // Khoảng cách mỗi ô
-
-        for (let row = 0; row < rows; row++) {
-            for (let col = 0; col < cols; col++) {
-                const x = startX + col * spacing;
-                const z = startZ + row * spacing;
-                const y = -0.01; // hàng đầu tiên thấp hơn chút
-                MatrixFloor.push({
-                    name: "Floor",
-                    type: "Geo",
-                    pos: new Vector3(x, y, z),
-                    options: {},
-                });
-            }
+        const cfg = MapData.MapSize;
+        const sizeMatrix = cfg.mapX * cfg.mapY;
+        for (let i = 0; i < sizeMatrix; i++) {
+            const obj = this.createPrefab("Floor", "Geo", {});
+            obj.position.set(MapData.FloorConfig.floorPositions[i].x, MapData.FloorConfig.floorPositions[i].y, MapData.FloorConfig.floorPositions[i].z);
+            GAMEMANAGER.addObject(obj, "Geo");
         }
-        for (const item of MatrixFloor) {
-            const object = this.createPrefab(item.name, item.type, item.options);
-            object.position.copy(item.pos);
-            if (item.options.rotation) {
-                object.rotation.set(
-                    MathUtils.degToRad(item.options.rotation.x || 0),
-                    MathUtils.degToRad(item.options.rotation.y || 0),
-                    MathUtils.degToRad(item.options.rotation.z || 0)
-                )
+    }
+    static createCubeMask() {
+        const gateItems = MapData.MatrixMap.filter(item => item.name.includes("GATE"));
+        for (const gate of gateItems) {
+            const Size = this.GATE_DETAIL[gate.name].size;
+            const { pos, options } = gate;
+            let sizeX = 1.2;
+            let sizeZ = 1.2;
+            if (options?.directionCheck.includes("x")) {
+                sizeZ *= Size;
+                sizeX = 6;
             }
-            GAMEMANAGER.scene.add(object);
+            else {
+                sizeX *= Size;
+                sizeZ = 6;
+            }
+            const mesh = new Mesh(new BoxGeometry(sizeX, 2.5, sizeZ), createMaskMaterial()); // mask nhỏ theo cổng
+            mesh.position.set(...pos);
+            mesh.renderOrder = 2001;
+
+            if (options?.directionCheck) {
+                switch (options.directionCheck) {
+                    case "+x": mesh.position.x += 2.75; break;
+                    case "-x": mesh.position.x -= 2.75; break;
+                    case "+z": mesh.position.z += 2.75; break;
+                    case "-z": mesh.position.z -= 2.75; break;
+                }
+            }
+            GAMEMANAGER.addObject(mesh, "Geo");
         }
     }
 }

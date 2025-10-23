@@ -26,17 +26,16 @@ export class TouchManager {
   removeObject(obj) {
     this.objects = this.objects.filter((o) => o !== obj);
   }
-
+  update() {
+    // if (!this.dragging || !this._lastPointerEvent) return;
+  }
   // ================== Event ==================
   _onPointerDown(e) {
     this.isClickInProgress = true; // Đặt cờ rằng nhấp chuột đang diễn ra
-
     const hit = this.utils.getFirstHit(
       e,
       this.objects.map((o) => o.group)
     );
-
-    // Check if hit object là con của object nào trong danh sách
     const obj = this.objects.find((o) => {
       if (o.group === hit?.object) return true;
 
@@ -57,10 +56,18 @@ export class TouchManager {
         const pos = this.utils.getWorldPosition(e, obj.group.position, "y");
         obj.onClick(e, pos);
       }
-
       if (obj.isDraggable) {
         this.dragging = obj;
-        if (obj.onDragStart) obj.onDragStart(obj.group, e, hit);
+        if (obj.onDragStart) {
+          const mousePosition = this.utils.getMouse(e).clone();
+          const worldPosition = obj.group.position.clone();
+          const screenPos = this.utils.worldToScreen(worldPosition);
+          const mouseOffset = mousePosition.clone().sub(screenPos);
+          this.mouseOffset = mouseOffset;
+
+          const blockMoveScript = obj.getComponent("BlockMoveScript");
+          blockMoveScript.UpdateMousePosition(mouseOffset);
+        };
       }
     }
   }
@@ -71,12 +78,17 @@ export class TouchManager {
       this.dragging.isDraggable &&
       this.dragging.onDragMove
     ) {
-      const pos = this.utils.getWorldPosition(
-        e,
-        this.dragging.group.position,
-        "y"
-      );
-      this.dragging.onDragMove(this.dragging.group, pos, e);
+      this._lastPointerEvent = e;
+      const MousePosition = this.utils.getMouse(this._lastPointerEvent).clone();
+      // dùng clone() để tính toán offset mà không ảnh hưởng biến gốc
+      const mouseOffset = MousePosition.clone().sub(this.mouseOffset);
+
+      const newPos = this.utils.screenToWorld({
+        x: mouseOffset.x,
+        y: MousePosition.y,
+        planeHeight: 0, // mặt phẳng y = 0
+      });
+      this.dragging.onDragMove(newPos);
     }
   }
 

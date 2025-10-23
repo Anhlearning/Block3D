@@ -6,6 +6,8 @@ export const EventKeys = Object.freeze({
   GAME_OVER: "GameOver",
   // … thêm các event khác ở đây
   CHECK_GATE: "CHECK_GATE",
+  BLOCK_CLICK : "BLOCK_CLICK",
+  BLOCK_DROP : "BLOCK_DROP",
   BLOCK_MOVE: "BLOCK_MOVE",
   BLOCK_COLLECTED: "BLOCK_COLLECTED",
   BLOCK_RELEASED: "BLOCK_RELEASED"

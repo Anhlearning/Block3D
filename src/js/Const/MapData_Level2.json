@@ -1,0 +1,124 @@
+{
+  "MapSize": {
+    "mapX": 6,
+    "mapY": 9
+  },
+
+  "MatrixMap": [
+    { "name": "cornerTopLeft", "type": "Map", "pos": [-4, 0, -2], "options": {} },
+    { "name": "wall1", "type": "Map", "pos": [-4, 0, -1.5], "options": {} },
+    { "name": "GATE1", "type": "Gate", "pos": [-4, 0, 0], "options": { "colorId": 14, "directionCheck": "-x" } },
+    { "name": "GATE1", "type": "Gate", "pos": [-4, 0, 1], "options": { "colorId": 10, "directionCheck": "-x" } },
+    { "name": "GATE1", "type": "Gate", "pos": [-4, 0, 2], "options": { "colorId": 18, "directionCheck": "-x" } },
+    { "name": "GATE3", "type": "Gate", "pos": [-4, 0, 4], "options": { "colorId": 20, "directionCheck": "-x" } },
+    { "name": "wall2", "type": "Map", "pos": [-4, 0, 5.5], "options": {} },
+
+    { "name": "cornerBotLeft", "type": "Map", "pos": [-4, 0, 8], "options": {} },
+    { "name": "GATE2", "type": "Gate", "pos": [-2.5, 0, 8], "options": { "colorId": 10, "directionCheck": "+z" } },
+    { "name": "GATE2", "type": "Gate", "pos": [-0.5, 0, 8], "options": { "colorId": 18, "directionCheck": "+z" } },
+    { "name": "GATE1", "type": "Gate", "pos": [1.0, 0, 8], "options": { "colorId": 20, "directionCheck": "+z" } },
+    { "name": "GATE1", "type": "Gate", "pos": [2.0, 0, 8], "options": { "colorId": 18, "directionCheck": "+z" } },
+    { "name": "cornerBotRight", "type": "Map", "pos": [3.0, 0, 8], "options": {} },
+
+    { "name": "wall2", "type": "Map", "pos": [3.0, 0, 7.5], "options": { "rotation": { "x": 0, "y": 180, "z": 0 } } },
+    { "name": "GATE3", "type": "Gate", "pos": [3.0, 0, 4.0], "options": { "colorId": 14, "directionCheck": "+x" } },
+    { "name": "wall3", "type": "Map", "pos": [3.0, 0, 2.5], "options": { "rotation": { "x": 0, "y": 180, "z": 0 } } },
+    { "name": "GATE1", "type": "Gate", "pos": [3.0, 0, -1], "options": { "colorId": 10, "directionCheck": "+x" } },
+
+    { "name": "cornerTopRight", "type": "Map", "pos": [3.0, 0, -2], "options": {} },
+    { "name": "GATE2", "type": "Gate", "pos": [-2.5, 0, -2], "options": { "colorId": 18, "directionCheck": "-z" } },
+    { "name": "wall2", "type": "Map", "pos": [0.5, 0, -2], "options": { "rotation": { "x": 0, "y": -90, "z": 0 } } },
+    { "name": "GATE2", "type": "Gate", "pos": [1.5, 0, -2], "options": { "colorId": 20, "directionCheck": "-z" } }
+  ],
+
+  "MatrixBlock": [
+
+    { "name": "BLOCK_Rectangle2x1", "type": "Block", "pos": [-3, 0, -1], "options": { "colorId": 10, "MoveType": "Horizontal", "LockState": "None" } },
+    { "name": "BLOCK_Rectangle2x1", "type": "Block", "pos": [0, 0, -1], "options": { "colorId": 10, "MoveType": "Horizontal", "LockState": "None" } },
+    { "name": "BLOCK_Rectangle1x2", "type": "Block", "pos": [2, 0, 0], "options": { "colorId": 18, "MoveType": "Vertical", "LockState": "None" } },
+    { "name": "BLOCK_Rectangle1x1", "type": "Block", "pos": [1, 0, 0], "options": { "colorId": 20, "MoveType": "Free", "LockState": "None" } },
+    { "name": "BLOCK_Rectangle1x1", "type": "Block", "pos": [-2, 0, 0], "options": { "colorId": 14, "MoveType": "Free", "LockState": "None" } },
+    { "name": "BLOCK_Rectangle1x2", "type": "Block", "pos": [-3, 0, 2], "options": { "colorId": 10, "MoveType": "Vertical", "LockState": "None" } },
+    { "name": "BLOCK_Rectangle1x1", "type": "Block", "pos": [0, 0, 3], "options": { "colorId": 20, "MoveType": "Horizontal", "LockState": "None" } },
+    { "name": "BLOCK_Rectangle2x1", "type": "Block", "pos": [-3, 0, 4], "options": { "colorId": 18, "MoveType": "Free", "LockState": "None" } },
+    { "name": "BLOCK_Rectangle1x1", "type": "Block", "pos": [-3, 0, 5], "options": { "colorId": 10, "MoveType": "Free", "LockState": "None" } },
+    { "name": "BLOCK_Rectangle2x1", "type": "Block", "pos": [-2, 0, 5], "options": { "colorId": 20, "MoveType": "Horizontal", "LockState": "None" } },
+    { "name": "BLOCK_Rectangle2x2", "type": "Block", "pos": [-3, 0, 7], "options": { "colorId": 14, "MoveType": "Free", "LockState": "None" } },
+    { "name": "BLOCK_Rectangle2x1", "type": "Block", "pos": [-1, 0, 7], "options": { "colorId": 14, "MoveType": "Free", "LockState": "None" } },
+    { "name": "BLOCK_L2x2D180", "type": "Block", "pos": [1, 0, 7], "options": { "colorId": 20, "MoveType": "Free", "LockState": "None" } },
+    { "name": "BLOCK_L3x2D180", "type": "Block", "pos": [-1, 0, 4], "options": { "colorId": 10, "MoveType": "Free", "LockState": "None" } },
+    { "name": "BLOCK_L2x3D0", "type": "Block", "pos": [-2, 0, 3], "options": { "colorId": 18, "MoveType": "Free", "LockState": "None" } },
+    { "name": "BLOCK_Rectangle1x1", "type": "Block", "pos": [-1, 0, 2], "options": { "colorId": 20, "MoveType": "Free", "LockState": "None" } },
+    { "name": "BLOCK_Rectangle1x2", "type": "Block", "pos": [0, 0, 2], "options": { "colorId": 18, "MoveType": "Vertical", "LockState": "None" } },
+    { "name": "BLOCK_Rectangle2x1", "type": "Block", "pos": [1, 0, 1], "options": { "colorId": 14, "MoveType": "Free", "LockState": "None" } },
+    { "name": "BLOCK_L2x2D180", "type": "Block", "pos": [1, 0, 3], "options": { "colorId": 14, "MoveType": "Free", "LockState": "None" } },
+    { "name": "BLOCK_T3x2D270", "type": "Block", "pos": [1, 0, 5], "options": { "colorId": 20, "MoveType": "Free", "LockState": "None" } }
+  ],
+
+  "FloorConfig": {
+      "floorPositions": [
+       { "x": -3, "y": -0.01, "z": -1 },
+      { "x": -2, "y": -0.01, "z": -1 },
+      { "x": -1, "y": -0.01, "z": -1 },
+      { "x": 0, "y": -0.01, "z": -1 },
+      { "x": 1, "y": -0.01, "z": -1 },
+      { "x": 2, "y": -0.01, "z": -1 },
+
+      { "x": -3, "y": -0.01, "z": 0 },
+      { "x": -2, "y": -0.01, "z": 0 },
+      { "x": -1, "y": -0.01, "z": 0 },
+      { "x": 0, "y": -0.01, "z": 0 },
+      { "x": 1, "y": -0.01, "z": 0 },
+      { "x": 2, "y": -0.01, "z": 0 },
+
+      { "x": -3, "y": -0.01, "z": 1 },
+      { "x": -2, "y": -0.01, "z": 1 },
+      { "x": -1, "y": -0.01, "z": 1 },
+      { "x": 0, "y": -0.01, "z": 1 },
+      { "x": 1, "y": -0.01, "z": 1 },
+      { "x": 2, "y": -0.01, "z": 1 },
+
+      { "x": -3, "y": -0.01, "z": 2 },
+      { "x": -2, "y": -0.01, "z": 2 },
+      { "x": -1, "y": -0.01, "z": 2 },
+      { "x": 0, "y": -0.01, "z": 2 },
+      { "x": 1, "y": -0.01, "z": 2 },
+      { "x": 2, "y": -0.01, "z": 2 },
+
+      { "x": -3, "y": -0.01, "z": 3 },
+      { "x": -2, "y": -0.01, "z": 3 },
+      { "x": -1, "y": -0.01, "z": 3 },
+      { "x": 0, "y": -0.01, "z": 3 },
+      { "x": 1, "y": -0.01, "z": 3 },
+      { "x": 2, "y": -0.01, "z": 3 },
+
+      { "x": -3, "y": -0.01, "z": 4 },
+      { "x": -2, "y": -0.01, "z": 4 },
+      { "x": -1, "y": -0.01, "z": 4 },
+      { "x": 0, "y": -0.01, "z": 4 },
+      { "x": 1, "y": -0.01, "z": 4 },
+      { "x": 2, "y": -0.01, "z": 4 },
+
+      { "x": -3, "y": -0.01, "z": 5 },
+      { "x": -2, "y": -0.01, "z": 5 },
+      { "x": -1, "y": -0.01, "z": 5 },
+      { "x": 0, "y": -0.01, "z": 5 },
+      { "x": 1, "y": -0.01, "z": 5 },
+      { "x": 2, "y": -0.01, "z": 5 },
+
+      { "x": -3, "y": -0.01, "z": 6 },
+      { "x": -2, "y": -0.01, "z": 6 },
+      { "x": -1, "y": -0.01, "z": 6 },
+      { "x": 0, "y": -0.01, "z": 6 },
+      { "x": 1, "y": -0.01, "z": 6 },
+      { "x": 2, "y": -0.01, "z": 6 },
+
+      { "x": -3, "y": -0.01, "z": 7 },
+      { "x": -2, "y": -0.01, "z": 7 },
+      { "x": -1, "y": -0.01, "z": 7 },
+      { "x": 0, "y": -0.01, "z": 7 },
+      { "x": 1, "y": -0.01, "z": 7 },
+      { "x": 2, "y": -0.01, "z": 7 }
+      ]
+    }
+}

@@ -50,7 +50,7 @@ export class MaterialFactory {
       map: tex,
       color: color,
       side: FrontSide,
-      transparent: false,
+      transparent: true,
       depthWrite: true,
     });
 
@@ -153,6 +153,7 @@ export class MaterialFactory {
 
     if (this.materialCache[cacheKey]) {
       return this.materialCache[cacheKey];
+
     }
 
     // ===== Helper load texture =====

@@ -7,6 +7,7 @@ import BaseMoveScript from "./BaseMoveScript.js";
 import { LockState, MoveType } from "./BlockScript.js";
 import { RaycastUtils } from "../../Utils/RaycastUtils.js";
 import { EventBus, EventKeys } from "../../Event/EventEmitter.js";
+import SOUNDMANAGER from "../../Sound/SoundManager.js";
 if (!MathUtils.moveTowards) {
     MathUtils.moveTowards = function (current, target, maxDelta) {
         if (Math.abs(target - current) <= maxDelta) return target;
@@ -17,58 +18,42 @@ export class BlockMoveScript extends BaseMoveScript {
     constructor(scene) {
         super();
         this.scene = scene;
-        this.OffsetForEffect = 0.1;
+        this.OffsetForEffect = 0.02;
+        this.MousePosition = new Vector3();
+        this.originPosition = new Vector3();
+        this.basePos = new Vector3();
+        this.v = new Vector3();
+        this.dir = new Vector3();
     }
 
     getType() {
         return "BlockMoveScript";
     }
-
     onAttach(owner) {
         super.onAttach(owner);
         this.blockScript = owner.getComponent("BlockScript");
     }
-    onDragStart(obj, e, hit) {
+    UpdateMousePosition(mousePostion) {
+        if (this.owner.isCollected) return;
+        this.originPosition = this.owner.group.position.clone();
+        this.MousePosition = mousePostion;
         this.dragging = true;
-        this._loggedFirstFrame = false; // reset flag mỗi khi bắt đầu kéo
-
-        const group = this.owner.group;
-        const parent = group.parent || GAMEMANAGER.scene;
-
-        // 1. Lấy worldPos của điểm click (raycast)
-        const hitPos = hit?.worldPos ? hit.worldPos.clone() : group.getWorldPosition(new Vector3());
-
-        // 2. Chuyển hitPos sang local-space của parent
-        const localHit = parent.worldToLocal(hitPos.clone());
-
-        // 3. Lưu offset giữa vị trí group hiện tại và vị trí click local
-        this.dragOffset = new Vector3().subVectors(group.position, localHit);
-
-        // 4. Lưu lại vị trí hiện tại
-        this.currentTarget = group.position.clone();
+        this.owner.ActiveOutlineMesh(true);
+        EventBus.emit(EventKeys.BLOCK_CLICK, (this.owner));
+        SOUNDMANAGER.playClickBlock();
     }
-    onDragMove(obj, pos, e) {
+    onDragMove(pos) {
         if (!this.dragging || !this.blockScript?.canMove()) return;
 
         const group = this.owner.group;
         const parent = group.parent || GAMEMANAGER.scene;
-        const step = this.SPEED * GAMEMANAGER.delta;
         const localPos = parent.worldToLocal(pos.clone());
         const objPos = group.position.clone();
-        const newLocalPos = new Vector3().addVectors(localPos, this.dragOffset);
-        const TempVector3 = parent.localToWorld(newLocalPos);
-        TempVector3.y = 0;
-        // 🔍 Log frame đầu tiên
-        if (!this._loggedFirstFrame) {
-            this._loggedFirstFrame = true;
-            // console.log("=== First drag frame ===");
-            // console.log("World pos (raycast):", pos);
-            // console.log("Group world position:", group.getWorldPosition(new Vector3()));
-            // console.log("Group local position:", group.position);
-            // console.log("Offset:", this.dragOffset);
-            // console.log("TempVector3 (final target world pos):", TempVector3);
-        }
 
+        const newLocalPos = pos;
+        const TempVector3 = parent.localToWorld(newLocalPos);
+        const step = this.SPEED * GAMEMANAGER.delta;
+        TempVector3.y = 0;
         // Nếu bị khóa
         if (this.blockScript.getLockState() !== LockState.None) {
             this.MaxX = this.originPosition.x + this.OffsetForEffect;
@@ -89,7 +74,7 @@ export class BlockMoveScript extends BaseMoveScript {
             objPos.copy(this._applyAxisMovementX(objPos, TempVector3, step));
         }
 
-        // Vertical
+        // // Vertical
         if (this.blockScript.getMoveType() !== MoveType.Horizontal) {
             this.MaxZ = 50;
             this.MinZ = -50;
@@ -104,6 +89,7 @@ export class BlockMoveScript extends BaseMoveScript {
     }
     onDragEnd(obj, e) {
         this.dragging = false;
+        if (this.owner.isCollected) return;
         this.snapGrid();
         EventBus.emit(EventKeys.BLOCK_MOVE, (this.owner));
     }
@@ -111,11 +97,16 @@ export class BlockMoveScript extends BaseMoveScript {
     // Snap vị trí block về lưới gần nhất (giống Mathf.Round)
     snapGrid() {
         const p = this.owner.group.position;
+        SOUNDMANAGER.playDropBlock();
         // Làm tròn về bội số của 2
         p.x = Math.round(p.x);
         p.z = Math.round(p.z);
         this.owner.group.position.copy(p);
-        if (this.blockScript.getLockState() !== LockState.None) EventBus.emit(EventKeys.BLOCK_MOVE, (this.owner));
+        this.owner.ActiveOutlineMesh(false);
+        EventBus.emit(EventKeys.BLOCK_DROP);
+        setTimeout(() => {
+            if (this.blockScript.getLockState() !== LockState.None) EventBus.emit(EventKeys.BLOCK_MOVE, (this.owner));
+        }, 500);
         // console.log("Snapped to grid (step=2):", p);
     }
     // =============== chuyển động giới hạn (MoveTowards + Lerp) ===============
@@ -136,7 +127,6 @@ export class BlockMoveScript extends BaseMoveScript {
             temp.z = MathUtils.moveTowards(position.z, this.MinZ, step * this.SCALE_FACTOR);
         else temp.z = MathUtils.lerp(position.z, target.z, step);
 
-        EventBus.emit(EventKeys.BLOCK_MOVE, (this.owner));
         this.owner.group.position.copy(temp);
     }
 
@@ -167,27 +157,35 @@ export class BlockMoveScript extends BaseMoveScript {
 
         let farH = 20;
         let hitFar = null;
+        if (!this._tempBase) {
+            this._tempBase = new Vector3();
+            this._tempV = new Vector3();
+            this._tempDir = new Vector3();
+            this._tempObjPos = new Vector3();
+        }
 
+        const basePos = this._tempBase;
+        const v = this._tempV;
+        const dir = this._tempDir;
+        const objPos = this._tempObjPos.copy(obj.position);
         // console.groupCollapsed('%c[Raycast ▶ StraightHorizontal]', 'color:#00ffff');
-
         for (let i = 1; i < t.children.length; i++) {
             const child = t.children[i];
-            const basePos = child.getWorldPosition(new Vector3());
+            child.getWorldPosition(basePos);
             // console.log(`Collider_${i} basePos:`, basePos);
-
             for (let k = 0; k < 2; k++) {
-                const v = basePos.clone();
+                v.copy(basePos);
                 v.z += this.POS_RAY * 2 * k - this.POS_RAY;
 
-                const dir = new Vector3(TempVector3.x > obj.position.x ? 1 : -1, 0, 0);
-                const hits = RaycastUtils.raycastFromPoint(v, dir, GAMEMANAGER.objects, 20, obj);
-                let distance = 20;
+                dir.set(TempVector3.x > objPos.x ? 1 : -1, 0, 0);
+
+                const hits = RaycastUtils.raycastFromPoint(v, dir, GAMEMANAGER.MeshObjets, 20, obj);
 
                 if (hits.length > 0) {
                     const hit = hits[0];
                     if (hit.object === obj) continue;
-                    distance = hit.distance;
-                    if (hit.distance < farH) {
+                    const distance = hit.distance;
+                    if (distance < farH) {
                         farH = hit.distance;
                         hitFar = hit;
                         // console.log(`%c▶ Hit: ${hit.object.name}`, 'color:#ff8800', {
@@ -206,135 +204,137 @@ export class BlockMoveScript extends BaseMoveScript {
                 this.MaxX = Math.min(v.x + hitFar.distance - 0.5, this.MaxX) + this.OffsetForEffect;
             else
                 this.MinX = Math.max(v.x - hitFar.distance + 0.5, this.MinX) - this.OffsetForEffect;
-
-            // console.log('%cUpdated Limits (Horizontal):', 'color:#00ff00', {
-            //     MaxX: this.MaxX,
-            //     MinX: this.MinX,
-            //     hitObject: hitFar.object.name,
-            //     hitDistance: hitFar.distance
-            // });
         }
 
-        //console.groupEnd();
     }
 
 
-    // ================= RAYCAST STRAIGHT VERTICAL =================
     _rayCastStraightVertical(TempVector3) {
         const obj = this.owner.group;
         const t = obj.children[0];
+
         let farV = 20;
         let hitFar = null;
 
-        //console.groupCollapsed('%c[Raycast ▶ StraightVertical]', 'color:#00ffff');
+        // ⚡ Các vector tạm tái sử dụng (zero-GC)
+        if (!this._tempVertical) {
+            this._tempVertical = {
+                base: new Vector3(),
+                v: new Vector3(),
+                dir: new Vector3(),
+                objPos: new Vector3(),
+            };
+        }
+
+        const { base, v, dir, objPos } = this._tempVertical;
+        objPos.copy(obj.position);
 
         for (let i = 1; i < t.children.length; i++) {
             const child = t.children[i];
-            const basePos = child.getWorldPosition(new Vector3());
-            //console.log(`Collider_${i} basePos:`, basePos);
+            child.getWorldPosition(base); // không new Vector3
 
             for (let k = 0; k < 2; k++) {
-                const v = basePos.clone();
+                v.copy(base);
                 v.x += this.POS_RAY * 2 * k - this.POS_RAY;
-                const dir = new Vector3(0, 0, TempVector3.z > obj.position.z ? 1 : -1);
-                const hits = RaycastUtils.raycastFromPoint(v, dir, GAMEMANAGER.objects, 20, obj);
 
-                if (hits.length > 0) {
-                    const hit = hits[0];
-                    if (hit.object === obj) continue;
-                    if (hit.distance < farV) {
-                        farV = hit.distance;
-                        hitFar = hit;
-                        // console.log(`%c▶ Hit: ${hit.object.name}`, 'color:#ff8800', {
-                        //     origin: v, dir, distance: hit.distance, hitPoint: hit.point
-                        // });
-                    }
-                } else {
-                    // console.log(`No hit from ${child.name} (dir=${dir.z > 0 ? 'forward' : 'backward'})`, { origin: v });
+                dir.set(0, 0, TempVector3.z > objPos.z ? 1 : -1);
+
+                const hits = RaycastUtils.raycastFromPoint(v, dir, GAMEMANAGER.MeshObjets, 20, obj);
+                if (hits.length === 0) continue;
+
+                const hit = hits[0];
+                if (hit.object === obj) continue;
+
+                const distance = hit.distance;
+                if (distance < farV) {
+                    farV = distance;
+                    hitFar = hit;
                 }
             }
         }
 
         if (farV < 20 && hitFar) {
-            const v = obj.position.clone();
-            if (TempVector3.z > obj.position.z)
-                this.MaxZ = Math.min(v.z + hitFar.distance - 0.5, this.MaxZ) + this.OffsetForEffect;
+            const vpos = objPos;
+            if (TempVector3.z > vpos.z)
+                this.MaxZ = Math.min(vpos.z + hitFar.distance - 0.5, this.MaxZ) + this.OffsetForEffect;
             else
-                this.MinZ = Math.max(v.z - hitFar.distance + 0.5, this.MinZ) - this.OffsetForEffect;
-
-            // console.log('%cUpdated Limits (Vertical):', 'color:#00ff00', {
-            //     MaxZ: this.MaxZ,
-            //     MinZ: this.MinZ,
-            //     hitObject: hitFar.object.name,
-            //     hitDistance: hitFar.distance
-            // });
+                this.MinZ = Math.max(vpos.z - hitFar.distance + 0.5, this.MinZ) - this.OffsetForEffect;
         }
-
-        console.groupEnd();
     }
 
     // ================= RAYCAST CROSS HORIZONTAL =================
     _rayCastCrossHorizontal(TempVector3) {
         const obj = this.owner.group;
         const t = obj.children[0];
+
         let far = 20;
         let hitFar = null;
-        let shortest = new Vector3();
 
-        // console.groupCollapsed('%c[Raycast ▶ CrossHorizontal]', 'color:#ff00ff');
+        // ⚡ Vector tạm tái sử dụng — không cấp phát mới
+        if (!this._tempCross) {
+            this._tempCross = {
+                base: new Vector3(),
+                v: new Vector3(),
+                dir: new Vector3(),
+                shortest: new Vector3(),
+                objPos: new Vector3(),
+                offsets: [
+                    [-1, -1],
+                    [1, -1],
+                    [-1, 1],
+                    [1, 1],
+                ],
+            };
+        }
+
+        const { base, v, dir, shortest, objPos, offsets } = this._tempCross;
+        objPos.copy(obj.position);
 
         for (let i = 1; i < t.children.length; i++) {
             const child = t.children[i];
-            const base = child.getWorldPosition(new Vector3());
-            for (const [ox, oz] of [[-1, -1], [1, -1], [-1, 1], [1, 1]]) {
-                const v = base.clone();
+            child.getWorldPosition(base); // không tạo object mới
+
+            for (let j = 0; j < offsets.length; j++) {
+                const ox = offsets[j][0];
+                const oz = offsets[j][1];
+
+                v.copy(base);
                 v.x += ox * this.POS_RAY;
                 v.z += oz * this.POS_RAY;
-                const dir = TempVector3.clone().sub(obj.position).normalize();
-                const hits = RaycastUtils.raycastFromPoint(v, dir, GAMEMANAGER.objects, 20, obj);
 
-                if (hits.length > 0) {
-                    const hit = hits[0];
-                    if (hit.object === obj) continue;
-                    if (hit.distance < far) {
-                        far = hit.distance;
-                        hitFar = hit;
-                        shortest.copy(v);
-                        // console.log(`%cDiagonal hit (${ox},${oz}) -> ${hit.object.name}`, 'color:#ff8800', {
-                        //     origin: v, dir, distance: hit.distance, hitPoint: hit.point
-                        // });
-                    }
-                } else {
-                    // console.log(`No diagonal hit (${ox},${oz}) from ${child.name}`, { origin: v });
+                dir.copy(TempVector3).sub(objPos).normalize();
+
+                const hits = RaycastUtils.raycastFromPoint(v, dir, GAMEMANAGER.MeshObjets, 20, obj);
+                if (hits.length === 0) continue;
+
+                const hit = hits[0];
+                if (hit.object === obj) continue;
+
+                const distance = hit.distance;
+                if (distance < far) {
+                    far = distance;
+                    hitFar = hit;
+                    shortest.copy(v);
                 }
             }
         }
 
         if (far < 20 && hitFar) {
             const hitPoint = hitFar.point;
-            // console.log('%cClosest diagonal hit:', 'color:#ffcc00', { hitObject: hitFar.object.name, hitPoint, far });
 
-            if (TempVector3.x > obj.position.x) {
+            if (TempVector3.x > objPos.x) {
                 if (Math.abs(hitPoint.x - hitFar.object.position.x + 0.5) < this.TOLERANCE) {
                     const dis = hitFar.object.position.x - shortest.x - 0.5;
-                    this.MaxX = Math.round(obj.position.x + dis);
+                    this.MaxX = Math.round(objPos.x + dis);
                 }
             } else {
                 if (Math.abs(hitPoint.x - hitFar.object.position.x - 0.5) < this.TOLERANCE) {
                     const dis = shortest.x - hitFar.object.position.x - 0.5;
-                    this.MinX = Math.round(obj.position.x - dis);
+                    this.MinX = Math.round(objPos.x - dis);
                 }
             }
-
-            // console.log('%cUpdated Limits (CrossHorizontal):', 'color:#00ff00', {
-            //     MaxX: this.MaxX, MinX: this.MinX
-            // });
         }
-
-        console.groupEnd();
     }
-
-
     // ================= RAYCAST CROSS VERTICAL =================
     _rayCastCrossVertical(TempVector3) {
         const obj = this.owner.group;
@@ -353,7 +353,7 @@ export class BlockMoveScript extends BaseMoveScript {
                 v.x += ox * this.POS_RAY;
                 v.z += oz * this.POS_RAY;
                 const dir = TempVector3.clone().sub(obj.position).normalize();
-                const hits = RaycastUtils.raycastFromPoint(v, dir, GAMEMANAGER.objects, 20, obj);
+                const hits = RaycastUtils.raycastFromPoint(v, dir, GAMEMANAGER.MeshObjets, 20, obj);
 
                 if (hits.length > 0) {
                     const hit = hits[0];
@@ -389,11 +389,12 @@ export class BlockMoveScript extends BaseMoveScript {
             }
 
             // console.log('%cUpdated Limits (CrossVertical):', 'color:#00ff00', {
-            //     MaxZ: this.MaxZ, MinZ: this.MinZ
+            //     MaxX: this.MaxX, MinX: this.MinX,
+            //     hitObject: hitFar.object.name,
+            //     hitDistance: hitFar.distance
             // });
         }
 
-        console.groupEnd();
     }
 
 }

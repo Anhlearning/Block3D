@@ -43,7 +43,6 @@ export class ObjectBase {
     }
 
     const type = component.getType?.() ?? component.constructor.name;
-
     // 🔹 Nếu đã có component cùng loại, lưu thành mảng
     if (!this.components.has(type)) {
       this.components.set(type, []);

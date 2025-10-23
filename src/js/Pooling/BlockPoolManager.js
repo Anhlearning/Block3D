@@ -20,15 +20,5 @@ export default class BlockPoolManager extends PoolManager {
     await super.RegisterModels();
 
   }
-
-  spawnCakeSlot() {
-   
-  }
-
-  despawnCakeSlot(cake) {
-    
-  }
-
-
 }
 export const BlockManagerPool = new BlockPoolManager();

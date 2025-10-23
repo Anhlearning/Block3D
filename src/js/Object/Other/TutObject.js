@@ -7,6 +7,7 @@ import {
   RepeatWrapping,
   SRGBColorSpace,
   LinearFilter,
+  Vector3,
 } from "three";
 import { gsap } from "gsap";
 import singletonMap from "../../LoadManager";
@@ -16,13 +17,13 @@ export default class TutObject {
   constructor(scene) {
     this.scene = scene;
     this.CreateHandObject();
-    this.CreateArrowObject();
+    // this.CreateArrowObject();
   }
 
   CreateHandObject() {
-    let handTex = singletonMap.get("handTex");
+    let handTex = singletonMap.get("handUI");
     if (!(handTex instanceof Texture)) {
-      const img = handTex.texture?.source?.resource;
+      const img = handTex.source?.resource;
       handTex = new Texture(img);
       handTex.colorSpace = SRGBColorSpace;
       handTex.wrapS = handTex.wrapT = RepeatWrapping;
@@ -38,10 +39,11 @@ export default class TutObject {
       alphaTest: 0.01,
       depthWrite: false,
     });
+    this.handScale = 2;
     this.Hand = new Mesh(geo, mat);
     this.Hand.renderOrder = 999;
     this.Hand.rotation.x = -Math.PI / 2;
-    this.Hand.scale.set(0.5, 0.5, 0.5);
+    this.Hand.scale.set(this.handScale, this.handScale, this.handScale);
     this.Hand.visible = false;
     this.scene.add(this.Hand);
   }
@@ -72,22 +74,16 @@ export default class TutObject {
     this.arrow.visible = false;
     this.scene.add(this.arrow);
   }
-  PlayTutorial(posStart, posEnd) {
+  PlayTutorial(posstart, posEnd) {
     if (!this.Hand) return;
+
     this.Hand.visible = true;
-    this.arrow.visible = true;
-    posStart.y += 0.4;
-    posStart.z += 0.2;
-    posStart.x += 0.2;
+    let posStart = new Vector3(posstart.x, posstart.y, posstart.z);
+    posStart.y += 1.5;
+    posStart.z += 1;
+    posStart.x += 0.5;
     this.Hand.position.copy(posStart);
-    this.arrow.position.set(posEnd.x, posEnd.y + 0.2, posEnd.z + 0);
-    gsap.to(this.arrow.position, {
-      y: this.arrow.position.y - 0.05,
-      duration: 0.25,
-      ease: "sine.inOut",
-      yoyo: true,
-      repeat: -1,
-    });
+
     const scaleX = this.Hand.scale.x;
     const baseScale = { x: scaleX, y: scaleX, z: scaleX };
     this.Hand.scale.set(baseScale.x, baseScale.y, baseScale.z);
@@ -100,9 +96,9 @@ export default class TutObject {
 
     // 1. Click-down bounce ở posStart
     tl.to(this.Hand.scale, {
-      x: 0.35,
-      y: 0.35,
-      z: 0.35,
+      x: 0.75 * this.handScale,
+      y: 0.75 * this.handScale,
+      z: 0.75 * this.handScale,
       duration: 0.25,
       ease: "power2.in",
     }).to(this.Hand.scale, {
@@ -112,18 +108,18 @@ export default class TutObject {
     });
     // 2. Di chuyển tới posEnd
     tl.to(this.Hand.position, {
-      x: posEnd.x + 0.1,
-      y: posEnd.y + 0.4,
-      z: posEnd.z + 0.4,
+      x: posEnd.x + 1.5,
+      y: posEnd.y + 1.5,
+      z: posEnd.z + 1,
       duration: 1.2,
       ease: "power2.inOut",
     });
 
     // 3. Click-down bounce ở posEnd
     tl.to(this.Hand.scale, {
-      x: 0.35,
-      y: 0.35,
-      z: 0.35,
+      x: 0.75 * this.handScale,
+      y: 0.75 * this.handScale,
+      z: 0.75 * this.handScale,
       duration: 0.25,
       ease: "power2.in",
     }).to(this.Hand.scale, {

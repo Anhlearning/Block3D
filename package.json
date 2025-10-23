@@ -25,6 +25,8 @@
     "howler": "^2.2.4",
     "pixi.js": "^8.12.0",
     "three": "^0.177.0",
+    "three-mesh-bvh": "^0.9.1",
+    "three-nebula": "^10.0.3",
     "three.quarks": "^0.16.0"
   },
   "devDependencies": {

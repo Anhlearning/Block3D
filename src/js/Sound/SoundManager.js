@@ -1,12 +1,10 @@
 import { Howl } from "howler";
-import bgm from "../../assets/Sound/halloween-background-music-412348.mp3";
-import pickCake from "../../assets/Sound/Sfx_Pick_Cake_1.mp3";
-import moveCake from "../../assets/Sound/Sfx_Move_Cake.mp3";
-import newCake from "../../assets/Sound/win.mp3";
-import fillcake from "../../assets/Sound/Sfx_Fill_Cake.mp3";
-import putcake from "../../assets/Sound/Sfx_Put_Cake.mp3";
-import losegame from "../../assets/Sound/LoseGame.mp3";
-import fly from "../../assets/Sound/fly.mp3";
+import bgm from "../../assets/Sound/SFX_UI_BGM.mp3";
+import blockclick from "../../assets/Sound/blockclick.mp3";
+import blockout from "../../assets/Sound/BlockOut.mp3";
+import blockdrop from "../../assets/Sound/drop.mp3";
+import lose from "../../assets/Sound/lose.mp3";
+import win from "../../assets/Sound/win.mp3";
 import CONFIG from "../Config";
 
 export class SoundManager {
@@ -15,13 +13,15 @@ export class SoundManager {
 
     window.audioThepn = this;
     this.add("bgm", bgm);
-    this.add("pickCake", pickCake);
-    this.add("moveCake", moveCake);
-    this.add("victory", newCake);
-    this.add("fillcake", fillcake);
-    this.add("putcake", putcake);
-    this.add("losegame", losegame);
-    this.add("fly", fly);
+    this.add("blockclick", blockclick);
+    this.add("blockout", blockout);
+    this.add("blockdrop", blockdrop);
+    this.add("lose", lose);
+    this.add("win", win);
+    // this.add("fillcake", fillcake);
+    // this.add("putcake", putcake);
+    // this.add("losegame", losegame);
+    // this.add("fly", fly);
   }
 
   add(key, url, options = {}) {
@@ -69,35 +69,20 @@ export class SoundManager {
   playBG() {
     if (CONFIG.isPlaySound) this.play("bgm", { loop: true, volume: 0.5 });
   }
-  playClickCake() {
-    if (CONFIG.isPlaySound) this.play("pickCake");
+  playClickBlock() {
+    if (CONFIG.isPlaySound) this.play("blockclick");
   }
-  playMoveCake() {
-    if (CONFIG.isPlaySound) {
-      const sound = this.sounds["moveCake"];
-
-      // Nếu âm thanh đang phát, đợi cho đến khi âm thanh kết thúc
-      if (sound.playing()) {
-        sound.once("end", () => {
-          sound.play(); // Phát lại khi âm thanh kết thúc
-        });
-      } else {
-        // Nếu âm thanh chưa được phát, trực tiếp phát nó
-        sound.play();
-      }
-    }
+  playDropBlock() {
+    if (CONFIG.isPlaySound) this.play("blockdrop");
   }
-  playFillCake() {
-    if (CONFIG.isPlaySound) this.play("fillcake");
-  }
-  playPutCake() {
-    if (CONFIG.isPlaySound) this.play("putcake");
+  playBlockOut() {
+    if (CONFIG.isPlaySound) this.play("blockout");
   }
   onVictory() {
-    if (CONFIG.isPlaySound) this.play("victory");
+    if (CONFIG.isPlaySound) this.play("win");
   }
   onLose() {
-    if (CONFIG.isPlaySound) this.play("losegame");
+    if (CONFIG.isPlaySound) this.play("lose");
   }
   stopBG() {
     if (CONFIG.isPlaySound) SOUNDMANAGER.stop("bgm");

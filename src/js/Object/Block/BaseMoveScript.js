@@ -10,7 +10,7 @@ export class BaseMoveScript {
         this.tempVector = new Vector3();
 
         // Hằng số di chuyển
-        this.SPEED = 20;
+        this.SPEED = 30;
         this.SCALE_FACTOR = 2;
         this.TOLERANCE = 0.01;
         this.POS_RAY = 0.3;

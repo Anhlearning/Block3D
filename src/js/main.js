@@ -10,7 +10,7 @@ import { BlockManagerPool } from "./Pooling/BlockPoolManager.js";
   let pixiApp = null;
   threeApp = new ThreeApp();
   BlockManagerPool.Init(threeApp.scene, threeApp.camera, threeApp.renderer);
-  await singletonMap.loadImage();
+  await singletonMap.loadImage();  
   await BlockManagerPool.RegisterModels();
   await threeApp.awake();
   pixiApp = new PixiApp();
@@ -27,7 +27,7 @@ import { BlockManagerPool } from "./Pooling/BlockPoolManager.js";
   const onResize = () => {
     threeApp.onResize();
     pixiApp.onResize();
-  };
+  };  
   onResize();
   window.addEventListener("resize", onResize);
 })();
